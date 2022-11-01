@@ -1,6 +1,6 @@
 ---
-title: "Report Sample"
-author: "Brenden A"
+title: "Cross-Validation"
+author: "Brenden Ackerson, Lindsey Cook, Dominic Gallelli"
 date: '`r Sys.Date()`'
 format:
   html:
