@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Brenden Ackerson, Lindsey Cook, Dominic Gallelli">
-<meta name="dcterms.date" content="2022-11-01">
+<meta name="dcterms.date" content="2022-11-07">
 
 <title>Cross-Validation</title>
 <style>
@@ -122,7 +122,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 1, 2022</p>
+      <p class="date">November 7, 2022</p>
     </div>
   </div>
     
@@ -133,10 +133,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Cross-validation</p>
+<p>Cross Validation is a key method used to assess model generalizability, which describes the extent which statistical models developed in one sample fit other samples from the same population. (Song, 2021). Essentially the goal of cross validation is to mimic the prediction of future individuals from the population. Pioneering work of Stone and Geisser in the 1970’s and the 1980’s by Burman on leave-one- out cross validation set the stage for the current techniques of cross validation (Jung, 2015). Common techniques of cross validation include data splitting (the most common method) by the hold- out technique, random subsampling by Monte Carlo, k-folds and repeated k-folds, and leave-one-out methods. (Ahmed, 2019). The general process to cross validation is a 5 step process (Song, 2021): 1. Split the data into a training set and test set 2. Fit a model to the training set and obtain the model parameters 3. Apply the fitted model to the test set and obtain prediction accuracy 4. Repeat steps one through three 5. Calculate the average cross-validation prediction accuracy across all the repetitions This process differs in the various cross-validation techniques by varying how the data is split and how many repetitions are preformed of the train and test cycles. The best cross validation technique considers the model’s bias or difference between the population parameter and the cross-validation estimate, the variance or uncertainty in the cross-validation estimates, and with the computation costs of the method.</p>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<p>Hold Out Cross- Validation Technique (Ahmed, 2019): This method tends to use defined splits for the training and test set, like a 90/10, 80/20, 70/30, 60/40. Or 50/50 train/test data split. This method tends to have issues with small data sets.</p>
+<p>k-folds Cross-Validation Technique (Jung, 2015): 1. Randomly and evenly split the data set into k-folds. 2. Use k-1 folds of data as the training set to fit the model 3. With the fitted models, predict the value of the response variable in the hold out fold (kth fold) 4. From the response variable in the hold-out fold, calculate the prediction error 5. Repeat steps 2-4 for k times, so each k fold is used as a hold-out 6. Compare the prediction performance measures to select the “best” model</p>
+<p>Repeated k-folds Cross-Validation Technique (Song, 2021): Extends the k-folds by conducing multiple repetitions, each using a different k fold split.</p>
+<p>Leave-one-out Cross-Validation Technique (Derryberry, 2014): This method is a special case of the k- folds technique that systematically excludes each point in the data set and fits the model with all other n-1 points. This technique splits the data into sets of n-1 and 1, n times. For each observation, the cross- validation residual is the difference between the observation and the model predicted value.</p>
+<p>Monte Carlo Cross-Validation Technique (Song, 2021): Similar to a k-fold method, but a predefined proportion of the data is randomly selected to form the test set in each prepetition, and the remaining proportion forms the training set. The train-test process is repeated a predetermined number of times.</p>
 </section>
 <section id="analysis-and-results" class="level2">
 <h2 class="anchored" data-anchor-id="analysis-and-results">Analysis and Results</h2>
