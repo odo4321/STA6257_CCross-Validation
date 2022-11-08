@@ -186,8 +186,115 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="data-and-vizualisation">Data and Vizualisation</h3>
 <p>This paper will look at two data sets and review the various cross-validation techniques on each linear model to determine which cross-validation method is optimal.</p>
 <p>The first data set is WordsWithFriends (Stats2Data R package), and the linear model of WinMargin (the margin a player wins Words With Friends) will be modeled against various variables that could impact winning, such as if a player starts the game or passes, how many S titles and blank tiles he played, and if the player got the J, Q, X, or Z tiles. This data set contains 444 observations.</p>
+<table class="table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 25%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Type</th>
+<th>Characteristic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>WinMargin</td>
+<td>Response</td>
+<td>Numeric</td>
+</tr>
+<tr class="even">
+<td>Start</td>
+<td>Predictor</td>
+<td>Categorical, 2 levels</td>
+</tr>
+<tr class="odd">
+<td>Ss</td>
+<td>Predictor</td>
+<td>Numeric</td>
+</tr>
+<tr class="even">
+<td>BlanksNumber</td>
+<td>Predictor</td>
+<td>Numeric</td>
+</tr>
+<tr class="odd">
+<td>J</td>
+<td>Predictor</td>
+<td>Categorical, 2 levels</td>
+</tr>
+<tr class="even">
+<td>Q</td>
+<td>Predictor</td>
+<td>Categorical, 2 levels</td>
+</tr>
+<tr class="odd">
+<td>X</td>
+<td>Predictor</td>
+<td>Categorical, 2 levels</td>
+</tr>
+<tr class="even">
+<td>Z</td>
+<td>Predictor</td>
+<td>Categorical, 2 levels</td>
+</tr>
+</tbody>
+</table>
 <p><a href="https://www.rdocumentation.org/packages/Stat2Data/versions/2.0.0/topics/WordsWithFriends">Link to Documentation for Wordwithfreinds data</a></p>
 <p>The next data set this paper will review is the R data set, Backpack (Stats2Data package). This data set has 100 observations and will model the backpack weight to body weight ratio to various predictors such as if a person has back problems, what major, year in school, and credits taken, along with the sex of the wearer and if he/she is an undergraduate or graduate student.</p>
+<table class="table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 20%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Type</th>
+<th>Characteristic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ratio</td>
+<td>Response</td>
+<td>Numeric</td>
+</tr>
+<tr class="even">
+<td>BackProblems</td>
+<td>Predictor</td>
+<td>Categorical, 2 levels</td>
+</tr>
+<tr class="odd">
+<td>Major</td>
+<td>Predictor</td>
+<td>Categorical, 41 levels</td>
+</tr>
+<tr class="even">
+<td>Year</td>
+<td>Predictor</td>
+<td>Numeric (could change to categorical)</td>
+</tr>
+<tr class="odd">
+<td>Sex</td>
+<td>Predictor</td>
+<td>Categorical, 2 levels</td>
+</tr>
+<tr class="even">
+<td>Status</td>
+<td>Predictor</td>
+<td>Categorical, 2 levels</td>
+</tr>
+<tr class="odd">
+<td>Units</td>
+<td>Predictor</td>
+<td>Numeric</td>
+</tr>
+</tbody>
+</table>
 <p><a href="https://www.rdocumentation.org/packages/Stat2Data/versions/2.0.0/topics/Backpack">Link to Documentation for backpack data</a></p>
 <div class="cell">
 <details>
