@@ -78,6 +78,17 @@ proportion forms the training set. The train-test process is repeated a predeter
 ## Analysis and Results
 ### Data and Vizualisation
 
+This paper will look at two data sets and review the various cross-validation techniques on each linear model to determine which cross-validation method is optimal.
+
+The first data set is WordsWithFriends (Stats2Data R package), and the linear model of WinMargin (the margin a player wins Words With Friends) will be modeled against various variables that could impact winning, such as if a player starts the game or passes, how many S titles and blank tiles he played, and if the player got the J, Q, X, or Z tiles. This data set contains 444 observations.
+
+[Link to Documentation for Wordwithfreinds data](https://www.rdocumentation.org/packages/Stat2Data/versions/2.0.0/topics/WordsWithFriends)
+
+
+The next data set this paper will review is the R data set, Backpack (Stats2Data package). This data set has 100 observations and will model the backpack weight to body weight ratio to various predictors such as if a person has back problems, what major, year in school, and credits taken, along with the sex of the wearer and if he/she is an undergraduate or graduate student.
+
+[Link to Documentation for backpack data](https://www.rdocumentation.org/packages/Stat2Data/versions/2.0.0/topics/Backpack)
+
 
 ```{r, warning=FALSE, echo=T, message=FALSE}
 # loading packages 
@@ -86,6 +97,7 @@ library(knitr)
 library(ggthemes)
 library(ggrepel)
 library(dslabs)
+library(Stat2Data)
 ```
 
 
