@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Brenden Ackerson, Lindsey Cook, Dominic Gallelli">
-<meta name="dcterms.date" content="2022-11-07">
+<meta name="dcterms.date" content="2022-11-08">
 
 <title>Cross-Validation</title>
 <style>
@@ -141,7 +141,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 7, 2022</p>
+      <p class="date">November 8, 2022</p>
     </div>
   </div>
     
@@ -179,11 +179,9 @@ div.csl-indent {
 <p>Repeated k-folds Cross-Validation Technique <span class="citation" data-cites="song2021making">(<a href="#ref-song2021making" role="doc-biblioref">Song, Tang, and Wee 2021</a>)</span>: Extends the k-folds by conducing multiple repetitions, each using a different k fold split.</p>
 <p><strong>Leave-one-out Cross-Validation Technique (Derryberry, 2014)</strong>: This method is a special case of the k- folds technique that systematically excludes each point in the data set and fits the model with all other n-1 points. This technique splits the data into sets of n-1 and 1, n times. For each observation, the cross- validation residual is the difference between the observation and the model predicted value.<span class="citation" data-cites="derryberry2014basic">(<a href="#ref-derryberry2014basic" role="doc-biblioref">Derryberry 2014</a>)</span></p>
 <p><strong>Monte Carlo Cross-Validation Technique (Song, 2021)</strong>: Similar to a k-fold method, but a predefined proportion of the data is randomly selected to form the test set in each prepetition, and the remaining proportion forms the training set. The train-test process is repeated a predetermined number of times. <span class="citation" data-cites="wainer2021nested">(<a href="#ref-wainer2021nested" role="doc-biblioref">Wainer and Cawley 2021</a>)</span></p>
-</section>
-<section id="analysis-and-results" class="level2">
-<h2 class="anchored" data-anchor-id="analysis-and-results">Analysis and Results</h2>
-<section id="data-and-vizualisation" class="level3">
-<h3 class="anchored" data-anchor-id="data-and-vizualisation">Data and Vizualisation</h3>
+<p><strong>Multiple Predicting Cross-Validation (MPCV)(Jung 2018)</strong> : This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-fold is then used to measure how good the model is. <span class="citation" data-cites="jung2018multiple">(<a href="#ref-jung2018multiple" role="doc-biblioref">Jung 2018</a>)</span></p>
+<p><strong>Optimal Number of Folds</strong>: One big decision that has to be made when using cross-validation methods other than leave one out, is the value of k the number of sections to divide the data set into. In the article “Performance of Machine Learning Algorithms with Different K Values in K-fold Cross-Validation”<span class="citation" data-cites="nti2021performance">(<a href="#ref-nti2021performance" role="doc-biblioref">Nti, Nyarko-Boateng, and Aning 2021</a>)</span> k-validation was used on 4 different machine learning algorithms 3, 5, 7, 10, 15 and 20. They found the optimal k folds changed depending on the model being tested.<span class="citation" data-cites="nti2021performance">(<a href="#ref-nti2021performance" role="doc-biblioref">Nti, Nyarko-Boateng, and Aning 2021</a>)</span></p>
+<p><strong>Consistency Limitation of cross-validation</strong>: One of the limitations of cross-validation methods is that they are not guaranteed to pick the true model of the data distribution, even as the number of samples approaches infinity. This is because when you train two different models on the same training set the one with more free parameters will model the training data better because it can over fit the data more easily. This can result in picking the wrong model due to over fitting. <span class="citation" data-cites="gronau2019limitations">(<a href="#ref-gronau2019limitations" role="doc-biblioref">Gronau and Wagenmakers 2019</a>)</span> ## Analysis and Results ### Data and Vizualisation</p>
 <p>This paper will look at two data sets and review the various cross-validation techniques on each linear model to determine which cross-validation method is optimal.</p>
 <p>The first data set is WordsWithFriends (Stats2Data R package), and the linear model of WinMargin (the margin a player wins Words With Friends) will be modeled against various variables that could impact winning, such as if a player starts the game or passes, how many S titles and blank tiles he played, and if the player got the J, Q, X, or Z tiles. This data set contains 444 observations.</p>
 <table class="table">
@@ -308,7 +306,6 @@ div.csl-indent {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Stat2Data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section>
 <section id="statistical-modeling" class="level3">
 <h3 class="anchored" data-anchor-id="statistical-modeling">Statistical Modeling</h3>
 </section>
@@ -328,8 +325,17 @@ Ahmed, Hosameldin, and Asoke K Nandi. 2019. <span>“Classification Algorithm Va
 <div id="ref-derryberry2014basic" class="csl-entry" role="doc-biblioentry">
 Derryberry, DeWayne R. 2014. <em>Basic Data Analysis for Time Series with r</em>. John Wiley &amp; Sons.
 </div>
+<div id="ref-gronau2019limitations" class="csl-entry" role="doc-biblioentry">
+Gronau, Quentin F, and Eric-Jan Wagenmakers. 2019. <span>“Limitations of Bayesian Leave-One-Out Cross-Validation for Model Selection.”</span> <em>Computational Brain &amp; Behavior</em> 2 (1): 1–11.
+</div>
+<div id="ref-jung2018multiple" class="csl-entry" role="doc-biblioentry">
+Jung, Yoonsuh. 2018. <span>“Multiple Predicting k-Fold Cross-Validation for Model Selection.”</span> <em>Journal of Nonparametric Statistics</em> 30 (1): 197–215.
+</div>
 <div id="ref-jung2015ak" class="csl-entry" role="doc-biblioentry">
 Jung, Yoonsuh, and Jianhua Hu. 2015. <span>“AK-Fold Averaging Cross-Validation Procedure.”</span> <em>Journal of Nonparametric Statistics</em> 27 (2): 167–79.
+</div>
+<div id="ref-nti2021performance" class="csl-entry" role="doc-biblioentry">
+Nti, Isaac Kofi, Owusu Nyarko-Boateng, and Justice Aning. 2021. <span>“Performance of Machine Learning Algorithms with Different k Values in k-Fold Cross-Validation.”</span> <em>Inter. J. Info. Technol. Comp. Sci.</em> 13: 61–71.
 </div>
 <div id="ref-song2021making" class="csl-entry" role="doc-biblioentry">
 Song, Q Chelsea, Chen Tang, and Serena Wee. 2021. <span>“Making Sense of Model Generalizability: A Tutorial on Cross-Validation in r and Shiny.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 4 (1): 2515245920947067.

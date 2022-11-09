@@ -71,10 +71,17 @@ folds technique that systematically excludes each point in the data set and fits
 n-1 points. This technique splits the data into sets of n-1 and 1, n times. For each observation, the cross-
 validation residual is the difference between the observation and the model predicted value.[@derryberry2014basic]
 
+
+
 **Monte Carlo Cross-Validation Technique (Song, 2021)**: Similar to a k-fold method, but a predefined
 proportion of the data is randomly selected to form the test set in each prepetition, and the remaining
 proportion forms the training set. The train-test process is repeated a predetermined number of times. [@wainer2021nested]
 
+**Multiple Predicting Cross-Validation (MPCV)(Jung 2018)** : This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-fold is then used to measure how good the model is. [@jung2018multiple]
+
+**Optimal Number of Folds**: One big decision that has to be made when using cross-validation methods other than leave one out, is the value of k the number of sections to divide the data set into. In the article "Performance of Machine Learning Algorithms with Different K Values in K-fold Cross\-Validation"[@nti2021performance] k-validation was used on 4 different machine learning algorithms 3, 5, 7, 10, 15 and 20. They found the optimal k folds changed depending on the model being tested.[@nti2021performance]
+
+**Consistency Limitation of cross-validation**: One of the limitations of cross-validation methods is that they are not guaranteed to pick the true model of the data distribution, even as the number of samples approaches infinity. This is because when you train two different models on the same training set the one with more free parameters will model the training data better because it can over fit the data more easily. This can result in picking the wrong model due to over fitting. [@gronau2019limitations]
 ## Analysis and Results
 ### Data and Vizualisation
 
