@@ -1,5 +1,5 @@
 ---
-title: "Cross-Validation"
+title: "Cross-Validation Dom's Test"
 author: "Brenden Ackerson, Lindsey Cook, Dominic Gallelli"
 date: '`r Sys.Date()`'
 format:
