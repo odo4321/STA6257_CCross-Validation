@@ -1,5 +1,5 @@
 ---
-title: "Cross-Validation Dom's Test"
+title: "Cross-Validation"
 author: "Brenden Ackerson, Lindsey Cook, Dominic Gallelli"
 date: '`r Sys.Date()`'
 format:
@@ -16,52 +16,53 @@ bibliography: references.bib # file contains bibtex for references
 Cross Validation is a key method used to assess model generalizability, which describes the extent which
 statistical models developed in one sample fit other samples from the same population. [@song2021making].
 Essentially the goal of cross validation is to mimic the prediction of future individuals from the
-population. Pioneering work of Stone and Geisser in the 1970’s and the 1980’s by Burman on leave-one-
-out cross validation set the stage for the current techniques of cross validation [@jung2015ak].
-Common techniques of cross validation include data splitting (the most common method) by the hold-
-out technique, random subsampling by Monte Carlo, k-folds and repeated k-folds, and leave-one-out
+population. The early pioneering work of Stone and Geisser in the 1970’s and the work by Burman in the 1980's on leave-one-
+out cross validation, set the stage for the current techniques of cross validation [@jung2015ak].
+Today's common techniques of cross validation include data splitting (the most common method) by the hold-
+out or validation technique, random subsampling by Monte Carlo, k-folds and repeated k-folds, and leave-one-out
 methods. [@ahmed2019classification].
 
 The general process to cross validation is a 5 step process [@song2021making]:
 
 1. Split the data into a training set and test set
-
 2. Fit a model to the training set and obtain the model parameters
-
 3. Apply the fitted model to the test set and obtain prediction accuracy
-
 4. Repeat steps one through three
-
 5. Calculate the average cross-validation prediction accuracy across all the repetitions
 
 This process differs in the various cross-validation techniques by varying how the data is split and how
-many repetitions are preformed of the train and test cycles. The best cross validation technique
+many repetitions are preformed of the train and test cycles. Details for the various techniques are outlined in the methods section.  The best cross validation technique
 considers the model’s bias or difference between the population parameter and the cross-validation
-estimate, the variance or uncertainty in the cross-validation estimates, and with the computation costs
-of the method.
+estimate, the variance or uncertainty in the cross-validation estimates, and the computation costs
+associated with each method.
+
+Typical technique comparisons for linear models use the root mean squared error (RMSE), mean absolute error (MAE), and R-squared (R2). RMSE calculates how far predicted values are from observed values in the data set and is calculated by: 	
+RMSE= √(Σ (Pi – Oi)2 / n), with Pi being the predicted value for the ith observation, Oi being the ith observed value, and n being the sample size. MAE describes the typical magnitude of the residuals and is calculated by:
+(1/n)Σ|y-Y|, where y is the actual output value and Y is the predicted output. R2 describes how well the model predictors explains the response variable variation. Better models tend to have low RMSE, MAE, and higher R2 values.
 
 
 ## Methods
 
-**Hold Out Cross- Validation Technique (Ahmed, 2019)**:This method tends to use defined splits for the
-training and test set, like a 90/10, 80/20, 70/30, 60/40. Or 50/50 train/test data split. This method tends
-to have issues with small data sets. [@jung2015ak]
+2.1  The most common method is the **Hold Out or Validation Technique** (Ahmed, 2019): This method tends to use defined splits for the training and test set, like a 90/10, 80/20, 70/30, 60/40, or 50/50 train/test data split. This method is considered an easy, straightforward approach, but with the model only being built on a portion of the data, this model may not predict well as it is sensitive to what data is (or isn’t) chosen in the training set and this is especially problematic for small sample sizes. For the car data set the method for Hold Out validation is as follows:
+1.	Split the data into an 80/20 training/test data set.
+2.	Fit the model to the training set
+3.	Apply the fitted model to the test set
+4.	Compare the model predictions
+ 
 
-**k-folds Cross-Validation Technique (Jung, 2015)**:
+2.2 The **k-folds Cross-Validation Technique** is one potential answer to the limitations in the simple hold-out technique. The data is divided into k group or splits, and then each k group becomes a test set while the other groups as a whole are the training set. The detailed process is as follows (Jung, 2015):
+1.	Randomly and evenly split the data set into k-folds. 
+2.	Use k-1 folds of data as the training set to fit the model
+3.	With the fitted models, predict the value of the response variable in the hold out fold (kth fold)
+4.	From the response variable in the hold-out fold, calculate the prediction error
+5.	Repeat steps 2-4 for k times, so each k fold is used as a hold-out
+6.	Compare the prediction performance measures to select the “best” model
+##Figure out pic in our paper
+{r}
+library(knitr)
+![Figure 1: k-folds Visual Depiction. F.S, 2019]
+```
 
-1. Randomly and evenly split the data set into k-folds.
-
-2. Use k-1 folds of data as the training set to fit the model
-
-3. With the fitted models, predict the value of the response variable in the hold out fold (kth fold)
-
-4. From the response variable in the hold-out fold, calculate the prediction error
-
-5. Repeat steps 2-4 for k times, so each k fold is used as a hold-out
-
-6. Compare the prediction performance measures to select the “best” model
-
-[@jung2015ak]
 
 Repeated k-folds Cross-Validation Technique [@song2021making]: Extends the k-folds by conducing multiple
 repetitions, each using a different k fold split.  
@@ -85,37 +86,24 @@ proportion forms the training set. The train-test process is repeated a predeter
 ## Analysis and Results
 ### Data and Vizualisation
 
-This paper will look at two data sets and review the various cross-validation techniques on each linear model to determine which cross-validation method is optimal.
+Cross-validation techniques of hold-out validation, k-folds, repeated k-folds, and leave-one-out were performed on the Kaggle used Car data set. This data set allowed us to model the selling price of a car given the variables of kilometers driven, the fuel type used, the year the car was manufactured, if the seller was an individual or dealership, and what type of transmission was in the car.   
 
-The first data set is WordsWithFriends (Stats2Data R package), and the linear model of WinMargin (the margin a player wins Words With Friends) will be modeled against various variables that could impact winning, such as if a player starts the game or passes, how many S titles and blank tiles he played, and if the player got the J, Q, X, or Z tiles. This data set contains 444 observations.
+
 
 | Variable   Name     |     Type         |     Characteristic             |
 |---------------------|------------------|--------------------------------|
-|     WinMargin       |     Response     |     Numeric                    |
-|     Start           |     Predictor    |     Categorical,   2 levels    |
-|     Ss              |     Predictor    |     Numeric                    |
-|     BlanksNumber    |     Predictor    |     Numeric                    |
-|     J               |     Predictor    |     Categorical,   2 levels    |
-|     Q               |     Predictor    |     Categorical,   2 levels    |
-|     X               |     Predictor    |     Categorical,   2 levels    |
-|     Z               |     Predictor    |     Categorical,   2 levels    |
-
-[Link to Documentation for Wordwithfreinds data](https://www.rdocumentation.org/packages/Stat2Data/versions/2.0.0/topics/WordsWithFriends)
+|     Selling_Price   |     Response     |     Numeric                    |
+|     Year            |     Predictor    |     Numeric                    |
+|     Kms_Driven      |     Predictor    |     Numeric                    |
+|     Fuel_Type       |     Predictor    |    Categorical, 3 levels       |
+|     Seller_Type     |     Predictor    |    Categorical, 2 levels       |
+|     Transmission    |     Predictor    |    Categorical, 2 levels       |
 
 
-The next data set this paper will review is the R data set, Backpack (Stats2Data package). This data set has 100 observations and will model the backpack weight to body weight ratio to various predictors such as if a person has back problems, what major, year in school, and credits taken, along with the sex of the wearer and if he/she is an undergraduate or graduate student.
+[Link to Documentation for CarData data](https://www.kaggle.com/datasets/nehalbirla/vehicle-dataset-from-cardekho?select=car+data.csv)
 
-| Variable   Name     |     Type         |     Characteristic                             |
-|---------------------|------------------|------------------------------------------------|
-|     Ratio           |     Response     |     Numeric                                    |
-|     BackProblems    |     Predictor    |     Categorical,   2 levels                    |
-|     Major           |     Predictor    |     Categorical,   41 levels                   |
-|     Year            |     Predictor    |     Numeric   (could change to categorical)    |
-|     Sex             |     Predictor    |     Categorical,   2 levels                    |
-|     Status          |     Predictor    |     Categorical,   2 levels                    |
-|     Units           |     Predictor    |     Numeric                                    |
 
-[Link to Documentation for backpack data](https://www.rdocumentation.org/packages/Stat2Data/versions/2.0.0/topics/Backpack)
+
 
 
 ```{r, warning=FALSE, echo=T, message=FALSE}
@@ -125,12 +113,34 @@ library(knitr)
 library(ggthemes)
 library(ggrepel)
 library(dslabs)
-library(Stat2Data)
+library(readr)
+library(ggfortify)
+library(caret)
+
+
 ```
 
 
 ### Statistical Modeling
+**Hold Out Validation:**
+```{r}
+cardata=read_csv("C:\\Users\\lmc27\\Downloads\\cardata.csv")
+cardata$Fuel_Type=as.factor(cardata$Fuel_Type)
+cardata$Seller_Type=as.factor(cardata$Seller_Type)
+cardata$Transmission=as.factor(cardata$Transmission)
+cardata$Owner=as.factor(cardata$Owner)
 
+mod1=lm(Selling_Price~Kms_Driven+Fuel_Type+Seller_Type+Transmission+Year, data=cardata)
+summary(mod1)
+data1=cardata[, c("Selling_Price", "Year", "Kms_Driven", "Fuel_Type", "Seller_Type", "Transmission")]
+set.seed(0)
+training=data1$Selling_Price %>% createDataPartition(p=.8, list=FALSE)
+train=data1[training,]
+test=data1[-training,]
+hold_mod=lm(Selling_Price~., data=train)
+prediction=hold_mod %>% predict(test)
+data.frame(Rsquared=R2(prediction, test$Selling_Price), RMSE=RMSE(prediction, test$Selling_Price), MAE=MAE(prediction, test$Selling_Price))
+```
 ### Conlusion
 
 ## References
