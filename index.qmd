@@ -87,6 +87,9 @@ proportion forms the training set. The train-test process is repeated a predeter
 **Optimal Number of Folds**: One big decision that has to be made when using cross-validation methods other than leave one out, is the value of k the number of sections to divide the data set into. In the article "Performance of Machine Learning Algorithms with Different K Values in K-fold Cross\-Validation"[@nti2021performance] k-validation was used on 4 different machine learning algorithms 3, 5, 7, 10, 15 and 20. They found the optimal k folds changed depending on the model being tested.[@nti2021performance]
 
 **Consistency Limitation of cross-validation**: One of the limitations of cross-validation methods is that they are not guaranteed to pick the true model of the data distribution, even as the number of samples approaches infinity. This is because when you train two different models on the same training set the one with more free parameters will model the training data better because it can over fit the data more easily. This can result in picking the wrong model due to over fitting. [@gronau2019limitations]
+
+**On the use of cross-validation for time series predictor evaluation**: When it comes to selecting a model for a time series, there is a divide when we evaluate  a machine learning model versus the standard forecasting. However, there are downsides to both practices. Traditional forecasting leaves out part of the data for testing thus never utilizing all of the data set in training. Evaluating a machine learning model applies cross-validation but does not always meet the necessary assumptions. This study attempts to bridge the gap between the two sides evaluating six model selection methods. Finally, they found that cross-validation techniques led to more robust models and argues that the blocked form of cross-validation should be the standard practice when evaluating a time series. [@bergmeir2012]
+
 ## Analysis and Results
 ### Data and Vizualisation
 
@@ -146,7 +149,7 @@ library(caret)
 #data.frame(Rsquared=R2(prediction, test$Selling_Price), RMSE=RMSE(prediction, test$Selling_Price), MAE=MAE(prediction, test$Selling_Price))
 ```
 
-We preformed a normal liner regression using the carData set trying to predicted teh sells price using information about the car. 
+We performed a normal linear regression using the carData set trying to predicted the sells price using information about the car. 
 
 $Selling_Price = Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year$
 
@@ -160,7 +163,7 @@ We preformed the linear regression using 4 different types of cross validation.
 | Rsquared | 0.5563956   | 0.6034333    | 0.5563956     | 0.675032 |
 | MAE      | 2.089128    | 2.084711     | 2.089128      | 2.059764 |
 
-the model that was varavied using a traing set and valadation set preformed the best,
+the model that was varavied using a training set and validation set performed the best,
 
 
 ### Conlusion
