@@ -62,7 +62,7 @@ RMSE= √(Σ (Pi – Oi)2 / n), with Pi being the predicted value for the ith ob
 library(knitr)
 ![Figure 1: k-folds Visual Depiction. F.S, 2019]
 ```
-
+```
 
 Repeated k-folds Cross-Validation Technique [@song2021making]: Extends the k-folds by conducing multiple
 repetitions, each using a different k fold split.  
