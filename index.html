@@ -259,70 +259,62 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cardata<span class="ot">=</span><span class="fu">read_csv</span>(<span class="st">"C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">lmc27</span><span class="sc">\\</span><span class="st">Downloads</span><span class="sc">\\</span><span class="st">cardata.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cardata=read_csv("C:\\Users\\lmc27\\Downloads\\cardata.csv")</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#cardata$Fuel_Type=as.factor(cardata$Fuel_Type)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#cardata$Seller_Type=as.factor(cardata$Seller_Type)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#cardata$Transmission=as.factor(cardata$Transmission)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#cardata$Owner=as.factor(cardata$Owner)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#mod1=lm(Selling_Price~Kms_Driven+Fuel_Type+Seller_Type+Transmission+Year, data=cardata)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(mod1)</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#data1=cardata[, c("Selling_Price", "Year", "Kms_Driven", "Fuel_Type", "Seller_Type", "Transmission")]</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#set.seed(0)</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#training=data1$Selling_Price %&gt;% createDataPartition(p=.8, list=FALSE)</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#train=data1[training,]</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#test=data1[-training,]</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#hold_mod=lm(Selling_Price~., data=train)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#prediction=hold_mod %&gt;% predict(test)</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#data.frame(Rsquared=R2(prediction, test$Selling_Price), RMSE=RMSE(prediction, test$Selling_Price), MAE=MAE(prediction, test$Selling_Price))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 301 Columns: 9
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (4): Car_Name, Fuel_Type, Seller_Type, Transmission
-dbl (5): Year, Selling_Price, Present_Price, Kms_Driven, Owner
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cardata<span class="sc">$</span>Fuel_Type<span class="ot">=</span><span class="fu">as.factor</span>(cardata<span class="sc">$</span>Fuel_Type)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>cardata<span class="sc">$</span>Seller_Type<span class="ot">=</span><span class="fu">as.factor</span>(cardata<span class="sc">$</span>Seller_Type)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>cardata<span class="sc">$</span>Transmission<span class="ot">=</span><span class="fu">as.factor</span>(cardata<span class="sc">$</span>Transmission)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>cardata<span class="sc">$</span>Owner<span class="ot">=</span><span class="fu">as.factor</span>(cardata<span class="sc">$</span>Owner)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>mod1<span class="ot">=</span><span class="fu">lm</span>(Selling_Price<span class="sc">~</span>Kms_Driven<span class="sc">+</span>Fuel_Type<span class="sc">+</span>Seller_Type<span class="sc">+</span>Transmission<span class="sc">+</span>Year, <span class="at">data=</span>cardata)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + 
-    Transmission + Year, data = cardata)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--5.8112 -1.1473 -0.1661  0.9331 26.9518 
-
-Coefficients:
-                        Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)           -6.258e+02  1.605e+02  -3.898  0.00012 ***
-Kms_Driven            -4.192e-06  6.072e-06  -0.690  0.49050    
-Fuel_TypeDiesel        6.040e+00  2.392e+00   2.525  0.01208 *  
-Fuel_TypePetrol        1.265e+00  2.367e+00   0.534  0.59347    
-Seller_TypeIndividual -4.215e+00  4.303e-01  -9.794  &lt; 2e-16 ***
-TransmissionManual    -4.628e+00  5.757e-01  -8.038 2.24e-14 ***
-Year                   3.148e-01  7.965e-02   3.952 9.70e-05 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 3.321 on 294 degrees of freedom
-Multiple R-squared:  0.5817,    Adjusted R-squared:  0.5731 
-F-statistic: 68.13 on 6 and 294 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data1<span class="ot">=</span>cardata[, <span class="fu">c</span>(<span class="st">"Selling_Price"</span>, <span class="st">"Year"</span>, <span class="st">"Kms_Driven"</span>, <span class="st">"Fuel_Type"</span>, <span class="st">"Seller_Type"</span>, <span class="st">"Transmission"</span>)]</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>training<span class="ot">=</span>data1<span class="sc">$</span>Selling_Price <span class="sc">%&gt;%</span> <span class="fu">createDataPartition</span>(<span class="at">p=</span>.<span class="dv">8</span>, <span class="at">list=</span><span class="cn">FALSE</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>train<span class="ot">=</span>data1[training,]</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>test<span class="ot">=</span>data1[<span class="sc">-</span>training,]</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>hold_mod<span class="ot">=</span><span class="fu">lm</span>(Selling_Price<span class="sc">~</span>., <span class="at">data=</span>train)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>prediction<span class="ot">=</span>hold_mod <span class="sc">%&gt;%</span> <span class="fu">predict</span>(test)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">Rsquared=</span><span class="fu">R2</span>(prediction, test<span class="sc">$</span>Selling_Price), <span class="at">RMSE=</span><span class="fu">RMSE</span>(prediction, test<span class="sc">$</span>Selling_Price), <span class="at">MAE=</span><span class="fu">MAE</span>(prediction, test<span class="sc">$</span>Selling_Price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>   Rsquared     RMSE      MAE
-1 0.5894893 2.977322 2.208473</code></pre>
-</div>
-</div>
+<p>We preformed a normal liner regression using the carData set trying to predicted teh sells price using information about the car.</p>
+<p><span class="math inline">\(Selling_Price = Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year\)</span></p>
+<p>We preformed the linear regression using 4 different types of cross validation. Monte Carlo, k-folds with k set to 10, leave one out and a train test split.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Monte Carlo</th>
+<th>k-folds k=10</th>
+<th>leave one out</th>
+<th>Hold Out</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RMSE</td>
+<td>3.380532</td>
+<td>3.177328</td>
+<td>3.380532</td>
+<td>3.066001</td>
+</tr>
+<tr class="even">
+<td>Rsquared</td>
+<td>0.5563956</td>
+<td>0.6034333</td>
+<td>0.5563956</td>
+<td>0.675032</td>
+</tr>
+<tr class="odd">
+<td>MAE</td>
+<td>2.089128</td>
+<td>2.084711</td>
+<td>2.089128</td>
+<td>2.059764</td>
+</tr>
+</tbody>
+</table>
+<p>the model that was varavied using a traing set and valadation set preformed the best,</p>
 </section>
 <section id="conlusion" class="level3">
 <h3 class="anchored" data-anchor-id="conlusion">Conlusion</h3>

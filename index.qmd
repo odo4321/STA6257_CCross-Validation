@@ -128,23 +128,41 @@ library(caret)
 ### Statistical Modeling
 **Hold Out Validation:**
 ```{r}
-cardata=read_csv("C:\\Users\\lmc27\\Downloads\\cardata.csv")
-cardata$Fuel_Type=as.factor(cardata$Fuel_Type)
-cardata$Seller_Type=as.factor(cardata$Seller_Type)
-cardata$Transmission=as.factor(cardata$Transmission)
-cardata$Owner=as.factor(cardata$Owner)
+#cardata=read_csv("C:\\Users\\lmc27\\Downloads\\cardata.csv")
+#cardata$Fuel_Type=as.factor(cardata$Fuel_Type)
+#cardata$Seller_Type=as.factor(cardata$Seller_Type)
+#cardata$Transmission=as.factor(cardata$Transmission)
+#cardata$Owner=as.factor(cardata$Owner)
 
-mod1=lm(Selling_Price~Kms_Driven+Fuel_Type+Seller_Type+Transmission+Year, data=cardata)
-summary(mod1)
-data1=cardata[, c("Selling_Price", "Year", "Kms_Driven", "Fuel_Type", "Seller_Type", "Transmission")]
-set.seed(0)
-training=data1$Selling_Price %>% createDataPartition(p=.8, list=FALSE)
-train=data1[training,]
-test=data1[-training,]
-hold_mod=lm(Selling_Price~., data=train)
-prediction=hold_mod %>% predict(test)
-data.frame(Rsquared=R2(prediction, test$Selling_Price), RMSE=RMSE(prediction, test$Selling_Price), MAE=MAE(prediction, test$Selling_Price))
+#mod1=lm(Selling_Price~Kms_Driven+Fuel_Type+Seller_Type+Transmission+Year, data=cardata)
+#summary(mod1)
+#data1=cardata[, c("Selling_Price", "Year", "Kms_Driven", "Fuel_Type", "Seller_Type", "Transmission")]
+#set.seed(0)
+#training=data1$Selling_Price %>% createDataPartition(p=.8, list=FALSE)
+#train=data1[training,]
+#test=data1[-training,]
+#hold_mod=lm(Selling_Price~., data=train)
+#prediction=hold_mod %>% predict(test)
+#data.frame(Rsquared=R2(prediction, test$Selling_Price), RMSE=RMSE(prediction, test$Selling_Price), MAE=MAE(prediction, test$Selling_Price))
 ```
+
+We preformed a normal liner regression using the carData set trying to predicted teh sells price using information about the car. 
+
+$Selling_Price = Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year$
+
+We preformed the linear regression using 4 different types of cross validation. 
+ Monte Carlo, k-folds with k set to 10, leave one out and a train test split. 
+
+
+|          | Monte Carlo | k-folds k=10 | leave one out | Hold Out |
+|----------|-------------|--------------|---------------|----------|
+| RMSE     | 3.380532    | 3.177328     | 3.380532      | 3.066001 |
+| Rsquared | 0.5563956   | 0.6034333    | 0.5563956     | 0.675032 |
+| MAE      | 2.089128    | 2.084711     | 2.089128      | 2.059764 |
+
+the model that was varavied using a traing set and valadation set preformed the best,
+
+
 ### Conlusion
 
 ## References
