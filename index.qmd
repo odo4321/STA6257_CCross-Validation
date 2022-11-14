@@ -123,6 +123,66 @@ library(dslabs)
 library(readr)
 library(ggfortify)
 library(caret)
+library(caTools)
+
+
+set.seed(1)
+
+car_data = read.csv("car data.csv")
+
+# model normal linear model. 
+model1 <- lm(Selling_Price ~  Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year, data = car_data)
+autoplot(model1)
+summary(model1)
+
+# leave one out
+sample <- sample.split(car_data$Year, SplitRatio = 0.7)
+train  <- subset(car_data, sample == TRUE)
+test   <- subset(car_data, sample == FALSE)
+
+model_train = lm(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year, data = train)
+test_pred = predict(model_train, test)
+
+data.frame(R_squared = R2(test_pred, test$Selling_Price),
+           RMSE = RMSE(test_pred, test$Selling_Price),
+           MAE = MAE(test_pred, test$Selling_Price))
+#  R_squared     RMSE      MAE
+#  0.675032 3.066001 2.059764
+
+#k-folds Cross-Validation
+ctrl2 <- trainControl(method = "cv", number = 10)
+cv_model2 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                   method = "lm",
+                   data = car_data,
+                   trControl = ctrl2)
+print(cv_model2)
+
+# RMSE      Rsquared   MAE     
+#v3.177328  0.6034333  2.084711
+
+#Leave-one-out Cross-Validation
+ctrlLOOCV <- trainControl(method = "LOOCV")
+LOO_model3 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                  method = "lm",
+                   data = car_data,
+                   trControl = ctrlLOOCV )
+print(LOO_model3)
+
+# RMSE      Rsquared   MAE     
+# 3.380532  0.5563956  2.089128
+
+
+#Monte Carlo Cross-Validation
+ctrlLGOCV <- trainControl(method = "LGOCV", number = 10)
+LGOCV_model <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                    method = "lm",
+                    data = car_data,
+                    trControl = ctrlLOOCV )
+print(LGOCV_model)
+
+# RMSE      Rsquared   MAE     
+# 3.380532  0.5563956  2.089128
+
 
 
 ```
