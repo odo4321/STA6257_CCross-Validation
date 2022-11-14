@@ -114,17 +114,11 @@ Cross-validation techniques of hold-out validation, k-folds, repeated k-folds, a
 
 
 ```{r, warning=FALSE, echo=T, message=FALSE}
-# loading packages 
-library(tidyverse)
-library(knitr)
-library(ggthemes)
-library(ggrepel)
-library(dslabs)
-library(readr)
-library(ggfortify)
 library(caret)
+library(ggplot2)
+library(tidyverse)
+library(ggfortify)
 library(caTools)
-
 
 set.seed(1)
 
@@ -149,36 +143,84 @@ data.frame(R_squared = R2(test_pred, test$Selling_Price),
 #  R_squared     RMSE      MAE
 #  0.675032 3.066001 2.059764
 
-#k-folds Cross-Validation
-ctrl2 <- trainControl(method = "cv", number = 10)
-cv_model2 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+#k-folds Cross-Validation 10
+ctrl10 <- trainControl(method = "cv", number = 10)
+cv_model10 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
                    method = "lm",
                    data = car_data,
-                   trControl = ctrl2)
+                   trControl = ctrl10)
+cv_model10$results
 
 # RMSE      Rsquared   MAE     
 #v3.177328  0.6034333  2.084711
 
+#k-folds Cross-Validation 3
+ctrl3 <- trainControl(method = "cv", number = 3)
+cv_model3 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                   method = "lm",
+                   data = car_data,
+                   trControl = ctrl3)
+cv_model3$results
+
+#k-folds Cross-Validation 5
+ctrl5 <- trainControl(method = "cv", number = 5)
+cv_model5 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                   method = "lm",
+                   data = car_data,
+                   trControl = ctrl5)
+cv_model5$results
+
+
+#10-fold repeated 5
+ctrl10_5 <- trainControl(method = "repeatedcv", number = 10, repeats = 5)
+cv_model10_5 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                   method = "lm",
+                   data = car_data,
+                   trControl = ctrl10_5)
+cv_model10_5$results
+
+#RMSE      Rsquared   MAE    
+#3.230983  0.6018475  2.09941
+
+
+#10-fold repeated 3
+ctrl10_3 <- trainControl(method = "repeatedcv", number = 10, repeats = 3)
+cv_model10_3 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                   method = "lm",
+                   data = car_data,
+                   trControl = ctrl10_3 )
+cv_model10_3$results
+
+# RMSE      Rsquared   MAE     
+# 3.188268  0.6032351  2.093896
+
+
 #Leave-one-out Cross-Validation
 ctrlLOOCV <- trainControl(method = "LOOCV")
-LOO_model3 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+LOO_model <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
                   method = "lm",
                    data = car_data,
                    trControl = ctrlLOOCV )
+LOO_model$results
 
 # RMSE      Rsquared   MAE     
 # 3.380532  0.5563956  2.089128
 
 
 #Monte Carlo Cross-Validation
-ctrlLGOCV <- trainControl(method = "LGOCV", number = 10)
-LGOCV_model <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+ctrlMC <- trainControl(method = "LGOCV", number = 10)
+MC_model <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
                     method = "lm",
                     data = car_data,
-                    trControl = ctrlLOOCV )
+                    trControl = ctrlMC )
+
+MC_model$results
 
 # RMSE      Rsquared   MAE     
-# 3.380532  0.5563956  2.089128
+# 3.375063  0.5821096  2.077517
+
+
+
 
 
 
@@ -187,24 +229,7 @@ LGOCV_model <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Tran
 
 ### Statistical Modeling
 **Hold Out Validation:**
-```{r}
-#cardata=read_csv("C:\\Users\\lmc27\\Downloads\\cardata.csv")
-#cardata$Fuel_Type=as.factor(cardata$Fuel_Type)
-#cardata$Seller_Type=as.factor(cardata$Seller_Type)
-#cardata$Transmission=as.factor(cardata$Transmission)
-#cardata$Owner=as.factor(cardata$Owner)
 
-#mod1=lm(Selling_Price~Kms_Driven+Fuel_Type+Seller_Type+Transmission+Year, data=cardata)
-#summary(mod1)
-#data1=cardata[, c("Selling_Price", "Year", "Kms_Driven", "Fuel_Type", "Seller_Type", "Transmission")]
-#set.seed(0)
-#training=data1$Selling_Price %>% createDataPartition(p=.8, list=FALSE)
-#train=data1[training,]
-#test=data1[-training,]
-#hold_mod=lm(Selling_Price~., data=train)
-#prediction=hold_mod %>% predict(test)
-#data.frame(Rsquared=R2(prediction, test$Selling_Price), RMSE=RMSE(prediction, test$Selling_Price), MAE=MAE(prediction, test$Selling_Price))
-```
 
 We performed a normal linear regression using the carData set trying to predicted the sells price using information about the car. 
 
