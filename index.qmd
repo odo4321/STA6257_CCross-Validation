@@ -153,7 +153,7 @@ We performed a normal linear regression using the carData set trying to predicte
 
 $Selling_Price = Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year$
 
-We preformed the linear regression using 4 different types of cross validation. 
+We performed the linear regression using 4 different types of cross validation. 
  Monte Carlo, k-folds with k set to 10, leave one out and a train test split. 
 
 
