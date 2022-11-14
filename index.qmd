@@ -37,13 +37,16 @@ estimate, the variance or uncertainty in the cross-validation estimates, and the
 associated with each method.
 
 Typical technique comparisons for linear models use the root mean squared error (RMSE), mean absolute error (MAE), and R-squared (R2). RMSE calculates how far predicted values are from observed values in the data set and is calculated by: 	
-RMSE= √(Σ (Pi – Oi)2 / n), with Pi being the predicted value for the ith observation, Oi being the ith observed value, and n being the sample size. MAE describes the typical magnitude of the residuals and is calculated by:
-(1/n)Σ|y-Y|, where y is the actual output value and Y is the predicted output. R2 describes how well the model predictors explains the response variable variation. Better models tend to have low RMSE, MAE, and higher R2 values.
-
+$RMSE= \sqrt{\frac{\sum(P_i – O_i)^2}{n}}$,
+with $P_i$ being the predicted value for the ith observation, $O_i$ being the ith observed value, and n being the sample size. MAE describes the typical magnitude of the residuals and is calculated by:
+$MAE=\frac{1}{n}\sum(|y_i-\hat{y}|$
+where $y_i$ is the actual output value and $\hat{y}$  is the predicted output. $R^2$ describes how well the model predictors explains the response variable variation, or the fraction of the variance that is explained in the model. This equation is as follows: $R^2=\frac{n\sum(xy)-\sum(x)\sum(y)}{\sqrt{[n\sum(x^2)-(\sum(x)^2)][n\sum(y^2)-(\sum(y)^2)]}}$. This can also be written as:
+$R^2=1-\frac{\sum(y_i-\hat{y})^2}{\sum(y_i-\overline{y})^2}$, where $\overline{y}$ is the mean value of y.
 
 ## Methods
 
 2.1  The most common method is the **Hold Out or Validation Technique** (Ahmed, 2019): This method tends to use defined splits for the training and test set, like a 90/10, 80/20, 70/30, 60/40, or 50/50 train/test data split. This method is considered an easy, straightforward approach, but with the model only being built on a portion of the data, this model may not predict well as it is sensitive to what data is (or isn’t) chosen in the training set and this is especially problematic for small sample sizes. For the car data set the method for Hold Out validation is as follows:
+
 1.	Split the data into an 80/20 training/test data set.
 2.	Fit the model to the training set
 3.	Apply the fitted model to the test set
@@ -51,6 +54,7 @@ RMSE= √(Σ (Pi – Oi)2 / n), with Pi being the predicted value for the ith ob
  
 
 2.2 The **k-folds Cross-Validation Technique** is one potential answer to the limitations in the simple hold-out technique. The data is divided into k group or splits, and then each k group becomes a test set while the other groups as a whole are the training set. The detailed process is as follows (Jung, 2015):
+
 1.	Randomly and evenly split the data set into k-folds. 
 2.	Use k-1 folds of data as the training set to fit the model
 3.	With the fitted models, predict the value of the response variable in the hold out fold (kth fold)

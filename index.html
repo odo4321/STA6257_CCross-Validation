@@ -113,6 +113,7 @@ div.csl-indent {
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -163,76 +164,102 @@ div.csl-indent {
 </ol>
 <p>This process differs in the various cross-validation techniques by varying how the data is split and how many repetitions are preformed of the train and test cycles. Details for the various techniques are outlined in the methods section. The best cross validation technique considers the model’s bias or difference between the population parameter and the cross-validation estimate, the variance or uncertainty in the cross-validation estimates, and the computation costs associated with each method.</p>
 <p>Typical technique comparisons for linear models use the root mean squared error (RMSE), mean absolute error (MAE), and R-squared (R2). RMSE calculates how far predicted values are from observed values in the data set and is calculated by:<br>
-RMSE= √(Σ (Pi – Oi)2 / n), with Pi being the predicted value for the ith observation, Oi being the ith observed value, and n being the sample size. MAE describes the typical magnitude of the residuals and is calculated by: (1/n)Σ|y-Y|, where y is the actual output value and Y is the predicted output. R2 describes how well the model predictors explains the response variable variation. Better models tend to have low RMSE, MAE, and higher R2 values.</p>
+<span class="math inline">\(RMSE= \sqrt{\frac{\sum(P_i – O_i)^2}{n}}\)</span>, with <span class="math inline">\(P_i\)</span> being the predicted value for the ith observation, <span class="math inline">\(O_i\)</span> being the ith observed value, and n being the sample size. MAE describes the typical magnitude of the residuals and is calculated by: <span class="math inline">\(MAE=\frac{1}{n}\sum(|y_i-\hat{y}|\)</span> where <span class="math inline">\(y_i\)</span> is the actual output value and <span class="math inline">\(\hat{y}\)</span> is the predicted output. <span class="math inline">\(R^2\)</span> describes how well the model predictors explains the response variable variation, or the fraction of the variance that is explained in the model. This equation is as follows: <span class="math inline">\(R^2=\frac{n\sum(xy)-\sum(x)\sum(y)}{\sqrt{[n\sum(x^2)-(\sum(x)^2)][n\sum(y^2)-(\sum(y)^2)]}}\)</span>. This can also be written as: <span class="math inline">\(R^2=1-\frac{\sum(y_i-\hat{y})^2}{\sum(y_i-\overline{y})^2}\)</span>, where <span class="math inline">\(\overline{y}\)</span> is the mean value of y.</p>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
-<p>2.1 The most common method is the <strong>Hold Out or Validation Technique</strong> (Ahmed, 2019): This method tends to use defined splits for the training and test set, like a 90/10, 80/20, 70/30, 60/40, or 50/50 train/test data split. This method is considered an easy, straightforward approach, but with the model only being built on a portion of the data, this model may not predict well as it is sensitive to what data is (or isn’t) chosen in the training set and this is especially problematic for small sample sizes. For the car data set the method for Hold Out validation is as follows: 1. Split the data into an 80/20 training/test data set. 2. Fit the model to the training set 3. Apply the fitted model to the test set 4. Compare the model predictions</p>
-<p>2.2 The <strong>k-folds Cross-Validation Technique</strong> is one potential answer to the limitations in the simple hold-out technique. The data is divided into k group or splits, and then each k group becomes a test set while the other groups as a whole are the training set. The detailed process is as follows (Jung, 2015): 1. Randomly and evenly split the data set into k-folds. 2. Use k-1 folds of data as the training set to fit the model 3. With the fitted models, predict the value of the response variable in the hold out fold (kth fold) 4. From the response variable in the hold-out fold, calculate the prediction error 5. Repeat steps 2-4 for k times, so each k fold is used as a hold-out 6. Compare the prediction performance measures to select the “best” model ##Figure out pic in our paper {r} library(knitr) [Figure 1: k-folds Visual Depiction. F.S, 2019]</p>
-<pre><code>
-
-Repeated k-folds Cross-Validation Technique [@song2021making]: Extends the k-folds by conducing multiple
-repetitions, each using a different k fold split.  
-
-**Leave-one-out Cross-Validation Technique (Derryberry, 2014)**: This method is a special case of the k-
-folds technique that systematically excludes each point in the data set and fits the model with all other
-n-1 points. This technique splits the data into sets of n-1 and 1, n times. For each observation, the cross-
-validation residual is the difference between the observation and the model predicted value.[@derryberry2014basic]
-
-
-
-**Monte Carlo Cross-Validation Technique (Song, 2021)**: Similar to a k-fold method, but a predefined
-proportion of the data is randomly selected to form the test set in each prepetition, and the remaining
-proportion forms the training set. The train-test process is repeated a predetermined number of times. [@wainer2021nested]
-
-**Multiple Predicting Cross-Validation (MPCV)(Jung 2018)** : This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-fold is then used to measure how good the model is. [@jung2018multiple]
-
-**Optimal Number of Folds**: One big decision that has to be made when using cross-validation methods other than leave one out, is the value of k the number of sections to divide the data set into. In the article "Performance of Machine Learning Algorithms with Different K Values in K-fold Cross\-Validation"[@nti2021performance] k-validation was used on 4 different machine learning algorithms 3, 5, 7, 10, 15 and 20. They found the optimal k folds changed depending on the model being tested.[@nti2021performance]
-
-**Consistency Limitation of cross-validation**: One of the limitations of cross-validation methods is that they are not guaranteed to pick the true model of the data distribution, even as the number of samples approaches infinity. This is because when you train two different models on the same training set the one with more free parameters will model the training data better because it can over fit the data more easily. This can result in picking the wrong model due to over fitting. [@gronau2019limitations]
-## Analysis and Results
-### Data and Vizualisation
-
-Cross-validation techniques of hold-out validation, k-folds, repeated k-folds, and leave-one-out were performed on the Kaggle used Car data set. This data set allowed us to model the selling price of a car given the variables of kilometers driven, the fuel type used, the year the car was manufactured, if the seller was an individual or dealership, and what type of transmission was in the car.   
-
-
-
-| Variable   Name     |     Type         |     Characteristic             |
-|---------------------|------------------|--------------------------------|
-|     Selling_Price   |     Response     |     Numeric                    |
-|     Year            |     Predictor    |     Numeric                    |
-|     Kms_Driven      |     Predictor    |     Numeric                    |
-|     Fuel_Type       |     Predictor    |    Categorical, 3 levels       |
-|     Seller_Type     |     Predictor    |    Categorical, 2 levels       |
-|     Transmission    |     Predictor    |    Categorical, 2 levels       |
-
-
-[Link to Documentation for CarData data](https://www.kaggle.com/datasets/nehalbirla/vehicle-dataset-from-cardekho?select=car+data.csv)
-
-
-
-
-
-::: {.cell}
-
-```{.r .cell-code}
-# loading packages 
-library(tidyverse)
-library(knitr)
-library(ggthemes)
-library(ggrepel)
-library(dslabs)
-library(readr)
-library(ggfortify)
-library(caret)</code></pre>
-<p>:::</p>
+<p>2.1 The most common method is the <strong>Hold Out or Validation Technique</strong> (Ahmed, 2019): This method tends to use defined splits for the training and test set, like a 90/10, 80/20, 70/30, 60/40, or 50/50 train/test data split. This method is considered an easy, straightforward approach, but with the model only being built on a portion of the data, this model may not predict well as it is sensitive to what data is (or isn’t) chosen in the training set and this is especially problematic for small sample sizes. For the car data set the method for Hold Out validation is as follows:</p>
+<ol type="1">
+<li>Split the data into an 80/20 training/test data set.</li>
+<li>Fit the model to the training set</li>
+<li>Apply the fitted model to the test set</li>
+<li>Compare the model predictions</li>
+</ol>
+<p>2.2 The <strong>k-folds Cross-Validation Technique</strong> is one potential answer to the limitations in the simple hold-out technique. The data is divided into k group or splits, and then each k group becomes a test set while the other groups as a whole are the training set. The detailed process is as follows (Jung, 2015):</p>
+<ol type="1">
+<li>Randomly and evenly split the data set into k-folds.</li>
+<li>Use k-1 folds of data as the training set to fit the model</li>
+<li>With the fitted models, predict the value of the response variable in the hold out fold (kth fold)</li>
+<li>From the response variable in the hold-out fold, calculate the prediction error</li>
+<li>Repeat steps 2-4 for k times, so each k fold is used as a hold-out</li>
+<li>Compare the prediction performance measures to select the “best” model ##Figure out pic in our paper {r} library(knitr) [Figure 1: k-folds Visual Depiction. F.S, 2019]</li>
+</ol>
+<pre><code></code></pre>
+<p>Repeated k-folds Cross-Validation Technique <span class="citation" data-cites="song2021making">(<a href="#ref-song2021making" role="doc-biblioref">Song, Tang, and Wee 2021</a>)</span>: Extends the k-folds by conducing multiple repetitions, each using a different k fold split.</p>
+<p><strong>Leave-one-out Cross-Validation Technique (Derryberry, 2014)</strong>: This method is a special case of the k- folds technique that systematically excludes each point in the data set and fits the model with all other n-1 points. This technique splits the data into sets of n-1 and 1, n times. For each observation, the cross- validation residual is the difference between the observation and the model predicted value.<span class="citation" data-cites="derryberry2014basic">(<a href="#ref-derryberry2014basic" role="doc-biblioref">Derryberry 2014</a>)</span></p>
+<p><strong>Monte Carlo Cross-Validation Technique (Song, 2021)</strong>: Similar to a k-fold method, but a predefined proportion of the data is randomly selected to form the test set in each prepetition, and the remaining proportion forms the training set. The train-test process is repeated a predetermined number of times. <span class="citation" data-cites="wainer2021nested">(<a href="#ref-wainer2021nested" role="doc-biblioref">Wainer and Cawley 2021</a>)</span></p>
+<p><strong>Multiple Predicting Cross-Validation (MPCV)(Jung 2018)</strong> : This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-fold is then used to measure how good the model is. <span class="citation" data-cites="jung2018multiple">(<a href="#ref-jung2018multiple" role="doc-biblioref">Jung 2018</a>)</span></p>
+<p><strong>Optimal Number of Folds</strong>: One big decision that has to be made when using cross-validation methods other than leave one out, is the value of k the number of sections to divide the data set into. In the article “Performance of Machine Learning Algorithms with Different K Values in K-fold Cross-Validation”<span class="citation" data-cites="nti2021performance">(<a href="#ref-nti2021performance" role="doc-biblioref">Nti, Nyarko-Boateng, and Aning 2021</a>)</span> k-validation was used on 4 different machine learning algorithms 3, 5, 7, 10, 15 and 20. They found the optimal k folds changed depending on the model being tested.<span class="citation" data-cites="nti2021performance">(<a href="#ref-nti2021performance" role="doc-biblioref">Nti, Nyarko-Boateng, and Aning 2021</a>)</span></p>
+<p><strong>Consistency Limitation of cross-validation</strong>: One of the limitations of cross-validation methods is that they are not guaranteed to pick the true model of the data distribution, even as the number of samples approaches infinity. This is because when you train two different models on the same training set the one with more free parameters will model the training data better because it can over fit the data more easily. This can result in picking the wrong model due to over fitting. <span class="citation" data-cites="gronau2019limitations">(<a href="#ref-gronau2019limitations" role="doc-biblioref">Gronau and Wagenmakers 2019</a>)</span> ## Analysis and Results ### Data and Vizualisation</p>
+<p>Cross-validation techniques of hold-out validation, k-folds, repeated k-folds, and leave-one-out were performed on the Kaggle used Car data set. This data set allowed us to model the selling price of a car given the variables of kilometers driven, the fuel type used, the year the car was manufactured, if the seller was an individual or dealership, and what type of transmission was in the car.</p>
+<table class="table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 25%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Type</th>
+<th>Characteristic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Selling_Price</td>
+<td>Response</td>
+<td>Numeric</td>
+</tr>
+<tr class="even">
+<td>Year</td>
+<td>Predictor</td>
+<td>Numeric</td>
+</tr>
+<tr class="odd">
+<td>Kms_Driven</td>
+<td>Predictor</td>
+<td>Numeric</td>
+</tr>
+<tr class="even">
+<td>Fuel_Type</td>
+<td>Predictor</td>
+<td>Categorical, 3 levels</td>
+</tr>
+<tr class="odd">
+<td>Seller_Type</td>
+<td>Predictor</td>
+<td>Categorical, 2 levels</td>
+</tr>
+<tr class="even">
+<td>Transmission</td>
+<td>Predictor</td>
+<td>Categorical, 2 levels</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://www.kaggle.com/datasets/nehalbirla/vehicle-dataset-from-cardekho?select=car+data.csv">Link to Documentation for CarData data</a></p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># loading packages </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dslabs)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <section id="statistical-modeling" class="level3">
 <h3 class="anchored" data-anchor-id="statistical-modeling">Statistical Modeling</h3>
 <p><strong>Hold Out Validation:</strong></p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cardata<span class="ot">=</span><span class="fu">read_csv</span>(<span class="st">"C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">lmc27</span><span class="sc">\\</span><span class="st">Downloads</span><span class="sc">\\</span><span class="st">cardata.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cardata<span class="ot">=</span><span class="fu">read_csv</span>(<span class="st">"C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">lmc27</span><span class="sc">\\</span><span class="st">Downloads</span><span class="sc">\\</span><span class="st">cardata.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 301 Columns: 9
@@ -246,13 +273,13 @@ dbl (5): Year, Selling_Price, Present_Price, Kms_Driven, Owner
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cardata<span class="sc">$</span>Fuel_Type<span class="ot">=</span><span class="fu">as.factor</span>(cardata<span class="sc">$</span>Fuel_Type)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cardata<span class="sc">$</span>Seller_Type<span class="ot">=</span><span class="fu">as.factor</span>(cardata<span class="sc">$</span>Seller_Type)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>cardata<span class="sc">$</span>Transmission<span class="ot">=</span><span class="fu">as.factor</span>(cardata<span class="sc">$</span>Transmission)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>cardata<span class="sc">$</span>Owner<span class="ot">=</span><span class="fu">as.factor</span>(cardata<span class="sc">$</span>Owner)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>mod1<span class="ot">=</span><span class="fu">lm</span>(Selling_Price<span class="sc">~</span>Kms_Driven<span class="sc">+</span>Fuel_Type<span class="sc">+</span>Seller_Type<span class="sc">+</span>Transmission<span class="sc">+</span>Year, <span class="at">data=</span>cardata)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cardata<span class="sc">$</span>Fuel_Type<span class="ot">=</span><span class="fu">as.factor</span>(cardata<span class="sc">$</span>Fuel_Type)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>cardata<span class="sc">$</span>Seller_Type<span class="ot">=</span><span class="fu">as.factor</span>(cardata<span class="sc">$</span>Seller_Type)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>cardata<span class="sc">$</span>Transmission<span class="ot">=</span><span class="fu">as.factor</span>(cardata<span class="sc">$</span>Transmission)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>cardata<span class="sc">$</span>Owner<span class="ot">=</span><span class="fu">as.factor</span>(cardata<span class="sc">$</span>Owner)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>mod1<span class="ot">=</span><span class="fu">lm</span>(Selling_Price<span class="sc">~</span>Kms_Driven<span class="sc">+</span>Fuel_Type<span class="sc">+</span>Seller_Type<span class="sc">+</span>Transmission<span class="sc">+</span>Year, <span class="at">data=</span>cardata)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -282,14 +309,14 @@ F-statistic: 68.13 on 6 and 294 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data1<span class="ot">=</span>cardata[, <span class="fu">c</span>(<span class="st">"Selling_Price"</span>, <span class="st">"Year"</span>, <span class="st">"Kms_Driven"</span>, <span class="st">"Fuel_Type"</span>, <span class="st">"Seller_Type"</span>, <span class="st">"Transmission"</span>)]</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>training<span class="ot">=</span>data1<span class="sc">$</span>Selling_Price <span class="sc">%&gt;%</span> <span class="fu">createDataPartition</span>(<span class="at">p=</span>.<span class="dv">8</span>, <span class="at">list=</span><span class="cn">FALSE</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>train<span class="ot">=</span>data1[training,]</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>test<span class="ot">=</span>data1[<span class="sc">-</span>training,]</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>hold_mod<span class="ot">=</span><span class="fu">lm</span>(Selling_Price<span class="sc">~</span>., <span class="at">data=</span>train)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>prediction<span class="ot">=</span>hold_mod <span class="sc">%&gt;%</span> <span class="fu">predict</span>(test)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">Rsquared=</span><span class="fu">R2</span>(prediction, test<span class="sc">$</span>Selling_Price), <span class="at">RMSE=</span><span class="fu">RMSE</span>(prediction, test<span class="sc">$</span>Selling_Price), <span class="at">MAE=</span><span class="fu">MAE</span>(prediction, test<span class="sc">$</span>Selling_Price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data1<span class="ot">=</span>cardata[, <span class="fu">c</span>(<span class="st">"Selling_Price"</span>, <span class="st">"Year"</span>, <span class="st">"Kms_Driven"</span>, <span class="st">"Fuel_Type"</span>, <span class="st">"Seller_Type"</span>, <span class="st">"Transmission"</span>)]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>training<span class="ot">=</span>data1<span class="sc">$</span>Selling_Price <span class="sc">%&gt;%</span> <span class="fu">createDataPartition</span>(<span class="at">p=</span>.<span class="dv">8</span>, <span class="at">list=</span><span class="cn">FALSE</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>train<span class="ot">=</span>data1[training,]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>test<span class="ot">=</span>data1[<span class="sc">-</span>training,]</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>hold_mod<span class="ot">=</span><span class="fu">lm</span>(Selling_Price<span class="sc">~</span>., <span class="at">data=</span>train)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>prediction<span class="ot">=</span>hold_mod <span class="sc">%&gt;%</span> <span class="fu">predict</span>(test)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">Rsquared=</span><span class="fu">R2</span>(prediction, test<span class="sc">$</span>Selling_Price), <span class="at">RMSE=</span><span class="fu">RMSE</span>(prediction, test<span class="sc">$</span>Selling_Price), <span class="at">MAE=</span><span class="fu">MAE</span>(prediction, test<span class="sc">$</span>Selling_Price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Rsquared     RMSE      MAE
@@ -310,11 +337,26 @@ F-statistic: 68.13 on 6 and 294 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div id="ref-ahmed2019classification" class="csl-entry" role="doc-biblioentry">
 Ahmed, Hosameldin, and Asoke K Nandi. 2019. <span>“Classification Algorithm Validation.”</span>
 </div>
+<div id="ref-derryberry2014basic" class="csl-entry" role="doc-biblioentry">
+Derryberry, DeWayne R. 2014. <em>Basic Data Analysis for Time Series with r</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-gronau2019limitations" class="csl-entry" role="doc-biblioentry">
+Gronau, Quentin F, and Eric-Jan Wagenmakers. 2019. <span>“Limitations of Bayesian Leave-One-Out Cross-Validation for Model Selection.”</span> <em>Computational Brain &amp; Behavior</em> 2 (1): 1–11.
+</div>
+<div id="ref-jung2018multiple" class="csl-entry" role="doc-biblioentry">
+Jung, Yoonsuh. 2018. <span>“Multiple Predicting k-Fold Cross-Validation for Model Selection.”</span> <em>Journal of Nonparametric Statistics</em> 30 (1): 197–215.
+</div>
 <div id="ref-jung2015ak" class="csl-entry" role="doc-biblioentry">
 Jung, Yoonsuh, and Jianhua Hu. 2015. <span>“AK-Fold Averaging Cross-Validation Procedure.”</span> <em>Journal of Nonparametric Statistics</em> 27 (2): 167–79.
 </div>
+<div id="ref-nti2021performance" class="csl-entry" role="doc-biblioentry">
+Nti, Isaac Kofi, Owusu Nyarko-Boateng, and Justice Aning. 2021. <span>“Performance of Machine Learning Algorithms with Different k Values in k-Fold Cross-Validation.”</span> <em>Inter. J. Info. Technol. Comp. Sci.</em> 13: 61–71.
+</div>
 <div id="ref-song2021making" class="csl-entry" role="doc-biblioentry">
 Song, Q Chelsea, Chen Tang, and Serena Wee. 2021. <span>“Making Sense of Model Generalizability: A Tutorial on Cross-Validation in r and Shiny.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 4 (1): 2515245920947067.
+</div>
+<div id="ref-wainer2021nested" class="csl-entry" role="doc-biblioentry">
+Wainer, Jacques, and Gavin Cawley. 2021. <span>“Nested Cross-Validation When Selecting Classifiers Is Overzealous for Most Practical Applications.”</span> <em>Expert Systems with Applications</em> 182: 115222.
 </div>
 </div></section></div></main>
 <!-- /main column -->
