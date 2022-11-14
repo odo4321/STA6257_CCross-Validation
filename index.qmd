@@ -132,8 +132,8 @@ car_data = read.csv("car data.csv")
 
 # model normal linear model. 
 model1 <- lm(Selling_Price ~  Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year, data = car_data)
-autoplot(model1)
-summary(model1)
+#autoplot(model1)
+#summary(model1)
 
 # leave one out
 sample <- sample.split(car_data$Year, SplitRatio = 0.7)
@@ -155,7 +155,6 @@ cv_model2 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transm
                    method = "lm",
                    data = car_data,
                    trControl = ctrl2)
-print(cv_model2)
 
 # RMSE      Rsquared   MAE     
 #v3.177328  0.6034333  2.084711
@@ -166,7 +165,6 @@ LOO_model3 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Trans
                   method = "lm",
                    data = car_data,
                    trControl = ctrlLOOCV )
-print(LOO_model3)
 
 # RMSE      Rsquared   MAE     
 # 3.380532  0.5563956  2.089128
@@ -178,7 +176,6 @@ LGOCV_model <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Tran
                     method = "lm",
                     data = car_data,
                     trControl = ctrlLOOCV )
-print(LGOCV_model)
 
 # RMSE      Rsquared   MAE     
 # 3.380532  0.5563956  2.089128
@@ -216,13 +213,18 @@ $Selling_Price = Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year$
 We performed the linear regression using 4 different types of cross validation. 
  Monte Carlo, k-folds with k set to 10, leave one out and a train test split. 
 
+|          | Monte Carlo | k-folds k=3 | k-folds k=5 | k-folds k=10 |
+|----------|-------------|-------------|-------------|--------------|
+| RMSE     | 3.375063    | 3.389747    | 3.35485     | 3.177328     |
+| Rsquared | 0.5821096   | 0.5431807   | 0.5792003   | 0.6034333    |
+| MAE      | 2.077517    | 2.121226    | 2.078258    | 2.084711     |
 
-|          | Monte Carlo | k-folds k=10 | leave one out | Hold Out |
-|----------|-------------|--------------|---------------|----------|
-| RMSE     | 3.380532    | 3.177328     | 3.380532      | 3.066001 |
-| Rsquared | 0.5563956   | 0.6034333    | 0.5563956     | 0.675032 |
-| MAE      | 2.089128    | 2.084711     | 2.089128      | 2.059764 |
 
+|          | 10-fold repeated 5 times | 10-fold repeated 3 times | leave one out | Hold Out |
+|----------|--------------------------|--------------------------|---------------|----------|
+| RMSE     | 3.230983                 | 3.188268                 | 3.380532      | 3.066001 |
+| Rsquared | 0.6018475                | 0.6032351                | 0.5563956     | 0.675032 |
+| MAE      | 2.09941                  | 2.093896                 | 2.089128      | 2.059764 |
 the model that was varavied using a training set and validation set performed the best,
 
 
