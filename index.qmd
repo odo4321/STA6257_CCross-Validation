@@ -64,12 +64,8 @@ The **k-folds Cross-Validation Technique** is one potential answer to the limita
 5.	Repeat steps 2-4 for k times, so each k fold is used as a hold-out
 6.	Compare the prediction performance measures to select the “best” model using the equation: $$CV_(k)=\frac{1}{k}\sum_{i=1}^{k}{MSE_i}$$
 
-##Figure out pic in our paper
-{r}
-library(knitr)
-![Figure 1: k-folds Visual Depiction. F.S, 2019]
-```
-```
+![Alt text](k-folds.png)
+
 Expanding on the k-folds technique is the repeated k-folds Cross-Validation Technique [@song2021making] which extends the k-folds by conducting multiple repetitions (n), each using a different k fold split. If 5 repeats of a 10-fold cross validation were chosen, 50 (n*k) different models would be fit and evaluated. With each repetition (n) having a slightly different data subset, the model predictors should be even more unbiased than with k-folds, but with having to repeat the process numerous times, this can be a time and labor intensive process, leading to increased costs. 
 
 1.	Randomly and evenly split the data set into k-folds.
