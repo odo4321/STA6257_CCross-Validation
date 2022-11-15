@@ -355,13 +355,7 @@ MC_modell$results
 ### Statistical Modeling
 
 
-
-We performed a normal linear regression using the carData set trying to predicted the sells price using information about the car. 
-
-$Selling\_Price = Kms\_Driven + Fuel\_Type + Seller\_Type + Transmission + Year$
-
-We performed the linear regression using 4 different types of cross validation. 
- Monte Carlo, k-folds with k set to 10, leave one out and a train test split. 
+The following table shows the various model accuracy prediction results from the general linear model cross-validation techniques.
 
 |          | Monte Carlo | k-folds k=3 | k-folds k=5 | k-folds k=10 |
 |----------|-------------|-------------|-------------|--------------|
@@ -375,12 +369,20 @@ We performed the linear regression using 4 different types of cross validation.
 | RMSE     | 3.230983                 | 3.188268                 | 3.380532      | 3.066001 |
 | Rsquared | 0.6018475                | 0.6032351                | 0.5563956     | 0.675032 |
 | MAE      | 2.09941                  | 2.093896                 | 2.089128      | 2.059764 |
-the model that was varavied using a training set and validation set performed the best,
+
+When looking at the above results, for the linear model, we can see that just based on high $R^2$ values, and low RMSE and MAE, the hold out method would look to be the superior technique for cross-validation, which seems to disagree with our literature review. However, with a 70/30 data split, or a 211/90 train/test split, it seems to be random chance to have the high $R^2$. This is confirmed by reviewing the various predictor evaluators for the k-folds and we can see there is a range of RMSE, MAE and $R^2$ values.
 
 
+|  RMSE    | Rsquared  |    MAE     | Resample  | 
+|----------|------------------------|-----------|
+| 2.464366 | 0.6057478 | 1.749896   |  Fold1    | 
+| 2.867482 | 0.5611660 | 1.911977   |  Fold2    | 
+| 3.139301 | 0.6515984 | 2.193282   |  Fold3    | 
+| 4.552995 | 0.5059184 | 2.398940   |  Fold4    | 
+| 3.624248 | 0.5627258 | 2.234680   |  Fold5    | 
 
 
-Looking at the log  model we see:
+Reviewing the transformed linear model, the various cross validation techniques follow more expected results. 
 
 |          | Monte Carlo | k-folds k=3 | k-folds k=5 | k-folds k=10 |
 |----------|-------------|-------------|-------------|--------------|
@@ -394,7 +396,8 @@ Looking at the log  model we see:
 | RMSE     | 0.5429957                | 0.5415532                | 0.5564873     | 5.698224 |
 | Rsquared | 0.8180418                | 0.8220338                | 0.807924      | 0.481989 |
 | MAE      | 0.4056521                | 0.4047157                | 0.4072408     | 3.950065 |
-the model that was varavied using a training set and validation set performed the best,
+
+We see that the hold-out method looks to be the worst performance, but the other cross-validation techniques yield consistent results, with the k-folds methods showing to be good techniques for modeling predictions.
 
 ### Conlusion
 
