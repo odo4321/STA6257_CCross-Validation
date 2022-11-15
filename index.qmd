@@ -126,7 +126,9 @@ First, the data was fit to the following linear model, $$Selling Price=Year+KmsD
 $$SellingPrice=-628.569-0.000004KmsDriven+0.313Year$$
 This model has a residual standard error of 3.321 and an $R^2$ value of 0.5817. 
 
-This linear model is then used to test the various cross validation techniques. First the hold out method is performed using an 70/30 data split. 
+This linear model is then used to test the various cross validation techniques. First the hold out method was performed using an 70/30 data split. The next technique of cross-validation was k-folds, using 3, 5, and 10 k splits. The repeated k-folds technique was then performed, using the 10 k split, repeated 3 and 5 times. Leave-one-out and monte carlo techiques were also ran on the model for comparisions. 
+
+
 
 
 
@@ -245,7 +247,7 @@ MC_model$results
 
 
 ### Statistical Modeling
-**Hold Out Validation:**
+
 
 
 We performed a normal linear regression using the carData set trying to predicted the sells price using information about the car. 
@@ -269,6 +271,24 @@ We performed the linear regression using 4 different types of cross validation.
 | MAE      | 2.09941                  | 2.093896                 | 2.089128      | 2.059764 |
 the model that was varavied using a training set and validation set performed the best,
 
+
+
+
+Looking at the log  model we see:
+
+|          | Monte Carlo | k-folds k=3 | k-folds k=5 | k-folds k=10 |
+|----------|-------------|-------------|-------------|--------------|
+| RMSE     | 0.6000005   | 0.5597472   | 0.5546057   | 0.5547619    |
+| Rsquared | 0.7844457   | 0.8191809   | 0.81445     | 0.8097507    |
+| MAE      | 0.4230068   | 0.4125619   | 0.406683    | 0.4080991    |
+
+
+|          | 10-fold repeated 5 times | 10-fold repeated 3 times | leave one out | Hold Out |
+|----------|--------------------------|--------------------------|---------------|----------|
+| RMSE     | 0.5429957                | 0.5415532                | 0.5564873     | 5.698224 |
+| Rsquared | 0.8180418                | 0.8220338                | 0.807924      | 0.481989 |
+| MAE      | 0.4056521                | 0.4047157                | 0.4072408     | 3.950065 |
+the model that was varavied using a training set and validation set performed the best,
 
 ### Conlusion
 

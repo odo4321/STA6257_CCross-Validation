@@ -270,7 +270,7 @@ div.csl-indent {
 <p>First, the data was fit to the following linear model, <span class="math display">\[Selling Price=Year+KmsDriven+FuelType+SellerType+Transmission\]</span> and produced the following linear regression model for a Manual, Diesel vehicle selling by an individual:</p>
 <p><span class="math display">\[SellingPrice=-628.569-0.000004KmsDriven+0.313Year\]</span></p>
 <p>This model has a residual standard error of 3.321 and an <span class="math inline">\(R^2\)</span> value of 0.5817.</p>
-<p>This linear model is then used to test the various cross validation techniques. First the hold out method is performed using an 70/30 data split.</p>
+<p>This linear model is then used to test the various cross validation techniques. First the hold out method was performed using an 70/30 data split. The next technique of cross-validation was k-folds, using 3, 5, and 10 k splits. The repeated k-folds technique was then performed, using the 10 k split, repeated 3 and 5 times. Leave-one-out and monte carlo techiques were also ran on the model for comparisions.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -430,7 +430,6 @@ div.csl-indent {
 </div>
 <section id="statistical-modeling" class="level3">
 <h3 class="anchored" data-anchor-id="statistical-modeling">Statistical Modeling</h3>
-<p><strong>Hold Out Validation:</strong></p>
 <p>We performed a normal linear regression using the carData set trying to predicted the sells price using information about the car.</p>
 <p><span class="math inline">\(Selling\_Price = Kms\_Driven + Fuel\_Type + Seller\_Type + Transmission + Year\)</span></p>
 <p>We performed the linear regression using 4 different types of cross validation. Monte Carlo, k-folds with k set to 10, leave one out and a train test split.</p>
@@ -506,6 +505,83 @@ div.csl-indent {
 <td>2.093896</td>
 <td>2.089128</td>
 <td>2.059764</td>
+</tr>
+</tbody>
+</table>
+<p>the model that was varavied using a training set and validation set performed the best,</p>
+<p>Looking at the log model we see:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Monte Carlo</th>
+<th>k-folds k=3</th>
+<th>k-folds k=5</th>
+<th>k-folds k=10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RMSE</td>
+<td>0.6000005</td>
+<td>0.5597472</td>
+<td>0.5546057</td>
+<td>0.5547619</td>
+</tr>
+<tr class="even">
+<td>Rsquared</td>
+<td>0.7844457</td>
+<td>0.8191809</td>
+<td>0.81445</td>
+<td>0.8097507</td>
+</tr>
+<tr class="odd">
+<td>MAE</td>
+<td>0.4230068</td>
+<td>0.4125619</td>
+<td>0.406683</td>
+<td>0.4080991</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 29%">
+<col style="width: 29%">
+<col style="width: 17%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>10-fold repeated 5 times</th>
+<th>10-fold repeated 3 times</th>
+<th>leave one out</th>
+<th>Hold Out</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RMSE</td>
+<td>0.5429957</td>
+<td>0.5415532</td>
+<td>0.5564873</td>
+<td>5.698224</td>
+</tr>
+<tr class="even">
+<td>Rsquared</td>
+<td>0.8180418</td>
+<td>0.8220338</td>
+<td>0.807924</td>
+<td>0.481989</td>
+</tr>
+<tr class="odd">
+<td>MAE</td>
+<td>0.4056521</td>
+<td>0.4047157</td>
+<td>0.4072408</td>
+<td>3.950065</td>
 </tr>
 </tbody>
 </table>
