@@ -215,9 +215,7 @@ div.csl-indent {
 </section>
 <section id="analysis-and-results" class="level2">
 <h2 class="anchored" data-anchor-id="analysis-and-results">Analysis and Results</h2>
-</section>
-<section id="data-and-vizualisation" class="level2">
-<h2 class="anchored" data-anchor-id="data-and-vizualisation">Data and Vizualisation</h2>
+<p><strong>Data Discussion</strong></p>
 <p>Cross-validation techniques of hold-out validation, k-folds, repeated k-folds, and leave-one-out were performed on the Kaggle Car data.csv set. This data set allowed us to model the selling price of a used car given the variables of kilometers driven, the fuel type used, the year the car was manufactured, if the seller was an individual or dealership, and what type of transmission was in the car.</p>
 <table class="table">
 <colgroup>
@@ -270,7 +268,11 @@ div.csl-indent {
 <p>First, the data was fit to the following linear model, <span class="math display">\[Selling Price=Year+KmsDriven+FuelType+SellerType+Transmission\]</span> and produced the following linear regression model for a Manual, Diesel vehicle selling by an individual:</p>
 <p><span class="math display">\[SellingPrice=-628.569-0.000004KmsDriven+0.313Year\]</span></p>
 <p>This model has a residual standard error of 3.321 and an <span class="math inline">\(R^2\)</span> value of 0.5817.</p>
-<p>This linear model is then used to test the various cross validation techniques. First the hold out method was performed using an 70/30 data split. The next technique of cross-validation was k-folds, using 3, 5, and 10 k splits. The repeated k-folds technique was then performed, using the 10 k split, repeated 3 and 5 times. Leave-one-out and monte carlo techiques were also ran on the model for comparisions.</p>
+<p>This linear model is then used to test the various cross validation techniques. First the hold out method was performed using an 70/30 data split. The next technique of cross-validation was k-folds, using 3, 5, and 10 k splits. The repeated k-folds technique was then performed, using the 10 k split, repeated 3 and 5 times. Leave-one-out and Monte Carlo techniques were also ran on the model for comparisons.</p>
+<p>As cross-validation can be used as a tool to determine the best model for a data set, we also considered a log transformation of the linear model on the response variable, selling price. <span class="math display">\[log(SellingPrice)=Year+KmsDriven+FuelType+SellerType+Transmission\]</span></p>
+<p>This model yielded the following regression equation for a Manual, Diesel vehicle selling by an individual:</p>
+<p><span class="math display">\[log(SellingPrice)=-198.902-0.0000003KmsDriven+0.099Year\]</span></p>
+<p>This model has a residual standard error of 0.5341 and an <span class="math inline">\(R^2\)</span> value of 0.8271.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -380,8 +382,149 @@ div.csl-indent {
 <span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="co">#MC_model$results</span></span>
 <span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="co"># RMSE      Rsquared   MAE     </span></span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.375063  0.5821096  2.077517</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.375063  0.5821096  2.077517</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="co">#Log Model </span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(Selling_Price) <span class="sc">~</span>  Kms_Driven <span class="sc">+</span> Fuel_Type <span class="sc">+</span> Seller_Type <span class="sc">+</span> Transmission <span class="sc">+</span> Year, <span class="at">data =</span> car_data)</span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="co">#autoplot(model2)</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(model2)</span></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="co"># Hold Out</span></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>samplel <span class="ot">&lt;-</span> <span class="fu">sample.split</span>(car_data<span class="sc">$</span>Year, <span class="at">SplitRatio =</span> <span class="fl">0.7</span>)</span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>trainl  <span class="ot">&lt;-</span> <span class="fu">subset</span>(car_data, sample <span class="sc">==</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>testl   <span class="ot">&lt;-</span> <span class="fu">subset</span>(car_data, sample <span class="sc">==</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>model_trainl <span class="ot">=</span> <span class="fu">lm</span>(<span class="fu">log</span>(Selling_Price) <span class="sc">~</span> Kms_Driven <span class="sc">+</span> Fuel_Type <span class="sc">+</span> Seller_Type <span class="sc">+</span> Transmission <span class="sc">+</span> Year, <span class="at">data =</span> train)</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>test_predl <span class="ot">=</span> <span class="fu">predict</span>(model_trainl, testl)</span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">R_squared =</span> <span class="fu">R2</span>(test_predl, testl<span class="sc">$</span>Selling_Price),</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>           <span class="at">RMSE =</span> <span class="fu">RMSE</span>(test_predl, testl<span class="sc">$</span>Selling_Price),</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>           <span class="at">MAE =</span> <span class="fu">MAE</span>(test_predl, testl<span class="sc">$</span>Selling_Price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  R_squared     RMSE      MAE
+1 0.4796829 6.073791 4.004238</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  R_squared     RMSE      MAE</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#k-folds Cross-Validation 10</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>ctrl10l <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">10</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>cv_model10l <span class="ot">&lt;-</span> <span class="fu">train</span>(<span class="fu">log</span>(Selling_Price) <span class="sc">~</span> Kms_Driven <span class="sc">+</span> Fuel_Type <span class="sc">+</span> Seller_Type <span class="sc">+</span> Transmission <span class="sc">+</span> Year,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> car_data,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">trControl =</span> ctrl10l)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>cv_model10l<span class="sc">$</span>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  intercept     RMSE  Rsquared       MAE    RMSESD RsquaredSD      MAESD
+1      TRUE 0.552862 0.8130131 0.4126426 0.1219634 0.07759769 0.05710986</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RMSE      Rsquared   MAE     </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#k-folds Cross-Validation 3</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>ctrl3l <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">3</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>cv_model3l <span class="ot">&lt;-</span> <span class="fu">train</span>(<span class="fu">log</span>(Selling_Price) <span class="sc">~</span> Kms_Driven <span class="sc">+</span> Fuel_Type <span class="sc">+</span> Seller_Type <span class="sc">+</span> Transmission <span class="sc">+</span> Year,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> car_data,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">trControl =</span> ctrl3l)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>cv_model3l<span class="sc">$</span>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  intercept      RMSE  Rsquared       MAE     RMSESD RsquaredSD      MAESD
+1      TRUE 0.5721903 0.8042955 0.4115007 0.06903892 0.04902898 0.03076828</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#k-folds Cross-Validation 5</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ctrl5l <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">5</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>cv_model5l <span class="ot">&lt;-</span> <span class="fu">train</span>(<span class="fu">log</span>(Selling_Price) <span class="sc">~</span> Kms_Driven <span class="sc">+</span> Fuel_Type <span class="sc">+</span> Seller_Type <span class="sc">+</span> Transmission <span class="sc">+</span> Year,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> car_data,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">trControl =</span> ctrl5l)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>cv_model5l<span class="sc">$</span>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  intercept      RMSE Rsquared      MAE     RMSESD RsquaredSD      MAESD
+1      TRUE 0.5323999 0.825842 0.399347 0.08631279 0.06073456 0.03252152</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#10-fold repeated 5</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ctrl10_5l <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"repeatedcv"</span>, <span class="at">number =</span> <span class="dv">10</span>, <span class="at">repeats =</span> <span class="dv">5</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>cv_model10_5l <span class="ot">&lt;-</span> <span class="fu">train</span>(<span class="fu">log</span>(Selling_Price) <span class="sc">~</span> Kms_Driven <span class="sc">+</span> Fuel_Type <span class="sc">+</span> Seller_Type <span class="sc">+</span> Transmission <span class="sc">+</span> Year,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> car_data,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">trControl =</span> ctrl10_5l)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>cv_model10_5l<span class="sc">$</span>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  intercept      RMSE Rsquared       MAE    RMSESD RsquaredSD      MAESD
+1      TRUE 0.5408217 0.823465 0.4045896 0.1048676 0.06773348 0.05689064</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#RMSE      Rsquared   MAE    </span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#10-fold repeated 3</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>ctrl10_3l <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"repeatedcv"</span>, <span class="at">number =</span> <span class="dv">10</span>, <span class="at">repeats =</span> <span class="dv">3</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>cv_model10_3l <span class="ot">&lt;-</span> <span class="fu">train</span>(<span class="fu">log</span>(Selling_Price) <span class="sc">~</span> Kms_Driven <span class="sc">+</span> Fuel_Type <span class="sc">+</span> Seller_Type <span class="sc">+</span> Transmission <span class="sc">+</span> Year,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> car_data,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">trControl =</span> ctrl10_3l )</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>cv_model10_3l<span class="sc">$</span>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  intercept      RMSE  Rsquared       MAE   RMSESD RsquaredSD      MAESD
+1      TRUE 0.5509084 0.8174797 0.4091709 0.105851  0.0670746 0.05891568</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RMSE      Rsquared   MAE     </span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Leave-one-out Cross-Validation</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>ctrlLOOCVl <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"LOOCV"</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>LOO_modell <span class="ot">&lt;-</span> <span class="fu">train</span>(<span class="fu">log</span>(Selling_Price) <span class="sc">~</span> Kms_Driven <span class="sc">+</span> Fuel_Type <span class="sc">+</span> Seller_Type <span class="sc">+</span> Transmission <span class="sc">+</span> Year,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> car_data,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">trControl =</span> ctrlLOOCVl )</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>LOO_modell<span class="sc">$</span>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  intercept      RMSE Rsquared       MAE
+1      TRUE 0.5564873 0.807924 0.4072408</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RMSE      Rsquared   MAE     </span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Monte Carlo Cross-Validation</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>ctrlMCl <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"LGOCV"</span>, <span class="at">number =</span> <span class="dv">10</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>MC_modell<span class="ot">&lt;-</span> <span class="fu">train</span>(<span class="fu">log</span>(Selling_Price) <span class="sc">~</span> Kms_Driven <span class="sc">+</span> Fuel_Type <span class="sc">+</span> Seller_Type <span class="sc">+</span> Transmission <span class="sc">+</span> Year,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> car_data,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>                    <span class="at">trControl =</span> ctrlMCl )</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>MC_modell<span class="sc">$</span>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  intercept      RMSE  Rsquared       MAE     RMSESD RsquaredSD     MAESD
+1      TRUE 0.5382496 0.8183334 0.3981915 0.06449471 0.05304317 0.0218922</code></pre>
+</div>
 </div>
 <section id="statistical-modeling" class="level3">
 <h3 class="anchored" data-anchor-id="statistical-modeling">Statistical Modeling</h3>
