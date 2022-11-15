@@ -37,11 +37,11 @@ estimate, the variance or uncertainty in the cross-validation estimates, and the
 associated with each method.
 
 Typical technique comparisons for linear models use the root mean squared error (RMSE), mean absolute error (MAE), and R-squared ($R^2$). RMSE calculates how far predicted values are from observed values in the data set and is calculated by: 	
-$RMSE= \sqrt{\frac{\sum(P_i – O_i)^2}{n}}$,
+$$RMSE= \sqrt{\frac{\sum(P_i – O_i)^2}{n}}$$,
 with $P_i$ being the predicted value for the ith observation, $O_i$ being the ith observed value, and n being the sample size. MAE describes the typical magnitude of the residuals and is calculated by:
-$MAE=\frac{1}{n}\sum(|y_i-\hat{y}|$
-where $y_i$ is the actual output value and $\hat{y}$  is the predicted output. $R^2$ describes how well the model predictors explains the response variable variation, or the fraction of the variance that is explained in the model. This equation is as follows: $R^2=\frac{n\sum(xy)-\sum(x)\sum(y)}{\sqrt{[n\sum(x^2)-(\sum(x)^2)][n\sum(y^2)-(\sum(y)^2)]}}$. This can also be written as:
-$R^2=1-\frac{\sum(y_i-\hat{y})^2}{\sum(y_i-\overline{y})^2}$, where $\overline{y}$ is the mean value of y. [@Ott2015]
+$$MAE=\frac{1}{n}\sum(|y_i-\hat{y}|$$
+where $y_i$ is the actual output value and $\hat{y}$  is the predicted output. $R^2$ describes how well the model predictors explains the response variable variation, or the fraction of the variance that is explained in the model. This equation is as follows: $$R^2=\frac{n\sum(xy)-\sum(x)\sum(y)}{\sqrt{[n\sum(x^2)-(\sum(x)^2)][n\sum(y^2)-(\sum(y)^2)]}}$$. This can also be written as:
+$$R^2=1-\frac{\sum(y_i-\hat{y})^2}{\sum(y_i-\overline{y})^2}$$, where $\overline{y}$ is the mean value of y. [@Ott2015]
 
 One of the limitations of cross-validation methods is that they are not guaranteed to pick the true model of the data distribution, even as the number of samples approaches infinity. This is because when you train two different models on the same training set the one with more free parameters will model the training data better because it can over fit the data more easily. This can result in picking the wrong model due to over fitting. [@gronau2019limitations]
 
@@ -122,6 +122,7 @@ Table 1: Car Data Set for Cross Validation
 
 [Link to Documentation for CarData data](https://www.kaggle.com/datasets/nehalbirla/vehicle-dataset-from-cardekho?select=car+data.csv)
 
+First, the data was fit to the following linear model, $$Selling Price=Year+KmsDriven+FuelType+SellerType+Transmission$$ and produced the following linear regression model. 
 
 
 
