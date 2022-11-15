@@ -156,9 +156,9 @@ test   <- subset(car_data, sample == FALSE)
 model_train = lm(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year, data = train)
 test_pred = predict(model_train, test)
 
-data.frame(R_squared = R2(test_pred, test$Selling_Price),
-           RMSE = RMSE(test_pred, test$Selling_Price),
-           MAE = MAE(test_pred, test$Selling_Price))
+#data.frame(R_squared = R2(test_pred, test$Selling_Price),
+#           RMSE = RMSE(test_pred, test$Selling_Price),
+#           MAE = MAE(test_pred, test$Selling_Price))
 #  R_squared     RMSE      MAE
 #  0.675032 3.066001 2.059764
 
@@ -168,7 +168,7 @@ cv_model10 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Trans
                    method = "lm",
                    data = car_data,
                    trControl = ctrl10)
-cv_model10$results
+#cv_model10$results
 
 # RMSE      Rsquared   MAE     
 #v3.177328  0.6034333  2.084711
@@ -179,7 +179,9 @@ cv_model3 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transm
                    method = "lm",
                    data = car_data,
                    trControl = ctrl3)
-cv_model3$results
+#cv_model3$results
+# RMSE  Rsquared      MAE
+# 3.341571 0.5671751 2.080826
 
 #k-folds Cross-Validation 5
 ctrl5 <- trainControl(method = "cv", number = 5)
@@ -187,8 +189,9 @@ cv_model5 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transm
                    method = "lm",
                    data = car_data,
                    trControl = ctrl5)
-cv_model5$results
-
+# cv_model5$results
+# RMSE  Rsquared      MAE
+# 3.252752 0.5970045 2.088944
 
 #10-fold repeated 5
 ctrl10_5 <- trainControl(method = "repeatedcv", number = 10, repeats = 5)
@@ -196,7 +199,7 @@ cv_model10_5 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Tra
                    method = "lm",
                    data = car_data,
                    trControl = ctrl10_5)
-cv_model10_5$results
+#cv_model10_5$results
 
 #RMSE      Rsquared   MAE    
 #3.230983  0.6018475  2.09941
@@ -208,7 +211,7 @@ cv_model10_3 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Tra
                    method = "lm",
                    data = car_data,
                    trControl = ctrl10_3 )
-cv_model10_3$results
+#cv_model10_3$results
 
 # RMSE      Rsquared   MAE     
 # 3.188268  0.6032351  2.093896
@@ -220,7 +223,7 @@ LOO_model <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transm
                   method = "lm",
                    data = car_data,
                    trControl = ctrlLOOCV )
-LOO_model$results
+#LOO_model$results
 
 # RMSE      Rsquared   MAE     
 # 3.380532  0.5563956  2.089128
@@ -233,7 +236,7 @@ MC_model <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmi
                     data = car_data,
                     trControl = ctrlMC )
 
-MC_model$results
+#MC_model$results
 
 # RMSE      Rsquared   MAE     
 # 3.375063  0.5821096  2.077517
