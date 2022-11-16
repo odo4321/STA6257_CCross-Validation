@@ -65,6 +65,9 @@ The **k-folds Cross-Validation Technique** is one potential answer to the limita
 6.	Compare the prediction performance measures to select the “best” model using the equation: $$CV_(k)=\frac{1}{k}\sum_{i=1}^{k}{MSE_i}$$
 
 ![Alt text](k-folds.png)
+[Link to www.i2tutorials.com for image ](https://www.i2tutorials.com/machine-learning-tutorial/machine-learning-k-fold-cross-validation/)
+
+
 
 Expanding on the k-folds technique is the repeated k-folds Cross-Validation Technique [@song2021making] which extends the k-folds by conducting multiple repetitions (n), each using a different k fold split. If 5 repeats of a 10-fold cross validation were chosen, 50 (n*k) different models would be fit and evaluated. With each repetition (n) having a slightly different data subset, the model predictors should be even more unbiased than with k-folds, but with having to repeat the process numerous times, this can be a time and labor intensive process, leading to increased costs. 
 
@@ -396,6 +399,8 @@ Reviewing the transformed linear model, the various cross validation techniques 
 We see that the hold-out method looks to be the worst performance, but the other cross-validation techniques yield consistent results, with the k-folds methods showing to be good techniques for modeling predictions.
 
 ### Conlusion
+
+
 
 ## References
 
