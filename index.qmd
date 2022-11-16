@@ -65,6 +65,8 @@ The **k-folds Cross-Validation Technique** is one potential answer to the limita
 6.	Compare the prediction performance measures to select the “best” model using the equation: $$CV_(k)=\frac{1}{k}\sum_{i=1}^{k}{MSE_i}$$
 
 ![Alt text](k-folds.png)
+
+
 [Link to www.i2tutorials.com for image ](https://www.i2tutorials.com/machine-learning-tutorial/machine-learning-k-fold-cross-validation/)
 
 
