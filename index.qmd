@@ -40,7 +40,7 @@ Typical technique comparisons for linear models use the root mean squared error 
 $$RMSE= \sqrt{\frac{\sum(P_i – O_i)^2}{n}}$$
 with $P_i$ being the predicted value for the ith observation, $O_i$ being the ith observed value, and n being the sample size. MAE describes the typical magnitude of the residuals and is calculated by:
 $$MAE=\frac{1}{n}\sum(|y_i-\hat{y}|$$
-where $y_i$ is the actual output value and $\hat{y}$  is the predicted output. $R^2$ describes how well the model predictors explains the response variable variation, or the fraction of the variance that is explained in the model. This equation is as follows: $$R^2=\frac{n\sum(xy)-\sum(x)\sum(y)}{\sqrt{[n\sum(x^2)-(\sum(x)^2)][n\sum(y^2)-(\sum(y)^2)]}}$$. 
+where $y_i$ is the actual output value and $\hat{y}$  is the predicted output. $R^2$ describes how well the model predictors explains the response variable variation, or the fraction of the variance that is explained in the model. This equation is as follows: $$R^2=\frac{n\sum(xy)-\sum(x)\sum(y)}{\sqrt{[n\sum(x^2)-(\sum(x)^2)][n\sum(y^2)-(\sum(y)^2)]}}$$ 
 This can also be written as:
 $$R^2=1-\frac{\sum(y_i-\hat{y})^2}{\sum(y_i-\overline{y})^2}$$
 where $\overline{y}$ is the mean value of y. [@Ott2015]
@@ -57,7 +57,7 @@ One of the limitations of cross-validation methods is that they are not guarante
 4.	Compare the model predictions ($R^2$, MAE, RMSE)
  
 
-The **k-folds Cross-Validation Technique** is one potential answer to the limitations in the simple hold-out technique. The data is divided into k groups or splits, and then each k group becomes a test set while the other groups as a whole are the training set. The detailed process is as follows [@Jung2015]:
+The **k-folds Cross-Validation Technique** is one potential answer to the limitations in the simple hold-out technique. The data is divided into k groups or splits, and then each k group becomes a test set while the other groups as a whole are the training set. The detailed process is as follows [@Jung2015ak]:
 
 1.	Randomly and evenly split the data set into k-folds. 
 2.	Use k-1 folds of data as the training set to fit the model
@@ -68,9 +68,9 @@ The **k-folds Cross-Validation Technique** is one potential answer to the limita
 
 The following image, Figure 1, visually shows the how data is split in the k-folds technique.
 
-![Figure 1](k-folds.png) 
+![Figure 1: Visual Depiction of K-folds [Sourced from www.i2tutorials.com for image ](https://www.i2tutorials.com/machine-learning-tutorial/machine-learning-k-fold-cross-validation/)](k-folds.png) 
 
-Figure 1: Visual Depiction of K-folds [Link to www.i2tutorials.com for image ](https://www.i2tutorials.com/machine-learning-tutorial/machine-learning-k-fold-cross-validation/)
+
 
 
 
