@@ -49,7 +49,7 @@ One of the limitations of cross-validation methods is that they are not guarante
 
 ## Methods
 
- The most common method is the **Hold Out or Validation Technique** (Ahmed, 2019): This method tends to use defined splits for the training and test set, like a 90/10, 80/20, 70/30, 60/40, or 50/50 train/test data split. This method is considered an easy, straightforward approach, but with the model only being built on a portion of the data, this model may not predict well as it is sensitive to what data is (or isn’t) chosen in the training set. This is especially problematic for small sample sizes. For the car data set the method for Hold Out validation is as follows:
+ The most common method of performing cross-validation is the **Hold Out or Validation Technique** (Ahmed, 2019). This method tends to use defined splits for the training and test set, like a 90/10, 80/20, 70/30, 60/40, or 50/50 train/test data split. This method is considered an easy, straightforward approach, but with the model only being built on a portion of the data, this model may not predict well as it is sensitive to what data is (or isn’t) chosen in the training set. This is especially problematic for small sample sizes. For the car data set modeling included in this paper, the method for hold Out validation is as follows:
 
 1.	Split the data into an 70/30 training/test data set.
 2.	Fit the model to the training set
@@ -57,7 +57,7 @@ One of the limitations of cross-validation methods is that they are not guarante
 4.	Compare the model predictions ($R^2$, MAE, RMSE)
  
 
-The **k-folds Cross-Validation Technique** is one potential answer to the limitations in the simple hold-out technique. The data is divided into k group or splits, and then each k group becomes a test set while the other groups as a whole are the training set. The detailed process is as follows [@Jung2015]:
+The **k-folds Cross-Validation Technique** is one potential answer to the limitations in the simple hold-out technique. The data is divided into k groups or splits, and then each k group becomes a test set while the other groups as a whole are the training set. The detailed process is as follows [@Jung2015]:
 
 1.	Randomly and evenly split the data set into k-folds. 
 2.	Use k-1 folds of data as the training set to fit the model
@@ -68,12 +68,13 @@ The **k-folds Cross-Validation Technique** is one potential answer to the limita
 
 The following image, Figure 1, visually shows the how data is split in the k-folds technique.
 
-![Alt text](k-folds.png) 
-Figure 1: Visual K folds [Link to www.i2tutorials.com for image ](https://www.i2tutorials.com/machine-learning-tutorial/machine-learning-k-fold-cross-validation/)
+![Figure 1](k-folds.png) 
+
+Figure 1: Visual Depiction of K-folds [Link to www.i2tutorials.com for image ](https://www.i2tutorials.com/machine-learning-tutorial/machine-learning-k-fold-cross-validation/)
 
 
 
-Expanding on the k-folds technique is the repeated k-folds Cross-Validation Technique [@song2021making] which extends the k-folds by conducting multiple repetitions (n), each using a different k fold split. If 5 repeats of a 10-fold cross validation were chosen, 50 (n*k) different models would be fit and evaluated. With each repetition (n) having a slightly different data subset, the model predictors should be even more unbiased than with k-folds, but with having to repeat the process numerous times, this can be a time and labor intensive process, leading to increased costs. 
+Expanding on the k-folds technique is the **repeated k-folds Cross-Validation Technique** [@song2021making] which extends the k-folds by conducting multiple repetitions (n), each using a different k fold split. If 5 repeats of a 10-fold cross validation were chosen, 50 (n*k) different models would be fit and evaluated. With each repetition (n) having a slightly different data subset, the model predictors should be even more unbiased than with k-folds, but with having to repeat the process numerous times, this can be a time and labor intensive process, leading to increased costs. The process is as follows:
 
 1.	Randomly and evenly split the data set into k-folds.
 2.	Use k-1 folds of data as the training set to fit the model
@@ -82,7 +83,7 @@ Expanding on the k-folds technique is the repeated k-folds Cross-Validation Tech
 5.	Repeat steps 2-4 for k times, so each k fold is used as a hold-out
 6.	Repeat steps 1-5 n times.
 
- The **Leave-one-out Cross-Validation Technique** is a special case of the k-folds technique that systematically excludes each point in the data set and fits the model with all other n-1 points. This technique splits the data into sets of n-1 and 1, n times. For each observation, the cross-validation residual is the difference between the observation and the model predicted value. This technique has the advantages of having a less biased MSE than a single test but can be a time-consuming technique when the dataset is large or the model is complex, and can thus be an expensive method.  [@derryberry2014basic]
+ The **Leave-one-out Cross-Validation Technique** is a special case of the k-folds technique that systematically excludes each point in the data set and fits the model with all other n-1 points. This technique splits the data into sets of n-1 and 1, n times. For each observation, the cross-validation residual is the difference between the observation and the model predicted value. This technique has the advantages of having a less biased MSE than a single test but can be a time-consuming technique when the data set is large or the model is complex, and can thus be an expensive method.  [@derryberry2014basic] The leave-on-out method steps are highlighted below:
 
 1.	Split the data into a training set and testing set, using all but one observation as part of the training set.
 2.	Use the training set to build the model
@@ -90,18 +91,12 @@ Expanding on the k-folds technique is the repeated k-folds Cross-Validation Tech
 4.	Repeat the process n times
 5.	Average the test predictions for overall model prediction values.  $$CV_(n)=\frac{1}{n}\sum_{i=1}^{n}{MSE_i}$$
 
- One big decision that has to be made when using cross-validation methods other than leave-one-out, is the *optimal number of folds* (also known as k) that the data should be divided into. In the article “Performance of Machine Learning Algorithms with Different K Values in K-fold Cross-Validation” k-validation was used on 4 different machine learning algorithms with splits of 3, 5, 7, 10, 15 and 20. They found the optimal k folds changed depending on the model being tested. [@nti2021performance] Common practice uses 5 and 10 folds as these values have been shown to yield favorable test error rate estimates. [@James2013]
+ One big decision that has to be made when using cross-validation methods other than leave-one-out, is the *optimal number of folds* (also known as k) that the data should be divided into. In the article “Performance of Machine Learning Algorithms with Different K Values in K-fold Cross-Validation” k-validation was used on 4 different machine learning algorithms with splits of 3, 5, 7, 10, 15 and 20. They found the optimal k folds changed depending on the model being tested. [@nti2021performance] Common practice uses 5 and 10 folds as these values have been shown to yield favorable test error rate estimates. [@James2013]. Our paper will explore using 3, 5 and 10 k-folds, and modeling repeated k-folds of 3 and 5 repetitions on 10 folds.
 
- Other Techniques that can be used for cross-validation but are not being modeled in this paper include:
-
-a. **Monte Carlo Cross-Validation Technique**: Similar to a k-fold method, but a predefined
-proportion of the data is randomly selected to form the test set in each repetition, and the remaining
-proportion forms the training set. The train-test process is repeated a predetermined number of times. [@wainer2021nested]
-
-b. **Multiple Predicting Cross-Validation**: This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-folds is then used to measure how good the model is. [@jung2018multiple]
-
-
-
+ Another technique is the **Monte Carlo Cross-Validation Technique**, which is similar to a k-fold method, but a predefined portion of the data is randomly selected to form the test set in each repetition, and the remaining
+portion forms the training set. The train-test process is repeated a predetermined number of times. [@wainer2021nested]
+ 
+ Additionally, **Multiple Predicting Cross-Validation** is a technique that can be used for cross-validation but is not being modeled in this paper include. This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-folds is then used to measure how good the model is. [@jung2018multiple]
 
 
 
@@ -109,7 +104,7 @@ b. **Multiple Predicting Cross-Validation**: This is a variation of k-folds but 
 
 **Data Discussion**
 
-Cross-validation techniques of hold-out validation, k-folds, repeated k-folds, and leave-one-out were performed on the Kaggle Car data.csv set. This data set allowed us to model the selling price of a used car given the variables of kilometers driven, the fuel type used, the year the car was manufactured, if the seller was an individual or dealership, and what type of transmission was in the car.
+Cross-validation techniques of hold-out validation, k-folds, repeated k-folds, leave-one-out and Monte Carlo were performed on the Kaggle Car data.csv set. This data set allowed us to model the selling price of a used car in the United Kingdom given the variables of kilometers driven, the fuel type used, the year the car was manufactured, if the seller was an individual or dealership, and what type of transmission was in the car. This data set had 301 data point of the car selling prices. The data is detailed in table 1 below. 
 
 
 
@@ -125,9 +120,15 @@ Table 1: Car Data Set for Cross Validation
 
 [Link to Documentation for CarData data](https://www.kaggle.com/datasets/nehalbirla/vehicle-dataset-from-cardekho?select=car+data.csv)
 
+Need to complete: Figure 2-xx show the average selling prices, kms driven...
+
+### Statistical Modeling
+
 First, the data was fit to the following linear model, $$Selling Price=Year+KmsDriven+FuelType+SellerType+Transmission$$ and produced the following linear regression model for a Manual, Diesel vehicle selling by an individual:
 $$SellingPrice=-628.569-0.000004KmsDriven+0.313Year$$
 This model has a residual standard error of 3.321 and an $R^2$ value of 0.5817. 
+
+From figure xx we can see that the data has a slight linear response from xxx...
 
 This linear model is then used to test the various cross validation techniques. First the hold out method was performed using an 70/30 data split. The next technique of cross-validation was k-folds, using 3, 5, and 10 k splits. The repeated k-folds technique was then performed, using the 10 k split, repeated 3 and 5 times. Leave-one-out and Monte Carlo techniques were also ran on the model for comparisons. 
 
@@ -137,7 +138,7 @@ This model yielded the following regression equation for a Manual, Diesel vehicl
 $$log(SellingPrice)=-198.902-0.0000003KmsDriven+0.099Year$$
 This model has a residual standard error of 0.5341 and an $R^2$ value of 0.8271.
 
-
+As shown below in Figure xx, we can see that this transformed model does seem to better fit our car data when compared to the basic linear model.
 
 
 ```{r, warning=FALSE, echo=T, message=FALSE}
@@ -355,7 +356,7 @@ MC_modell$results
 
 
 
-### Statistical Modeling
+
 
 
 The following table shows the various model accuracy prediction results from the general linear model cross-validation techniques.
@@ -373,16 +374,19 @@ The following table shows the various model accuracy prediction results from the
 | Rsquared | 0.6018475                | 0.6032351                | 0.5563956     | 0.675032 |
 | MAE      | 2.09941                  | 2.093896                 | 2.089128      | 2.059764 |
 
+
+Visually the results are summarized in Figure xx, and we see slight differences in xyz.
+
 When looking at the above results, for the linear model, we can see that just based on high $R^2$ values, and low RMSE and MAE, the hold out method would look to be the superior technique for cross-validation, which seems to disagree with our literature review. However, with a 70/30 data split, or a 211/90 train/test split, it seems to be random chance to have the high $R^2$. This is confirmed by reviewing the various predictor evaluators for the k-folds and we can see there is a range of RMSE, MAE and $R^2$ values.
 
 
-|  RMSE    | Rsquared  |    MAE     | Resample  | 
-|----------|------------------------|-----------|
-| 2.464366 | 0.6057478 | 1.749896   |  Fold1    | 
-| 2.867482 | 0.5611660 | 1.911977   |  Fold2    | 
-| 3.139301 | 0.6515984 | 2.193282   |  Fold3    | 
-| 4.552995 | 0.5059184 | 2.398940   |  Fold4    | 
-| 3.624248 | 0.5627258 | 2.234680   |  Fold5    | 
+|  RMSE    | Rsquared  |    MAE   | Re-sample | 
+|----------|----------------------|-----------|
+| 2.464366 | 0.6057478 | 1.749896 |  Fold1    | 
+| 2.867482 | 0.5611660 | 1.911977 |  Fold2    | 
+| 3.139301 | 0.6515984 | 2.193282 |  Fold3    | 
+| 4.552995 | 0.5059184 | 2.398940 |  Fold4    | 
+| 3.624248 | 0.5627258 | 2.234680 |  Fold5    | 
 
 
 Reviewing the transformed linear model, the various cross validation techniques follow more expected results. 
@@ -404,7 +408,7 @@ We see that the hold-out method looks to be the worst performance, but the other
 
 ### Conlusion
 
-
+This paper shows various cross-validation techniques that can be used for modeling validation, including hold out, k and repeated k-folds, leave-one-out and Monte Carlo cross-validaiton.  As cross-validation tends to be used in machine learning on large data, or in situations where it may be hard to gather large samples, our example allowed us to review the full data set's performance with linear regression and then compare the performance of the cross validation techniques. We compared both a linear model and a transformed linear model and found that...
 
 ## References
 
