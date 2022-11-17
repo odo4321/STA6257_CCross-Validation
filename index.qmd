@@ -16,13 +16,13 @@ bibliography: references.bib # file contains bibtex for references
 Cross Validation is a key method used to assess model generalizability, which describes the extent which
 statistical models developed in one sample fit other samples from the same population. [@song2021making].
 Essentially the goal of cross validation is to mimic the prediction of future individuals from the
-population, and allows the accuracy of a predictive model's performance to be estimated. This is a tool that can be used to help determine the "best" model for a data set. The early pioneering work of Stone and Geisser in the 1970’s and the work by Burman in the 1980's on leave-one-
+population, and allows the accuracy of a predictive model's performance to be estimated. This is a tool that can be used to help determine the "best" model for a data set, and tends to be used in machine learning modeling. The early pioneering work of Stone and Geisser in the 1970’s and the work by Burman in the 1980's on leave-one-
 out cross validation, set the stage for the current techniques of cross validation [@jung2015ak].
 Today's common techniques of cross validation include data splitting (the most common method) by the hold-
 out or validation technique, random subsampling by Monte Carlo, k-folds and repeated k-folds, and leave-one-out
 methods. [@ahmed2019classification]. 
 
-The general process to cross validation is a 5 step process [@song2021making]:
+The general, 5 step process to cross validation is as follows [@song2021making]:
 
 1. Split the data into a training set and test set
 2. Fit a model to the training set and obtain the model parameters
@@ -37,22 +37,24 @@ estimate, the variance or uncertainty in the cross-validation estimates, and the
 associated with each method.
 
 Typical technique comparisons for linear models use the root mean squared error (RMSE), mean absolute error (MAE), and R-squared ($R^2$). RMSE calculates how far predicted values are from observed values in the data set and is calculated by: 	
-$$RMSE= \sqrt{\frac{\sum(P_i – O_i)^2}{n}}$$,
+$$RMSE= \sqrt{\frac{\sum(P_i – O_i)^2}{n}}$$
 with $P_i$ being the predicted value for the ith observation, $O_i$ being the ith observed value, and n being the sample size. MAE describes the typical magnitude of the residuals and is calculated by:
 $$MAE=\frac{1}{n}\sum(|y_i-\hat{y}|$$
-where $y_i$ is the actual output value and $\hat{y}$  is the predicted output. $R^2$ describes how well the model predictors explains the response variable variation, or the fraction of the variance that is explained in the model. This equation is as follows: $$R^2=\frac{n\sum(xy)-\sum(x)\sum(y)}{\sqrt{[n\sum(x^2)-(\sum(x)^2)][n\sum(y^2)-(\sum(y)^2)]}}$$. This can also be written as:
-$$R^2=1-\frac{\sum(y_i-\hat{y})^2}{\sum(y_i-\overline{y})^2}$$, where $\overline{y}$ is the mean value of y. [@Ott2015]
+where $y_i$ is the actual output value and $\hat{y}$  is the predicted output. $R^2$ describes how well the model predictors explains the response variable variation, or the fraction of the variance that is explained in the model. This equation is as follows: $$R^2=\frac{n\sum(xy)-\sum(x)\sum(y)}{\sqrt{[n\sum(x^2)-(\sum(x)^2)][n\sum(y^2)-(\sum(y)^2)]}}$$. 
+This can also be written as:
+$$R^2=1-\frac{\sum(y_i-\hat{y})^2}{\sum(y_i-\overline{y})^2}$$
+where $\overline{y}$ is the mean value of y. [@Ott2015]
 
 One of the limitations of cross-validation methods is that they are not guaranteed to pick the true model of the data distribution, even as the number of samples approaches infinity. This is because when you train two different models on the same training set the one with more free parameters will model the training data better because it can over fit the data more easily. This can result in picking the wrong model due to over fitting. [@gronau2019limitations]
 
 ## Methods
 
- The most common method is the **Hold Out or Validation Technique** (Ahmed, 2019): This method tends to use defined splits for the training and test set, like a 90/10, 80/20, 70/30, 60/40, or 50/50 train/test data split. This method is considered an easy, straightforward approach, but with the model only being built on a portion of the data, this model may not predict well as it is sensitive to what data is (or isn’t) chosen in the training set and this is especially problematic for small sample sizes. For the car data set the method for Hold Out validation is as follows:
+ The most common method is the **Hold Out or Validation Technique** (Ahmed, 2019): This method tends to use defined splits for the training and test set, like a 90/10, 80/20, 70/30, 60/40, or 50/50 train/test data split. This method is considered an easy, straightforward approach, but with the model only being built on a portion of the data, this model may not predict well as it is sensitive to what data is (or isn’t) chosen in the training set. This is especially problematic for small sample sizes. For the car data set the method for Hold Out validation is as follows:
 
-1.	Split the data into an 80/20 training/test data set.
+1.	Split the data into an 70/30 training/test data set.
 2.	Fit the model to the training set
 3.	Apply the fitted model to the test set
-4.	Compare the model predictions
+4.	Compare the model predictions ($R^2$, MAE, RMSE)
  
 
 The **k-folds Cross-Validation Technique** is one potential answer to the limitations in the simple hold-out technique. The data is divided into k group or splits, and then each k group becomes a test set while the other groups as a whole are the training set. The detailed process is as follows [@Jung2015]:
@@ -64,7 +66,9 @@ The **k-folds Cross-Validation Technique** is one potential answer to the limita
 5.	Repeat steps 2-4 for k times, so each k fold is used as a hold-out
 6.	Compare the prediction performance measures to select the “best” model using the equation: $$CV_(k)=\frac{1}{k}\sum_{i=1}^{k}{MSE_i}$$
 
-![Alt text](k-folds.png)
+The following image, Figure 1, visually shows the how data is split in the k-folds technique.
+
+![Alt text](k-folds.png) Figure 1: Visual K folds
 
 
 [Link to www.i2tutorials.com for image ](https://www.i2tutorials.com/machine-learning-tutorial/machine-learning-k-fold-cross-validation/)
