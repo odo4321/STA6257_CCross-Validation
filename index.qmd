@@ -140,7 +140,7 @@ This model has a residual standard error of 0.5341 and an $R^2$ value of 0.8271.
 
 As shown below in Figure xx, we can see that this transformed model does seem to better fit our car data when compared to the basic linear model.
 
-
+**Hold Out**
 ```{r, warning=FALSE, echo=T, message=FALSE}
 library(caret)
 library(ggplot2)
@@ -170,7 +170,9 @@ test_pred = predict(model_train, test)
 #           MAE = MAE(test_pred, test$Selling_Price))
 #  R_squared     RMSE      MAE
 #  0.675032 3.066001 2.059764
-
+```
+**k-folds Cross-Validation 10**
+```{r, warning=FALSE, echo=T, message=FALSE}
 #k-folds Cross-Validation 10
 ctrl10 <- trainControl(method = "cv", number = 10)
 cv_model10 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
@@ -181,7 +183,9 @@ cv_model10 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Trans
 
 # RMSE      Rsquared   MAE     
 #v3.177328  0.6034333  2.084711
-
+```
+**k-folds Cross-Validation 3**
+```{r, warning=FALSE, echo=T, message=FALSE}
 #k-folds Cross-Validation 3
 ctrl3 <- trainControl(method = "cv", number = 3)
 cv_model3 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
@@ -191,7 +195,9 @@ cv_model3 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transm
 #cv_model3$results
 # RMSE  Rsquared      MAE
 # 3.341571 0.5671751 2.080826
-
+```
+**k-folds Cross-Validation 5**
+```{r, warning=FALSE, echo=T, message=FALSE}
 #k-folds Cross-Validation 5
 ctrl5 <- trainControl(method = "cv", number = 5)
 cv_model5 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
@@ -201,7 +207,9 @@ cv_model5 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transm
 # cv_model5$results
 # RMSE  Rsquared      MAE
 # 3.252752 0.5970045 2.088944
-
+```
+**10-fold repeated 5**
+```{r, warning=FALSE, echo=T, message=FALSE}
 #10-fold repeated 5
 ctrl10_5 <- trainControl(method = "repeatedcv", number = 10, repeats = 5)
 cv_model10_5 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
@@ -212,8 +220,9 @@ cv_model10_5 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Tra
 
 #RMSE      Rsquared   MAE    
 #3.230983  0.6018475  2.09941
-
-
+```
+**10-fold repeated 3**
+```{r, warning=FALSE, echo=T, message=FALSE}
 #10-fold repeated 3
 ctrl10_3 <- trainControl(method = "repeatedcv", number = 10, repeats = 3)
 cv_model10_3 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
@@ -224,7 +233,9 @@ cv_model10_3 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Tra
 
 # RMSE      Rsquared   MAE     
 # 3.188268  0.6032351  2.093896
-
+```
+**Leave-one-out Cross-Validation**
+```{r, warning=FALSE, echo=T, message=FALSE}
 
 #Leave-one-out Cross-Validation
 ctrlLOOCV <- trainControl(method = "LOOCV")
@@ -236,7 +247,9 @@ LOO_model <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transm
 
 # RMSE      Rsquared   MAE     
 # 3.380532  0.5563956  2.089128
-
+```
+**Monte Carlo Cross-Validation**
+```{r, warning=FALSE, echo=T, message=FALSE}
 
 #Monte Carlo Cross-Validation
 ctrlMC <- trainControl(method = "LGOCV", number = 10)
@@ -250,7 +263,10 @@ MC_model <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmi
 # RMSE      Rsquared   MAE     
 # 3.375063  0.5821096  2.077517
 
-
+```
+##Log Model 
+**Hold Out**
+```{r, warning=FALSE, echo=T, message=FALSE}
 
 #Log Model 
 
@@ -271,7 +287,9 @@ data.frame(R_squared = R2(test_predl, testl$Selling_Price),
            MAE = MAE(test_predl, testl$Selling_Price))
 #  R_squared     RMSE      MAE
 
-
+```
+**k-folds Cross-Validation 10**
+```{r, warning=FALSE, echo=T, message=FALSE}
 #k-folds Cross-Validation 10
 ctrl10l <- trainControl(method = "cv", number = 10)
 cv_model10l <- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
@@ -281,7 +299,9 @@ cv_model10l <- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type +
 cv_model10l$results
 
 # RMSE      Rsquared   MAE     
-
+```
+**k-folds Cross-Validation 3**
+```{r, warning=FALSE, echo=T, message=FALSE}
 
 #k-folds Cross-Validation 3
 ctrl3l <- trainControl(method = "cv", number = 3)
@@ -290,7 +310,9 @@ cv_model3l <- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type + 
                    data = car_data,
                    trControl = ctrl3l)
 cv_model3l$results
-
+```
+**k-folds Cross-Validation 5**
+```{r, warning=FALSE, echo=T, message=FALSE}
 #k-folds Cross-Validation 5
 ctrl5l <- trainControl(method = "cv", number = 5)
 cv_model5l <- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
@@ -298,7 +320,9 @@ cv_model5l <- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type + 
                    data = car_data,
                    trControl = ctrl5l)
 cv_model5l$results
-
+```
+**10-fold repeated 5**
+```{r, warning=FALSE, echo=T, message=FALSE}
 
 #10-fold repeated 5
 ctrl10_5l <- trainControl(method = "repeatedcv", number = 10, repeats = 5)
@@ -309,9 +333,9 @@ cv_model10_5l <- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type
 cv_model10_5l$results
 
 #RMSE      Rsquared   MAE    
-
-
-
+```
+**10-fold repeated 3**
+```{r, warning=FALSE, echo=T, message=FALSE}
 #10-fold repeated 3
 ctrl10_3l <- trainControl(method = "repeatedcv", number = 10, repeats = 3)
 cv_model10_3l <- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
@@ -321,9 +345,9 @@ cv_model10_3l <- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type
 cv_model10_3l$results
 
 # RMSE      Rsquared   MAE     
-
-
-
+```
+**Leave-one-out Cross-Validation**
+```{r, warning=FALSE, echo=T, message=FALSE}
 #Leave-one-out Cross-Validation
 ctrlLOOCVl <- trainControl(method = "LOOCV")
 LOO_modell <- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
@@ -334,7 +358,9 @@ LOO_modell$results
 
 # RMSE      Rsquared   MAE     
 
-
+```
+**Monte Carlo Cross-Validation**
+```{r, warning=FALSE, echo=T, message=FALSE}
 
 #Monte Carlo Cross-Validation
 ctrlMCl <- trainControl(method = "LGOCV", number = 10)
@@ -344,8 +370,6 @@ MC_modell<- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type + Tr
                     trControl = ctrlMCl )
 
 MC_modell$results
-
-
 
 
 
