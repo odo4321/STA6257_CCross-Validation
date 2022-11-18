@@ -121,7 +121,23 @@ Table 1: Car Data Set for Cross Validation
 [Link to Documentation for CarData data](https://www.kaggle.com/datasets/nehalbirla/vehicle-dataset-from-cardekho?select=car+data.csv)
 
 Need to complete: Figure 2-xx show the average selling prices, kms driven...
+```{r, warning=FALSE, echo=T, message=FALSE}
+# Load Data
+car_data <- read.csv("car data.csv")
 
+# Selling Price ~ Year
+plot(car_data$Year, car_data$Selling_Price,
+     xlab = "Year",
+     ylab = "Selling Price (thousands)",
+     main = "Scatter Plot")
+
+# Selling Price ~ Kms Driven
+plot(car_data$Kms_Driven, car_data$Selling_Price,
+     xlab = "Kms Driven",
+     ylab = "Selling Price (thousands)",
+     main = "Scatter Plot",
+     xlim = c(0, 100000))
+```
 ### Statistical Modeling
 
 First, the data was fit to the following linear model, $$Selling Price=Year+KmsDriven+FuelType+SellerType+Transmission$$ and produced the following linear regression model for a Manual, Diesel vehicle selling by an individual:
