@@ -140,6 +140,8 @@ This model has a residual standard error of 0.5341 and an $R^2$ value of 0.8271.
 
 As shown below in Figure xx, we can see that this transformed model does seem to better fit our car data when compared to the basic linear model.
 
+
+### $SellingPrice$ 
 **Hold Out**
 ```{r, warning=FALSE, echo=T, message=FALSE}
 library(caret)
@@ -179,10 +181,11 @@ cv_model10 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Trans
                    method = "lm",
                    data = car_data,
                    trControl = ctrl10)
-#cv_model10$results
+cv_model10$results
 
 # RMSE      Rsquared   MAE     
 #v3.177328  0.6034333  2.084711
+
 ```
 **k-folds Cross-Validation 3**
 ```{r, warning=FALSE, echo=T, message=FALSE}
@@ -264,7 +267,9 @@ MC_model <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmi
 # 3.375063  0.5821096  2.077517
 
 ```
-##Log Model 
+
+
+### Log Model $log(sellingPrice)$ 
 **Hold Out**
 ```{r, warning=FALSE, echo=T, message=FALSE}
 
@@ -282,9 +287,9 @@ testl   <- subset(car_data, sample == FALSE)
 model_trainl = lm(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year, data = train)
 test_predl = predict(model_trainl, testl)
 
-data.frame(R_squared = R2(test_predl, testl$Selling_Price),
-           RMSE = RMSE(test_predl, testl$Selling_Price),
-           MAE = MAE(test_predl, testl$Selling_Price))
+data.frame(R_squared = R2(test_predl, log(testl$Selling_Price)),
+           RMSE = RMSE(test_predl, log(testl$Selling_Price)),
+           MAE = MAE(test_predl, log(testl$Selling_Price)))
 #  R_squared     RMSE      MAE
 
 ```
@@ -297,6 +302,7 @@ cv_model10l <- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type +
                    data = car_data,
                    trControl = ctrl10l)
 cv_model10l$results
+
 
 # RMSE      Rsquared   MAE     
 ```
@@ -424,9 +430,9 @@ Reviewing the transformed linear model, the various cross validation techniques 
 
 |          | 10-fold repeated 5 times | 10-fold repeated 3 times | leave one out | Hold Out |
 |----------|--------------------------|--------------------------|---------------|----------|
-| RMSE     | 0.5429957                | 0.5415532                | 0.5564873     | 5.698224 |
-| Rsquared | 0.8180418                | 0.8220338                | 0.807924      | 0.481989 |
-| MAE      | 0.4056521                | 0.4047157                | 0.4072408     | 3.950065 |
+| RMSE     | 0.5429957                | 0.5415532                | 0.5564873     | 0.5544994|
+| Rsquared | 0.8180418                | 0.8220338                | 0.807924      | 0.8283292|
+| MAE      | 0.4056521                | 0.4047157                | 0.4072408     | 0.400559 |
 
 We see that the hold-out method looks to be the worst performance, but the other cross-validation techniques yield consistent results, with the k-folds methods showing to be good techniques for modeling predictions.
 
