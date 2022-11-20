@@ -57,7 +57,7 @@ One of the limitations of cross-validation methods is that they are not guarante
 4.	Compare the model predictions ($R^2$, MAE, RMSE)
  
 
-The **k-folds Cross-Validation Technique** is one potential answer to the limitations in the simple hold-out technique. The data is divided into k groups or splits, and then each k group becomes a test set while the other groups as a whole are the training set. The detailed process is as follows [@Jung2015ak]:
+The **k-folds Cross-Validation Technique** is one potential answer to the limitations in the simple hold-out technique. The data is divided into k groups or splits, and then each k group becomes a test set while the other groups as a whole are the training set. The detailed process is as follows [@Jung2015]:
 
 1.	Randomly and evenly split the data set into k-folds. 
 2.	Use k-1 folds of data as the training set to fit the model
