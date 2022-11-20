@@ -425,7 +425,7 @@ The following table shows the various model accuracy prediction results from the
 Visually the results are summarized in Figure xx, and we see slight differences in xyz.
 
 
-
+ below is the coafishents of the best preforming model Hold Out
 \begin{align*}Selling\_Price = -6.019555e^{02} -3.669399e^{-06}Kms\_Driven +6.441331Fuel\_TypeDiesel \\ 
 +1.825635Fuel\_TypePetrol-4.185450Seller\_TypeIndividual\\
 -3.891009TransmissionManual+ 3.023458e^{-01}Year 
@@ -457,6 +457,15 @@ Reviewing the transformed linear model, the various cross validation techniques 
 | RMSE     | 0.5429957                | 0.5415532                | 0.5564873     | 0.5544994|
 | Rsquared | 0.8180418                | 0.8220338                | 0.807924      | 0.8283292|
 | MAE      | 0.4056521                | 0.4047157                | 0.4072408     | 0.400559 |
+
+
+again teh hold out method preform the best but not by a large margin. below is the model. 
+
+\begin{align*}Selling\_Price =  -1.879796e^{02} -1.097771e^{-06}Kms\_Driven 9.574837e^(-1)Fuel\_TypeDiesel \\ 
++ 4.335012e^{-1}Fuel\_TypePetrol-2.078542Seller\_TypeIndividual\\
+-3.952547e^{-01}TransmissionManual+ 9.409054e^{-02}Year 
+\end{align*}
+
 
 We see that the hold-out method looks to be the worst performance, but the other cross-validation techniques yield consistent results, with the k-folds methods showing to be good techniques for modeling predictions.
 

@@ -712,7 +712,7 @@ div.csl-indent {
 </tbody>
 </table>
 <p>Visually the results are summarized in Figure xx, and we see slight differences in xyz.</p>
-<p><span class="math display">\[\begin{align*}Selling\_Price = -6.019555e^{02} -3.669399e^{-06}Kms\_Driven +6.441331Fuel\_TypeDiesel \\
+<p>below is the coafishents of the best preforming model Hold Out <span class="math display">\[\begin{align*}Selling\_Price = -6.019555e^{02} -3.669399e^{-06}Kms\_Driven +6.441331Fuel\_TypeDiesel \\
 +1.825635Fuel\_TypePetrol-4.185450Seller\_TypeIndividual\\
 -3.891009TransmissionManual+ 3.023458e^{-01}Year
 \end{align*}\]</span></p>
@@ -829,6 +829,11 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
+<p>again teh hold out method preform the best but not by a large margin. below is the model.</p>
+<p><span class="math display">\[\begin{align*}Selling\_Price =  -1.879796e^{02} -1.097771e^{-06}Kms\_Driven 9.574837e^(-1)Fuel\_TypeDiesel \\
++ 4.335012e^{-1}Fuel\_TypePetrol-2.078542Seller\_TypeIndividual\\
+-3.952547e^{-01}TransmissionManual+ 9.409054e^{-02}Year
+\end{align*}\]</span></p>
 <p>We see that the hold-out method looks to be the worst performance, but the other cross-validation techniques yield consistent results, with the k-folds methods showing to be good techniques for modeling predictions.</p>
 </section>
 <section id="conlusion" class="level3">
