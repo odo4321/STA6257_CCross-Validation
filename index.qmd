@@ -31,7 +31,7 @@ The general, 5 step process to cross validation is as follows [@song2021making]:
 5. Calculate the average cross-validation prediction accuracy across all the repetitions
 
 This process differs in the various cross-validation techniques by varying how the data is split and how
-many repetitions are preformed of the train and test cycles. Details for the various techniques are outlined in the methods section.  The best cross validation technique
+many repetitions are performed of the train and test cycles. Details for the various techniques are outlined in the methods section.  The best cross validation technique
 considers the model’s bias or difference between the population parameter and the cross-validation
 estimate, the variance or uncertainty in the cross-validation estimates, and the computation costs
 associated with each method.
@@ -39,7 +39,7 @@ associated with each method.
 Typical technique comparisons for linear models use the root mean squared error (RMSE), mean absolute error (MAE), and R-squared ($R^2$). RMSE calculates how far predicted values are from observed values in the data set and is calculated by: 	
 $$RMSE= \sqrt{\frac{\sum(P_i – O_i)^2}{n}}$$
 with $P_i$ being the predicted value for the ith observation, $O_i$ being the ith observed value, and n being the sample size. MAE describes the typical magnitude of the residuals and is calculated by:
-$$MAE=\frac{1}{n}\sum(|y_i-\hat{y}|$$
+$$MAE=\frac{1}{n}\sum(|y_i-\hat{y}|)$$
 where $y_i$ is the actual output value and $\hat{y}$  is the predicted output. $R^2$ describes how well the model predictors explains the response variable variation, or the fraction of the variance that is explained in the model. This equation is as follows: $$R^2=\frac{n\sum(xy)-\sum(x)\sum(y)}{\sqrt{[n\sum(x^2)-(\sum(x)^2)][n\sum(y^2)-(\sum(y)^2)]}}$$ 
 This can also be written as:
 $$R^2=1-\frac{\sum(y_i-\hat{y})^2}{\sum(y_i-\overline{y})^2}$$
@@ -454,7 +454,7 @@ We see that the hold-out method looks to be the worst performance, but the other
 
 ### Conlusion
 
-This paper shows various cross-validation techniques that can be used for modeling validation, including hold out, k and repeated k-folds, leave-one-out and Monte Carlo cross-validaiton.  As cross-validation tends to be used in machine learning on large data, or in situations where it may be hard to gather large samples, our example allowed us to review the full data set's performance with linear regression and then compare the performance of the cross validation techniques. We compared both a linear model and a transformed linear model and found that...
+This paper shows various cross-validation techniques that can be used for modeling validation, including hold out, k and repeated k-folds, leave-one-out and Monte Carlo cross-validation.  As cross-validation tends to be used in machine learning on large data, or in situations where it may be hard to gather large samples, our example allowed us to review the full data set's performance with linear regression and then compare the performance of the cross validation techniques. We compared both a linear model and a transformed linear model and found that...
 
 ## References
 

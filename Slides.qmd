@@ -1,0 +1,76 @@
+---
+title: "Cross Validation"
+author: "Brenden Ackerson, Lindsey Cook, Dominic Gallelli"
+format: revealjs
+editor: visual
+bibliography: references.bib
+---
+
+## An Introduction to CV
+
+Cross Validation is a method in which we evaluate how well a model can predict values accurately. This procedure can be used to determine the best model for a data set, which is primarily used for machine learning. 
+
+## Steps
+
+There are a variety of ways cross validation can be done but in general the steps to do so are as follows [@song2021making]:
+
+1. Split the data into a training set and test set
+2. Fit a model to the training set and obtain the model parameters
+3. Apply the fitted model to the test set and obtain prediction accuracy
+4. Repeat steps one through three
+5. Calculate the average cross-validation prediction accuracy across all the repetitions
+
+## How to pick the best model?
+
+There are a many ways we can assess how well we have fit our model but typically the root mean squared error (RMSE), mean absolute error (MAE), and R-squared ($R^2$) are used the most. Below are formulas used to calculate each measure. RMSE calculates how far predicted values are from observed values. MAE describes the typical magnitude of the residuals. $R^2$ describes how well the  predictors explain the response variable variation, or the fraction of the variance that is explained in the model.
+
+## Evaluating the best model:
+
+$$RMSE= \sqrt{\frac{\sum(P_i - O_i)^2}{n}}$$
+
+$$MAE=\frac{1}{n}\sum(|y_i-\hat{y}|)$$
+
+$$R^2=1-\frac{\sum(y_i-\hat{y})^2}{\sum(y_i-\overline{y})^2}$$
+
+
+## Limitations
+
+One negative of cross-validation methods is that they are not guaranteed to pick the true model of the data distribution, even as the sample size approaches infinity. This is because when you train two different models on the same training set the one with more free parameters will model the training data better because it can over fit the data more easily. This can result in picking the wrong model due to over fitting. [@gronau2019limitations]
+
+## Hold Out or Validation Technique 
+
+This is the most common method of performing cross-validation (Ahmed, 2019). This method tends to use defined splits for the training and test set, like a 90/10, 80/20, etc. train/test data split. It is considered an easy, straightforward approach, but with the model only being built on a portion of the data, this model may not lead to accurate predictions because it is sensitive to what data is (or is not) chosen in the training set. This is especially problematic for small sample sizes. 
+
+## k-folds Cross-Validation Technique
+
+This method may be one potential answer to the limitations in the simple hold-out technique. The data is divided into k groups or splits, and then each k group becomes a test set while the other groups as a whole are the training set. 
+
+## k-folds Cross-Validation Steps:
+1.	Randomly and evenly split the data set into k-folds. 
+2.	Use k-1 folds of data as the training set to fit the model
+3.	With the fitted models, predict the value of the response variable in the hold out fold (kth fold)
+4.	From the response variable in the hold-out fold, calculate the prediction error
+
+## k-folds Cross-Validation Steps (contd):
+
+5.	Repeat steps 2-4 for k times, so each k fold is used as a hold-out
+6.	Compare the prediction performance measures to select the best model using the equation:
+
+$$CV_(k)=\frac{1}{k}\sum_{i=1}^{k}{MSE_i}$$
+
+[@Jung2015ak]
+
+## Figure 1
+
+The following image visually shows the how data is split in the k-folds technique.
+
+![Figure 1: Visual Depiction of K-folds [Sourced from www.i2tutorials.com for image ](https://www.i2tutorials.com/machine-learning-tutorial/machine-learning-k-fold-cross-validation/)](k-folds.png) 
+
+## Methodology
+
+For the car data set modeling included in this presentation, the method for hold Out validation is as follows:
+
+1.	Split the data into an 70/30 training/test data set.
+2.	Fit the model to the training set
+3.	Apply the fitted model to the test set
+4.	Compare the model predictions ($R^2$, MAE, RMSE)
