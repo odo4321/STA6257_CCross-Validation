@@ -188,6 +188,7 @@ test_pred = predict(model_train, test)
 #           MAE = MAE(test_pred, test$Selling_Price))
 #  R_squared     RMSE      MAE
 #  0.675032 3.066001 2.059764
+
 ```
 **k-folds Cross-Validation 10**
 ```{r, warning=FALSE, echo=T, message=FALSE}
@@ -422,6 +423,13 @@ The following table shows the various model accuracy prediction results from the
 
 
 Visually the results are summarized in Figure xx, and we see slight differences in xyz.
+
+
+
+\begin{align*}Selling\_Price = -6.019555e^{02} -3.669399e^{-06}Kms\_Driven +6.441331Fuel\_TypeDiesel \\ 
++1.825635Fuel\_TypePetrol-4.185450Seller\_TypeIndividual\\
+-3.891009TransmissionManual+ 3.023458e^{-01}Year 
+\end{align*}
 
 When looking at the above results, for the linear model, we can see that just based on high $R^2$ values, and low RMSE and MAE, the hold out method would look to be the superior technique for cross-validation, which seems to disagree with our literature review. However, with a 70/30 data split, or a 211/90 train/test split, it seems to be random chance to have the high $R^2$. This is confirmed by reviewing the various predictor evaluators for the k-folds and we can see there is a range of RMSE, MAE and $R^2$ values.
 

@@ -712,6 +712,10 @@ div.csl-indent {
 </tbody>
 </table>
 <p>Visually the results are summarized in Figure xx, and we see slight differences in xyz.</p>
+<p><span class="math display">\[\begin{align*}Selling\_Price = -6.019555e^{02} -3.669399e^{-06}Kms\_Driven +6.441331Fuel\_TypeDiesel \\
++1.825635Fuel\_TypePetrol-4.185450Seller\_TypeIndividual\\
+-3.891009TransmissionManual+ 3.023458e^{-01}Year
+\end{align*}\]</span></p>
 <p>When looking at the above results, for the linear model, we can see that just based on high <span class="math inline">\(R^2\)</span> values, and low RMSE and MAE, the hold out method would look to be the superior technique for cross-validation, which seems to disagree with our literature review. However, with a 70/30 data split, or a 211/90 train/test split, it seems to be random chance to have the high <span class="math inline">\(R^2\)</span>. This is confirmed by reviewing the various predictor evaluators for the k-folds and we can see there is a range of RMSE, MAE and <span class="math inline">\(R^2\)</span> values.</p>
 <table class="table">
 <thead>
