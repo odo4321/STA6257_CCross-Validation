@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.36">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -13,10 +13,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -55,7 +60,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -68,7 +73,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -163,13 +168,8 @@ div.csl-indent {
 <li>Calculate the average cross-validation prediction accuracy across all the repetitions</li>
 </ol>
 <p>This process differs in the various cross-validation techniques by varying how the data is split and how many repetitions are performed of the train and test cycles. Details for the various techniques are outlined in the methods section. The best cross validation technique considers the model’s bias or difference between the population parameter and the cross-validation estimate, the variance or uncertainty in the cross-validation estimates, and the computation costs associated with each method.</p>
-<p>Typical technique comparisons for linear models use the root mean squared error (RMSE), mean absolute error (MAE), and R-squared (<span class="math inline">\(R^2\)</span>). RMSE calculates how far predicted values are from observed values in the data set and is calculated by:</p>
-<p><span class="math display">\[RMSE= \sqrt{\frac{\sum(P_i – O_i)^2}{n}}\]</span></p>
-<p>with <span class="math inline">\(P_i\)</span> being the predicted value for the ith observation, <span class="math inline">\(O_i\)</span> being the ith observed value, and n being the sample size. MAE describes the typical magnitude of the residuals and is calculated by:</p>
-<p><span class="math display">\[MAE=\frac{1}{n}\sum(|y_i-\hat{y}|)\]</span></p>
-<p>where <span class="math inline">\(y_i\)</span> is the actual output value and <span class="math inline">\(\hat{y}\)</span> is the predicted output. <span class="math inline">\(R^2\)</span> describes how well the model predictors explains the response variable variation, or the fraction of the variance that is explained in the model. This equation is as follows: <span class="math display">\[R^2=\frac{n\sum(xy)-\sum(x)\sum(y)}{\sqrt{[n\sum(x^2)-(\sum(x)^2)][n\sum(y^2)-(\sum(y)^2)]}}\]</span> This can also be written as:</p>
-<p><span class="math display">\[R^2=1-\frac{\sum(y_i-\hat{y})^2}{\sum(y_i-\overline{y})^2}\]</span></p>
-<p>where <span class="math inline">\(\overline{y}\)</span> is the mean value of y. <span class="citation" data-cites="Ott2015">(<a href="#ref-Ott2015" role="doc-biblioref">Ott 2015</a>)</span></p>
+<p>Typical technique comparisons for linear models use the root mean squared error (RMSE), mean absolute error (MAE), and R-squared (<span class="math inline">\(R^2\)</span>). RMSE calculates how far predicted values are from observed values in the data set and is calculated by:<br>
+<span class="math display">\[RMSE= \sqrt{\frac{\sum(P_i – O_i)^2}{n}}\]</span> with <span class="math inline">\(P_i\)</span> being the predicted value for the ith observation, <span class="math inline">\(O_i\)</span> being the ith observed value, and n being the sample size. MAE describes the typical magnitude of the residuals and is calculated by: <span class="math display">\[MAE=\frac{1}{n}\sum(|y_i-\hat{y}|)\]</span> where <span class="math inline">\(y_i\)</span> is the actual output value and <span class="math inline">\(\hat{y}\)</span> is the predicted output. <span class="math inline">\(R^2\)</span> describes how well the model predictors explains the response variable variation, or the fraction of the variance that is explained in the model. This equation is as follows: <span class="math display">\[R^2=\frac{n\sum(xy)-\sum(x)\sum(y)}{\sqrt{[n\sum(x^2)-(\sum(x)^2)][n\sum(y^2)-(\sum(y)^2)]}}\]</span> This can also be written as: <span class="math display">\[R^2=1-\frac{\sum(y_i-\hat{y})^2}{\sum(y_i-\overline{y})^2}\]</span> where <span class="math inline">\(\overline{y}\)</span> is the mean value of y. <span class="citation" data-cites="Ott2015">(<a href="#ref-Ott2015" role="doc-biblioref">Ott 2015</a>)</span></p>
 <p>One of the limitations of cross-validation methods is that they are not guaranteed to pick the true model of the data distribution, even as the number of samples approaches infinity. This is because when you train two different models on the same training set the one with more free parameters will model the training data better because it can over fit the data more easily. This can result in picking the wrong model due to over fitting. <span class="citation" data-cites="gronau2019limitations">(<a href="#ref-gronau2019limitations" role="doc-biblioref">Gronau and Wagenmakers 2019</a>)</span></p>
 </section>
 <section id="methods" class="level2">
@@ -216,12 +216,12 @@ div.csl-indent {
 </ol>
 <p>One big decision that has to be made when using cross-validation methods other than leave-one-out, is the <em>optimal number of folds</em> (also known as k) that the data should be divided into. In the article “Performance of Machine Learning Algorithms with Different K Values in K-fold Cross-Validation” k-validation was used on 4 different machine learning algorithms with splits of 3, 5, 7, 10, 15 and 20. They found the optimal k folds changed depending on the model being tested. <span class="citation" data-cites="nti2021performance">(<a href="#ref-nti2021performance" role="doc-biblioref">Nti, Nyarko-Boateng, and Aning 2021</a>)</span> Common practice uses 5 and 10 folds as these values have been shown to yield favorable test error rate estimates. <span class="citation" data-cites="James2013">(<a href="#ref-James2013" role="doc-biblioref">James 2013</a>)</span>. Our paper will explore using 3, 5 and 10 k-folds, and modeling repeated k-folds of 3 and 5 repetitions on 10 folds.</p>
 <p>Another technique is the <strong>Monte Carlo Cross-Validation Technique</strong>, which is similar to a k-fold method, but a predefined portion of the data is randomly selected to form the test set in each repetition, and the remaining portion forms the training set. The train-test process is repeated a predetermined number of times. <span class="citation" data-cites="wainer2021nested">(<a href="#ref-wainer2021nested" role="doc-biblioref">Wainer and Cawley 2021</a>)</span></p>
-<p>Additionally, <strong>Multiple Predicting Cross-Validation</strong> is a technique that can be used for cross-validation but is not being modeled in this paper include. This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-folds is then used to measure how good the model is. <span class="citation" data-cites="jung2018multiple">(<a href="#ref-jung2018multiple" role="doc-biblioref">Jung 2018</a>)</span></p>
+<p>Additionally, <strong>Multiple Predicting Cross-Validation</strong> is a technique that can be used for cross-validation but is not being modeled in this paper. This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-folds is then used to measure how good the model is. <span class="citation" data-cites="jung2018multiple">(<a href="#ref-jung2018multiple" role="doc-biblioref">Jung 2018</a>)</span></p>
 </section>
 <section id="analysis-and-results" class="level2">
 <h2 class="anchored" data-anchor-id="analysis-and-results">Analysis and Results</h2>
 <p><strong>Data Discussion</strong></p>
-<p>Cross-validation techniques of hold-out validation, k-folds, repeated k-folds, leave-one-out and Monte Carlo were performed on the Kaggle Car data.csv set. This data set allowed us to model the selling price of a used car in the United Kingdom given the variables of kilometers driven, the fuel type used, the year the car was manufactured, if the seller was an individual or dealership, and what type of transmission was in the car. This data set had 301 data point of the car selling prices. The data is detailed in table 1 below.</p>
+<p>Cross-validation techniques of hold-out validation, k-folds, repeated k-folds, leave-one-out and Monte Carlo were performed on the Kaggle Car data.csv set. This data set allowed us to model the selling price of a used car in the United Kingdom given the variables of kilometers driven, the fuel type used, the year the car was manufactured, if the seller was an individual or dealership, and what type of transmission was in the car. This data set had 301 entries. The data is detailed in table 1 below.</p>
 <table class="table">
 <colgroup>
 <col style="width: 29%">
@@ -301,15 +301,11 @@ div.csl-indent {
 </div>
 <section id="statistical-modeling" class="level3">
 <h3 class="anchored" data-anchor-id="statistical-modeling">Statistical Modeling</h3>
-<p>First, the data was fit to the following linear model, <span class="math display">\[Selling Price=Year+KmsDriven+FuelType+SellerType+Transmission\]</span> and produced the following linear regression model for a Manual, Diesel vehicle selling by an individual:</p>
-<p><span class="math display">\[SellingPrice=-628.569-0.000004KmsDriven+0.313Year\]</span></p>
-<p>This model has a residual standard error of 3.321 and an <span class="math inline">\(R^2\)</span> value of 0.5817.</p>
+<p>First, the data was fit to the following linear model, <span class="math display">\[Selling Price=Year+KmsDriven+FuelType+SellerType+Transmission\]</span> and produced the following linear regression model for a Manual, Diesel vehicle selling by an individual: <span class="math display">\[SellingPrice=-628.569-0.000004KmsDriven+0.313Year\]</span> This model has a residual standard error of 3.321 and an <span class="math inline">\(R^2\)</span> value of 0.5817.</p>
 <p>From figure xx we can see that the data has a slight linear response from xxx…</p>
 <p>This linear model is then used to test the various cross validation techniques. First the hold out method was performed using an 70/30 data split. The next technique of cross-validation was k-folds, using 3, 5, and 10 k splits. The repeated k-folds technique was then performed, using the 10 k split, repeated 3 and 5 times. Leave-one-out and Monte Carlo techniques were also ran on the model for comparisons.</p>
 <p>As cross-validation can be used as a tool to determine the best model for a data set, we also considered a log transformation of the linear model on the response variable, selling price. <span class="math display">\[log(SellingPrice)=Year+KmsDriven+FuelType+SellerType+Transmission\]</span></p>
-<p>This model yielded the following regression equation for a Manual, Diesel vehicle selling by an individual:</p>
-<p><span class="math display">\[log(SellingPrice)=-198.902-0.0000003KmsDriven+0.099Year\]</span></p>
-<p>This model has a residual standard error of 0.5341 and an <span class="math inline">\(R^2\)</span> value of 0.8271.</p>
+<p>This model yielded the following regression equation for a Manual, Diesel vehicle sold by an individual: <span class="math display">\[log(SellingPrice)=-198.902-0.0000003KmsDriven+0.099Year\]</span> This model has a residual standard error of 0.5341 and an <span class="math inline">\(R^2\)</span> value of 0.8271.</p>
 <p>As shown below in Figure xx, we can see that this transformed model does seem to better fit our car data when compared to the basic linear model.</p>
 </section>
 <section id="sellingprice" class="level3">
@@ -712,11 +708,11 @@ div.csl-indent {
 </tbody>
 </table>
 <p>Visually the results are summarized in Figure xx, and we see slight differences in xyz.</p>
-<p>below is the coafishents of the best preforming model Hold Out <span class="math display">\[\begin{align*}Selling\_Price = -6.019555e^{02} -3.669399e^{-06}Kms\_Driven +6.441331Fuel\_TypeDiesel \\
+<p>below are the coefficients of the best performing model Hold Out <span class="math display">\[\begin{align*}Selling\_Price = -6.019555e^{02} -3.669399e^{-06}Kms\_Driven +6.441331Fuel\_TypeDiesel \\
 +1.825635Fuel\_TypePetrol-4.185450Seller\_TypeIndividual\\
 -3.891009TransmissionManual+ 3.023458e^{-01}Year
 \end{align*}\]</span></p>
-<p>When looking at the above results, for the linear model, we can see that just based on high <span class="math inline">\(R^2\)</span> values, and low RMSE and MAE, the hold out method would look to be the superior technique for cross-validation, which seems to disagree with our literature review. However, with a 70/30 data split, or a 211/90 train/test split, it seems to be random chance to have the high <span class="math inline">\(R^2\)</span>. This is confirmed by reviewing the various predictor evaluators for the k-folds and we can see there is a range of RMSE, MAE and <span class="math inline">\(R^2\)</span> values.</p>
+<p>When looking results of the linear model, we can see that just based on high <span class="math inline">\(R^2\)</span> values, and low RMSE and MAE, the hold out method would look to be the superior technique for cross-validation, which seems to disagree with our literature review. However, with a 70/30 data split, or a 211/90 train/test split, it seems to be random chance to have the high <span class="math inline">\(R^2\)</span>. This is confirmed by reviewing the various predictor evaluations for the k-folds and we can see there is a range of RMSE, MAE and <span class="math inline">\(R^2\)</span> values.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -829,16 +825,16 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<p>again teh hold out method preform the best but not by a large margin. below is the model.</p>
+<p>again the hold out method performed the best but not by a large margin. Below is the model.</p>
 <p><span class="math display">\[\begin{align*}Selling\_Price =  -1.879796e^{02} -1.097771e^{-06}Kms\_Driven 9.574837e^(-1)Fuel\_TypeDiesel \\
 + 4.335012e^{-1}Fuel\_TypePetrol-2.078542Seller\_TypeIndividual\\
 -3.952547e^{-01}TransmissionManual+ 9.409054e^{-02}Year
 \end{align*}\]</span></p>
-<p>We see that the hold-out method looks to be the worst performance, but the other cross-validation techniques yield consistent results, with the k-folds methods showing to be good techniques for modeling predictions.</p>
+<p>We see that the hold-out method looks to be performing the worst. However, the other cross-validation techniques yield consistent results, with the k-folds methods being good techniques for modeling predictions.</p>
 </section>
 <section id="conlusion" class="level3">
 <h3 class="anchored" data-anchor-id="conlusion">Conlusion</h3>
-<p>This paper shows various cross-validation techniques that can be used for modeling validation, including hold out, k and repeated k-folds, leave-one-out and Monte Carlo cross-validation. As cross-validation tends to be used in machine learning on large data, or in situations where it may be hard to gather large samples, our example allowed us to review the full data set’s performance with linear regression and then compare the performance of the cross validation techniques. We compared both a linear model and a transformed linear model and found that…</p>
+<p>This paper shows various cross-validation techniques that can be used for modeling validation, including hold out, k and repeated k-folds, leave-one-out and Monte Carlo cross-validation. As cross-validation tends to be used in machine learning on large data, or in situations where it may be hard to gather large samples, our example allowed us to review the full data set’s performance with linear regression and then compare the performance of the cross validation techniques. We compared both a linear model and a transformed linear model and found that for the most part many of these cross validation techniques performed about the same and were able to fit accurate models. While k-folds and repeated k-folds seemed to perform the best, most of these techniques seem sufficient to help validate a model based on this example.</p>
 </section>
 </section>
 <section id="references" class="level2 unnumbered">
@@ -948,7 +944,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);

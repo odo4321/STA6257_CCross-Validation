@@ -96,7 +96,7 @@ Expanding on the k-folds technique is the **repeated k-folds Cross-Validation Te
  Another technique is the **Monte Carlo Cross-Validation Technique**, which is similar to a k-fold method, but a predefined portion of the data is randomly selected to form the test set in each repetition, and the remaining
 portion forms the training set. The train-test process is repeated a predetermined number of times. [@wainer2021nested]
  
- Additionally, **Multiple Predicting Cross-Validation** is a technique that can be used for cross-validation but is not being modeled in this paper include. This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-folds is then used to measure how good the model is. [@jung2018multiple]
+ Additionally, **Multiple Predicting Cross-Validation** is a technique that can be used for cross-validation but is not being modeled in this paper. This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-folds is then used to measure how good the model is. [@jung2018multiple]
 
 
 
@@ -104,7 +104,7 @@ portion forms the training set. The train-test process is repeated a predetermin
 
 **Data Discussion**
 
-Cross-validation techniques of hold-out validation, k-folds, repeated k-folds, leave-one-out and Monte Carlo were performed on the Kaggle Car data.csv set. This data set allowed us to model the selling price of a used car in the United Kingdom given the variables of kilometers driven, the fuel type used, the year the car was manufactured, if the seller was an individual or dealership, and what type of transmission was in the car. This data set had 301 data point of the car selling prices. The data is detailed in table 1 below. 
+Cross-validation techniques of hold-out validation, k-folds, repeated k-folds, leave-one-out and Monte Carlo were performed on the Kaggle Car data.csv set. This data set allowed us to model the selling price of a used car in the United Kingdom given the variables of kilometers driven, the fuel type used, the year the car was manufactured, if the seller was an individual or dealership, and what type of transmission was in the car. This data set had 301 entries. The data is detailed in table 1 below. 
 
 
 
@@ -150,7 +150,7 @@ This linear model is then used to test the various cross validation techniques. 
 
 As cross-validation can be used as a tool to determine the best model for a data set, we also considered a log transformation of the linear model on the response variable, selling price. $$log(SellingPrice)=Year+KmsDriven+FuelType+SellerType+Transmission$$
 
-This model yielded the following regression equation for a Manual, Diesel vehicle selling by an individual:
+This model yielded the following regression equation for a Manual, Diesel vehicle sold by an individual:
 $$log(SellingPrice)=-198.902-0.0000003KmsDriven+0.099Year$$
 This model has a residual standard error of 0.5341 and an $R^2$ value of 0.8271.
 
@@ -425,13 +425,13 @@ The following table shows the various model accuracy prediction results from the
 Visually the results are summarized in Figure xx, and we see slight differences in xyz.
 
 
- below is the coafishents of the best preforming model Hold Out
+ below are the coefficients of the best performing model Hold Out
 \begin{align*}Selling\_Price = -6.019555e^{02} -3.669399e^{-06}Kms\_Driven +6.441331Fuel\_TypeDiesel \\ 
 +1.825635Fuel\_TypePetrol-4.185450Seller\_TypeIndividual\\
 -3.891009TransmissionManual+ 3.023458e^{-01}Year 
 \end{align*}
 
-When looking at the above results, for the linear model, we can see that just based on high $R^2$ values, and low RMSE and MAE, the hold out method would look to be the superior technique for cross-validation, which seems to disagree with our literature review. However, with a 70/30 data split, or a 211/90 train/test split, it seems to be random chance to have the high $R^2$. This is confirmed by reviewing the various predictor evaluators for the k-folds and we can see there is a range of RMSE, MAE and $R^2$ values.
+When looking results of the linear model, we can see that just based on high $R^2$ values, and low RMSE and MAE, the hold out method would look to be the superior technique for cross-validation, which seems to disagree with our literature review. However, with a 70/30 data split, or a 211/90 train/test split, it seems to be random chance to have the high $R^2$. This is confirmed by reviewing the various predictor evaluations for the k-folds and we can see there is a range of RMSE, MAE and $R^2$ values.
 
 
 |  RMSE    | Rsquared  |    MAE   | Re-sample | 
@@ -459,7 +459,7 @@ Reviewing the transformed linear model, the various cross validation techniques 
 | MAE      | 0.4056521                | 0.4047157                | 0.4072408     | 0.400559 |
 
 
-again teh hold out method preform the best but not by a large margin. below is the model. 
+again the hold out method performed the best but not by a large margin. Below is the model. 
 
 \begin{align*}Selling\_Price =  -1.879796e^{02} -1.097771e^{-06}Kms\_Driven 9.574837e^(-1)Fuel\_TypeDiesel \\ 
 + 4.335012e^{-1}Fuel\_TypePetrol-2.078542Seller\_TypeIndividual\\
@@ -467,11 +467,11 @@ again teh hold out method preform the best but not by a large margin. below is t
 \end{align*}
 
 
-We see that the hold-out method looks to be the worst performance, but the other cross-validation techniques yield consistent results, with the k-folds methods showing to be good techniques for modeling predictions.
+We see that the hold-out method looks to be performing the worst. However, the other cross-validation techniques yield consistent results, with the k-folds methods being good techniques for modeling predictions.
 
 ### Conlusion
 
-This paper shows various cross-validation techniques that can be used for modeling validation, including hold out, k and repeated k-folds, leave-one-out and Monte Carlo cross-validation.  As cross-validation tends to be used in machine learning on large data, or in situations where it may be hard to gather large samples, our example allowed us to review the full data set's performance with linear regression and then compare the performance of the cross validation techniques. We compared both a linear model and a transformed linear model and found that...
+This paper shows various cross-validation techniques that can be used for modeling validation, including hold out, k and repeated k-folds, leave-one-out and Monte Carlo cross-validation.  As cross-validation tends to be used in machine learning on large data, or in situations where it may be hard to gather large samples, our example allowed us to review the full data set's performance with linear regression and then compare the performance of the cross validation techniques. We compared both a linear model and a transformed linear model and found that for the most part many of these cross validation techniques performed about the same and were able to fit accurate models. While k-folds and repeated k-folds seemed to perform the best, most of these techniques seem sufficient to help validate a model based on this example. 
 
 ## References
 
