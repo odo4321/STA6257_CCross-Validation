@@ -142,19 +142,11 @@ plot(car_data$Kms_Driven, car_data$Selling_Price,
 ```
 ### Statistical Modeling
 
-First, the data was fit to the following linear model, $$Selling Price=Year+KmsDriven+FuelType+SellerType+Transmission$$ and produced the following linear regression model for a Manual, Diesel vehicle selling by an individual:
-$$SellingPrice=-628.569-0.000004KmsDriven+0.313Year$$
-This model has a residual standard error of 3.321 and an $R^2$ value of 0.5817. 
+First, the data was fit to the following linear model, $$Selling Price=Year+KmsDriven+FuelType+SellerType+Transmission$$ 
 
-From figure xx we can see that the data has a slight linear response from xxx...
-
-This linear model is then used to test the various cross validation techniques. First the hold out method was performed using an 70/30 data split. The next technique of cross-validation was k-folds, using 3, 5, and 10 k splits. The repeated k-folds technique was then performed, using the 10 k split, repeated 3 and 5 times. Leave-one-out and Monte Carlo techniques were also ran on the model for comparisons. 
+This linear model was fitted using the various cross validation techniques. First the hold out method was performed using an 70/30 data split. The next technique of cross-validation was k-folds, using 3, 5, and 10 k splits. The repeated k-folds technique was then performed, using the 10 k split, repeated 3 and 5 times. Leave-one-out and Monte Carlo techniques were also ran on the model for comparisons. 
 
 As cross-validation can be used as a tool to determine the best model for a data set, we also considered a log transformation of the linear model on the response variable, selling price. $$log(SellingPrice)=Year+KmsDriven+FuelType+SellerType+Transmission$$
-
-This model yielded the following regression equation for a Manual, Diesel vehicle sold by an individual:
-$$log(SellingPrice)=-198.902-0.0000003KmsDriven+0.099Year$$
-This model has a residual standard error of 0.5341 and an $R^2$ value of 0.8271.
 
 
 

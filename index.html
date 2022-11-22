@@ -304,15 +304,9 @@ div.csl-indent {
 </div>
 <section id="statistical-modeling" class="level3">
 <h3 class="anchored" data-anchor-id="statistical-modeling">Statistical Modeling</h3>
-<p>First, the data was fit to the following linear model, <span class="math display">\[Selling Price=Year+KmsDriven+FuelType+SellerType+Transmission\]</span> and produced the following linear regression model for a Manual, Diesel vehicle selling by an individual:</p>
-<p><span class="math display">\[SellingPrice=-628.569-0.000004KmsDriven+0.313Year\]</span></p>
-<p>This model has a residual standard error of 3.321 and an <span class="math inline">\(R^2\)</span> value of 0.5817.</p>
-<p>From figure xx we can see that the data has a slight linear response from xxx…</p>
-<p>This linear model is then used to test the various cross validation techniques. First the hold out method was performed using an 70/30 data split. The next technique of cross-validation was k-folds, using 3, 5, and 10 k splits. The repeated k-folds technique was then performed, using the 10 k split, repeated 3 and 5 times. Leave-one-out and Monte Carlo techniques were also ran on the model for comparisons.</p>
+<p>First, the data was fit to the following linear model, <span class="math display">\[Selling Price=Year+KmsDriven+FuelType+SellerType+Transmission\]</span></p>
+<p>This linear model was fitted using the various cross validation techniques. First the hold out method was performed using an 70/30 data split. The next technique of cross-validation was k-folds, using 3, 5, and 10 k splits. The repeated k-folds technique was then performed, using the 10 k split, repeated 3 and 5 times. Leave-one-out and Monte Carlo techniques were also ran on the model for comparisons.</p>
 <p>As cross-validation can be used as a tool to determine the best model for a data set, we also considered a log transformation of the linear model on the response variable, selling price. <span class="math display">\[log(SellingPrice)=Year+KmsDriven+FuelType+SellerType+Transmission\]</span></p>
-<p>This model yielded the following regression equation for a Manual, Diesel vehicle sold by an individual:</p>
-<p><span class="math display">\[log(SellingPrice)=-198.902-0.0000003KmsDriven+0.099Year\]</span></p>
-<p>This model has a residual standard error of 0.5341 and an <span class="math inline">\(R^2\)</span> value of 0.8271.</p>
 </section>
 <section id="sellingprice" class="level3">
 <h3 class="anchored" data-anchor-id="sellingprice"><span class="math inline">\(SellingPrice\)</span></h3>
