@@ -8,21 +8,21 @@ bibliography: references.bib
 
 ## An Introduction to CV
 
-Cross Validation is a method in which we evaluate how well a model can predict values accurately. This procedure can be used to determine the best model for a data set, which is primarily used for machine learning. 
+Cross Validation is a method in which we evaluate how well a model can predict values accurately. This procedure can be used to determine the best model for a data set, which is primarily used for machine learning.
 
 ## Steps
 
 There are a variety of ways cross validation can be done but in general the steps to do so are as follows [@song2021making]:
 
-1. Split the data into a training set and test set
-2. Fit a model to the training set and obtain the model parameters
-3. Apply the fitted model to the test set and obtain prediction accuracy
-4. Repeat steps one through three
-5. Calculate the average cross-validation prediction accuracy across all the repetitions
+1.  Split the data into a training set and test set
+2.  Fit a model to the training set and obtain the model parameters
+3.  Apply the fitted model to the test set and obtain prediction accuracy
+4.  Repeat steps one through three
+5.  Calculate the average cross-validation prediction accuracy across all the repetitions
 
 ## How to pick the best model?
 
-There are a many ways we can assess how well we have fit our model but typically the root mean squared error (RMSE), mean absolute error (MAE), and R-squared ($R^2$) are used the most. Below are formulas used to calculate each measure. RMSE calculates how far predicted values are from observed values. MAE describes the typical magnitude of the residuals. $R^2$ describes how well the  predictors explain the response variable variation, or the fraction of the variance that is explained in the model.
+There are a many ways we can assess how well we have fit our model but typically the root mean squared error (RMSE), mean absolute error (MAE), and R-squared ($R^2$) are used the most. Below are formulas used to calculate each measure. RMSE calculates how far predicted values are from observed values. MAE describes the typical magnitude of the residuals. $R^2$ describes how well the predictors explain the response variable variation, or the fraction of the variance that is explained in the model.
 
 ## Evaluating the best model:
 
@@ -32,29 +32,29 @@ $$MAE=\frac{1}{n}\sum(|y_i-\hat{y}|)$$
 
 $$R^2=1-\frac{\sum(y_i-\hat{y})^2}{\sum(y_i-\overline{y})^2}$$
 
-
 ## Limitations
 
 One negative of cross-validation methods is that they are not guaranteed to pick the true model of the data distribution, even as the sample size approaches infinity. This is because when you train two different models on the same training set the one with more free parameters will model the training data better because it can over fit the data more easily. This can result in picking the wrong model due to over fitting. [@gronau2019limitations]
 
-## Hold Out or Validation Technique 
+## Hold Out or Validation Technique
 
-This is the most common method of performing cross-validation (Ahmed, 2019). This method tends to use defined splits for the training and test set, like a 90/10, 80/20, etc. train/test data split. It is considered an easy, straightforward approach, but with the model only being built on a portion of the data, this model may not lead to accurate predictions because it is sensitive to what data is (or is not) chosen in the training set. This is especially problematic for small sample sizes. 
+This is the most common method of performing cross-validation (Ahmed, 2019). This method tends to use defined splits for the training and test set, like a 90/10, 80/20, etc. train/test data split. It is considered an easy, straightforward approach, but with the model only being built on a portion of the data, this model may not lead to accurate predictions because it is sensitive to what data is (or is not) chosen in the training set. This is especially problematic for small sample sizes.
 
 ## k-folds Cross-Validation Technique
 
-This method may be one potential answer to the limitations in the simple hold-out technique. The data is divided into k groups or splits, and then each k group becomes a test set while the other groups as a whole are the training set. 
+This method may be one potential answer to the limitations in the simple hold-out technique. The data is divided into k groups or splits, and then each k group becomes a test set while the other groups as a whole are the training set.
 
 ## k-folds Cross-Validation Steps:
-1.	Randomly and evenly split the data set into k-folds. 
-2.	Use k-1 folds of data as the training set to fit the model
-3.	With the fitted models, predict the value of the response variable in the hold out fold (kth fold)
-4.	From the response variable in the hold-out fold, calculate the prediction error
+
+1.  Randomly and evenly split the data set into k-folds.
+2.  Use k-1 folds of data as the training set to fit the model
+3.  With the fitted models, predict the value of the response variable in the hold out fold (kth fold)
+4.  From the response variable in the hold-out fold, calculate the prediction error
 
 ## k-folds Cross-Validation Steps (contd):
 
-5.	Repeat steps 2-4 for k times, so each k fold is used as a hold-out
-6.	Compare the prediction performance measures to select the best model using the equation:
+5.  Repeat steps 2-4 for k times, so each k fold is used as a hold-out
+6.  Compare the prediction performance measures to select the best model using the equation:
 
 $$CV_(k)=\frac{1}{k}\sum_{i=1}^{k}{MSE_i}$$
 
@@ -64,13 +64,420 @@ $$CV_(k)=\frac{1}{k}\sum_{i=1}^{k}{MSE_i}$$
 
 The following image visually shows the how data is split in the k-folds technique.
 
-![Figure 1: Visual Depiction of K-folds [Sourced from www.i2tutorials.com for image ](https://www.i2tutorials.com/machine-learning-tutorial/machine-learning-k-fold-cross-validation/)](k-folds.png) 
+![Figure 1: Visual Depiction of K-folds [Sourced from www.i2tutorials.com for image](https://www.i2tutorials.com/machine-learning-tutorial/machine-learning-k-fold-cross-validation/)](k-folds.png)
 
-## Methodology
+## Repeated k-folds Cross-Validation
 
-For the car data set modeling included in this presentation, the method for hold Out validation is as follows:
+This methods expands on the k-folds technique [@song2021making] by conducting multiple repetitions (n), each using a different k fold split. If 5 repeats of a 10-fold cross validation were chosen, 50 (n*k) different models would be fit and evaluated. With each repetition (n) having a slightly different data subset, the model predictors should be even more unbiased than with k-folds. One negative associated with this method is having to repeat the process numerous times, which makes this a time and labor intensive method.
 
-1.	Split the data into an 70/30 training/test data set.
-2.	Fit the model to the training set
-3.	Apply the fitted model to the test set
-4.	Compare the model predictions ($R^2$, MAE, RMSE)
+## Repeated k-folds Cross-Validation Steps
+ 
+The process is as follows:
+
+1.	Randomly and evenly split the data set into k-folds.
+2.	Use k-1 folds of data as the training set to fit the model
+3.	With the fitted models, predict the value of the response variable in the hold out fold (kth fold)
+4.	From the response variable in the hold-out fold, calculate the prediction error
+5.	Repeat steps 2-4 for k times, so each k fold is used as a hold-out
+6.	Repeat steps 1-5 n times.
+
+## Leave-One-Out Cross-Validation
+
+This method is a special case of the k-folds technique that systematically excludes each entry in the data set and fits the model with all other n-1 entries. This technique splits the data into sets of n-1 and 1, n times. For each observation, the cross-validation residual is the difference between the observation and the model predicted value. This technique has the advantages of having a less biased MSE than a single test but can be a time-consuming technique when the data set is large or the model is complex, and can thus be an expensive method.  [@derryberry2014basic] 
+
+## Leave-One-Out Cross-Validation Steps
+
+The leave-on-out method steps are highlighted below:
+
+1.	Split the data into a training set and testing set, using all but one observation as part of the training set.
+2.	Use the training set to build the model
+3.	Use the model to predict the response value of the one observation left out of the model
+4.	Repeat the process n times
+5.	Average the test predictions for overall model prediction values.  $$CV_(n)=\frac{1}{n}\sum_{i=1}^{n}{MSE_i}$$
+
+
+## Optimal Number of Folds
+
+Something to consider during the k-folds method is what is the *optimal number of folds* (also known as k) that the data should be divided into. In the article “Performance of Machine Learning Algorithms with Different K Values in K-fold Cross-Validation” k-validation was used on 4 different machine learning algorithms with splits of 3, 5, 7, 10, 15 and 20. They found the optimal k folds changed depending on the model being tested. [@nti2021performance] Common practice uses 5 and 10 folds as these values have been shown to yield favorable test error rate estimates. [@James2013]. Our paper will explore using 3, 5 and 10 k-folds, and modeling repeated k-folds of 3 and 5 repetitions on 10 folds.
+
+
+## Monte Carlo Cross-Validation Technique
+
+This technique is similar to a k-fold method, but a predefined portion of the data is randomly selected to form the test set in each repetition, and the remaining
+portion forms the training set. The train-test process is repeated a predetermined number of times. [@wainer2021nested]
+ 
+## Multiple Predicting Cross-Validation
+
+This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-folds is then used to measure how good the model is. [@jung2018multiple]
+
+## Data Analysis
+Hold-out validation, k-folds, repeated k-folds, leave-one-out and Monte Carlo cross-validation techniques were performed on a data set from Kaggle titled Car data.csv. This data set allowed us to model the selling price of a used car in the United Kingdom given the variables of kilometers driven, the fuel type used, the year the car was manufactured, if the seller type, transmission type. This data has 301 cars as entries. The data is detailed in the next slide.
+
+## Data Set
+
+| Variable   Name     |     Type         |     Characteristic             |
+|---------------------|------------------|--------------------------------|
+|     Selling_Price   |     Response     |     Numeric                    |
+|     Year            |     Predictor    |     Numeric                    |
+|     Kms_Driven      |     Predictor    |     Numeric                    |
+|     Fuel_Type       |     Predictor    |    Categorical, 3 levels       |
+|     Seller_Type     |     Predictor    |    Categorical, 2 levels       |
+|     Transmission    |     Predictor    |    Categorical, 2 levels       |
+Table 1: Car Data Set for Cross Validation
+
+[Link to Documentation for CarData data](https://www.kaggle.com/datasets/nehalbirla/vehicle-dataset-from-cardekho?select=car+data.csv)
+
+## Scatter Plot 1
+
+```{r, warning=FALSE, echo=F, message=FALSE}
+# Load Data
+car_data <- read.csv("car data.csv")
+
+# Selling Price ~ Year
+plot(car_data$Year, car_data$Selling_Price,
+     xlab = "Year",
+     ylab = "Selling Price (thousands)",
+     main = "Scatter Plot")
+```
+
+## Scatter Plot 2
+
+```{r, warning=FALSE, echo=F, message=FALSE}
+# Selling Price ~ Kms Driven
+plot(car_data$Kms_Driven, car_data$Selling_Price,
+     xlab = "Kms Driven",
+     ylab = "Selling Price (thousands)",
+     main = "Scatter Plot",
+     xlim = c(0, 100000))
+```
+
+## Models
+
+
+Linear model:
+$$Selling Price=Year+KmsDriven+FuelType+SellerType+Transmission$$ 
+
+This linear model was fitted using the various cross validation techniques. First the hold out method was performed using an 70/30 data split. The next technique of cross-validation was k-folds, using 3, 5, and 10 k splits. The repeated k-folds technique was then performed, using the 10 k split, repeated 3 and 5 times. Leave-one-out and Monte Carlo techniques were also ran on the model for comparisons. 
+
+Log Transformation
+$$log(SellingPrice)=Year+KmsDriven+FuelType+SellerType+Transmission$$
+
+
+## Hold Out
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+library(caret)
+library(ggplot2)
+library(tidyverse)
+library(ggfortify)
+library(caTools)
+
+set.seed(1)
+
+car_data = read.csv("car data.csv")
+
+# model normal linear model. 
+model1 <- lm(Selling_Price ~  Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year, data = car_data)
+#autoplot(model1)
+#summary(model1)
+
+# Hold Out
+sample <- sample.split(car_data$Year, SplitRatio = 0.7)
+train  <- subset(car_data, sample == TRUE)
+test   <- subset(car_data, sample == FALSE)
+
+model_train = lm(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year, data = train)
+test_pred = predict(model_train, test)
+
+#data.frame(R_squared = R2(test_pred, test$Selling_Price),
+#           RMSE = RMSE(test_pred, test$Selling_Price),
+#           MAE = MAE(test_pred, test$Selling_Price))
+#  R_squared     RMSE      MAE
+#  0.675032 3.066001 2.059764
+
+```
+
+
+## k-folds Cross-Validation 10
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+#k-folds Cross-Validation 10
+ctrl10 <- trainControl(method = "cv", number = 10)
+cv_model10 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                   method = "lm",
+                   data = car_data,
+                   trControl = ctrl10)
+cv_model10$results
+
+# RMSE      Rsquared   MAE     
+#v3.177328  0.6034333  2.084711
+
+```
+
+## k-folds Cross-Validation 3
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+#k-folds Cross-Validation 3
+ctrl3 <- trainControl(method = "cv", number = 3)
+cv_model3 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                   method = "lm",
+                   data = car_data,
+                   trControl = ctrl3)
+#cv_model3$results
+# RMSE  Rsquared      MAE
+# 3.341571 0.5671751 2.080826
+```
+
+
+## k-folds Cross-Validation 5
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+#k-folds Cross-Validation 5
+ctrl5 <- trainControl(method = "cv", number = 5)
+cv_model5 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                   method = "lm",
+                   data = car_data,
+                   trControl = ctrl5)
+# cv_model5$results
+# RMSE  Rsquared      MAE
+# 3.252752 0.5970045 2.088944
+```
+
+## 10-fold repeated 5
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+#10-fold repeated 5
+ctrl10_5 <- trainControl(method = "repeatedcv", number = 10, repeats = 5)
+cv_model10_5 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                   method = "lm",
+                   data = car_data,
+                   trControl = ctrl10_5)
+#cv_model10_5$results
+
+#RMSE      Rsquared   MAE    
+#3.230983  0.6018475  2.09941
+```
+
+
+## 10-fold repeated 3
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+#10-fold repeated 3
+ctrl10_3 <- trainControl(method = "repeatedcv", number = 10, repeats = 3)
+cv_model10_3 <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                   method = "lm",
+                   data = car_data,
+                   trControl = ctrl10_3 )
+#cv_model10_3$results
+
+# RMSE      Rsquared   MAE     
+# 3.188268  0.6032351  2.093896
+```
+
+
+## Leave-one-out Cross-Validation
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+
+#Leave-one-out Cross-Validation
+ctrlLOOCV <- trainControl(method = "LOOCV")
+LOO_model <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                  method = "lm",
+                   data = car_data,
+                   trControl = ctrlLOOCV )
+#LOO_model$results
+
+# RMSE      Rsquared   MAE     
+# 3.380532  0.5563956  2.089128
+```
+
+## Monte Carlo Cross-Validation
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+
+#Monte Carlo Cross-Validation
+ctrlMC <- trainControl(method = "LGOCV", number = 10)
+MC_model <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                    method = "lm",
+                    data = car_data,
+                    trControl = ctrlMC )
+
+#MC_model$results
+
+# RMSE      Rsquared   MAE     
+# 3.375063  0.5821096  2.077517
+
+```
+
+
+## Log Model: Hold Out
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+
+#Log Model 
+
+model2 <- lm(log(Selling_Price) ~  Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year, data = car_data)
+#autoplot(model2)
+#summary(model2)
+
+# Hold Out
+samplel <- sample.split(car_data$Year, SplitRatio = 0.7)
+trainl  <- subset(car_data, sample == TRUE)
+testl   <- subset(car_data, sample == FALSE)
+
+model_trainl = lm(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year, data = train)
+test_predl = predict(model_trainl, testl)
+
+data.frame(R_squared = R2(test_predl, log(testl$Selling_Price)),
+           RMSE = RMSE(test_predl, log(testl$Selling_Price)),
+           MAE = MAE(test_predl, log(testl$Selling_Price)))
+#  R_squared     RMSE      MAE
+
+```
+
+## k-folds Cross-Validation 10
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+#k-folds Cross-Validation 10
+ctrl10l <- trainControl(method = "cv", number = 10)
+cv_model10l <- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                   method = "lm",
+                   data = car_data,
+                   trControl = ctrl10l)
+cv_model10l$results
+
+
+# RMSE      Rsquared   MAE     
+```
+
+## k-folds Cross-Validation 3
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+
+#k-folds Cross-Validation 3
+ctrl3l <- trainControl(method = "cv", number = 3)
+cv_model3l <- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                   method = "lm",
+                   data = car_data,
+                   trControl = ctrl3l)
+cv_model3l$results
+```
+
+## k-folds Cross-Validation 5
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+#k-folds Cross-Validation 5
+ctrl5l <- trainControl(method = "cv", number = 5)
+cv_model5l <- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                   method = "lm",
+                   data = car_data,
+                   trControl = ctrl5l)
+cv_model5l$results
+```
+
+## 10-fold repeated 5
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+
+#10-fold repeated 5
+ctrl10_5l <- trainControl(method = "repeatedcv", number = 10, repeats = 5)
+cv_model10_5l <- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                   method = "lm",
+                   data = car_data,
+                   trControl = ctrl10_5l)
+cv_model10_5l$results
+
+#RMSE      Rsquared   MAE    
+```
+
+## 10-fold repeated 3
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+#10-fold repeated 3
+ctrl10_3l <- trainControl(method = "repeatedcv", number = 10, repeats = 3)
+cv_model10_3l <- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                   method = "lm",
+                   data = car_data,
+                   trControl = ctrl10_3l )
+cv_model10_3l$results
+
+# RMSE      Rsquared   MAE     
+```
+
+## Leave-one-out Cross-Validation
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+#Leave-one-out Cross-Validation
+ctrlLOOCVl <- trainControl(method = "LOOCV")
+LOO_modell <- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                  method = "lm",
+                   data = car_data,
+                   trControl = ctrlLOOCVl )
+LOO_modell$results
+
+# RMSE      Rsquared   MAE     
+
+```
+
+## Monte Carlo Cross-Validation
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+
+#Monte Carlo Cross-Validation
+ctrlMCl <- trainControl(method = "LGOCV", number = 10)
+MC_modell<- train(log(Selling_Price) ~ Kms_Driven + Fuel_Type + Seller_Type + Transmission + Year,
+                    method = "lm",
+                    data = car_data,
+                    trControl = ctrlMCl )
+
+MC_modell$results
+
+
+
+```
+
+## Summary: Linear Model
+
+
+|          | Monte Carlo | k-folds k=3 | k-folds k=5 | k-folds k=10 |
+|----------|-------------|-------------|-------------|--------------|
+| RMSE     | 3.375063    | 3.389747    | 3.35485     | 3.177328     |
+| Rsquared | 0.5821096   | 0.5431807   | 0.5792003   | 0.6034333    |
+| MAE      | 2.077517    | 2.121226    | 2.078258    | 2.084711     |
+
+## Summary: Linear Model (contd)
+
+
+|          | 10-fold repeated 5 times | 10-fold repeated 3 times | leave one out | Hold Out |
+|----------|--------------------------|--------------------------|---------------|----------|
+| RMSE     | 3.230983                 | 3.188268                 | 3.380532      | 3.066001 |
+| Rsquared | 0.6018475                | 0.6032351                | 0.5563956     | 0.675032 |
+| MAE      | 2.09941                  | 2.093896                 | 2.089128      | 2.059764 |
+
+## Summary: Log Transformation
+
+
+|          | Monte Carlo | k-folds k=3 | k-folds k=5 | k-folds k=10 |
+|----------|-------------|-------------|-------------|--------------|
+| RMSE     | 0.6000005   | 0.5597472   | 0.5546057   | 0.5547619    |
+| Rsquared | 0.7844457   | 0.8191809   | 0.81445     | 0.8097507    |
+| MAE      | 0.4230068   | 0.4125619   | 0.406683    | 0.4080991    |
+
+
+## Summary: Log Transformation (contd)
+
+|          | 10-fold repeated 5 times | 10-fold repeated 3 times | leave one out | Hold Out |
+|----------|--------------------------|--------------------------|---------------|----------|
+| RMSE     | 0.5429957                | 0.5415532                | 0.5564873     | 0.5544994|
+| Rsquared | 0.8180418                | 0.8220338                | 0.807924      | 0.8283292|
+| MAE      | 0.4056521                | 0.4047157                | 0.4072408     | 0.400559 |
+
+## Conlusion
+
+This paper shows various cross-validation techniques that can be used for modeling validation, including hold out, k and repeated k-folds, leave-one-out and Monte Carlo cross-validation.  As cross-validation tends to be used in machine learning on large data, or in situations where it may be hard to gather large samples, our example allowed us to review the full data set's performance with linear regression and then compare the performance of the cross validation techniques. We compared both a linear model and a transformed linear model and found that for the most part many of these cross validation techniques performed about the same and were able to fit accurate models. While k-folds, repeated k-folds and hold-out seemed to perform the best, most of these techniques seem sufficient to help validate a model based on this example. 
+
+
+
+## References
+
+
