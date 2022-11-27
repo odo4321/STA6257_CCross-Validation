@@ -12,13 +12,13 @@ Cross Validation is a method in which we evaluate how well a model can predict v
 
 ## Steps
 
-There are a variety of ways cross validation can be done but in general the steps to do so are as follows [@song2021making]:
-
 1.  Split the data into a training set and test set
 2.  Fit a model to the training set and obtain the model parameters
 3.  Apply the fitted model to the test set and obtain prediction accuracy
 4.  Repeat steps one through three
 5.  Calculate the average cross-validation prediction accuracy across all the repetitions
+
+[@song2021making]
 
 ## How to pick the best model?
 
@@ -87,8 +87,6 @@ This method is a special case of the k-folds technique that systematically exclu
 
 ## Leave-One-Out Cross-Validation Steps
 
-The leave-on-out method steps are highlighted below:
-
 1.	Split the data into a training set and testing set, using all but one observation as part of the training set.
 2.	Use the training set to build the model
 3.	Use the model to predict the response value of the one observation left out of the model
@@ -111,7 +109,7 @@ portion forms the training set. The train-test process is repeated a predetermin
 This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-folds is then used to measure how good the model is. [@jung2018multiple]
 
 ## Data Analysis
-Hold-out validation, k-folds, repeated k-folds, leave-one-out and Monte Carlo cross-validation techniques were performed on a data set from Kaggle titled Car data.csv. This data set allowed us to model the selling price of a used car in the United Kingdom given the variables of kilometers driven, the fuel type used, the year the car was manufactured, if the seller type, transmission type. This data has 301 cars as entries. The data is detailed in the next slide.
+Hold-out validation, k-folds, repeated k-folds, leave-one-out and Monte Carlo cross-validation techniques were performed on a data set from Kaggle titled Car data.csv. This data set allowed us to model the selling price of a used car in the United Kingdom given the variables of kilometers driven, the fuel type used, the year the car was manufactured, the seller type, and transmission type. This data has 301 cars as entries. The data is detailed in the next slide.
 
 ## Data Set
 
@@ -151,15 +149,13 @@ plot(car_data$Kms_Driven, car_data$Selling_Price,
      xlim = c(0, 100000))
 ```
 
-## Models
-
-
-Linear model:
+## Linear model:
 $$Selling Price=Year+KmsDriven+FuelType+SellerType+Transmission$$ 
 
 This linear model was fitted using the various cross validation techniques. First the hold out method was performed using an 70/30 data split. The next technique of cross-validation was k-folds, using 3, 5, and 10 k splits. The repeated k-folds technique was then performed, using the 10 k split, repeated 3 and 5 times. Leave-one-out and Monte Carlo techniques were also ran on the model for comparisons. 
 
-Log Transformation
+## Log Transformation
+
 $$log(SellingPrice)=Year+KmsDriven+FuelType+SellerType+Transmission$$
 
 
@@ -474,7 +470,7 @@ MC_modell$results
 
 ## Conlusion
 
-This paper shows various cross-validation techniques that can be used for modeling validation, including hold out, k and repeated k-folds, leave-one-out and Monte Carlo cross-validation.  As cross-validation tends to be used in machine learning on large data, or in situations where it may be hard to gather large samples, our example allowed us to review the full data set's performance with linear regression and then compare the performance of the cross validation techniques. We compared both a linear model and a transformed linear model and found that for the most part many of these cross validation techniques performed about the same and were able to fit accurate models. While k-folds, repeated k-folds and hold-out seemed to perform the best, most of these techniques seem sufficient to help validate a model based on this example. 
+As cross-validation tends to be used in machine learning on large data, or in situations where it may be hard to gather large samples, our example allowed us to review the full data set's performance with linear regression and then compare the performance of the cross validation techniques. We compared both a linear model and a transformed linear model and found that for the most part many of these cross validation techniques performed about the same and were able to fit accurate models. While k-folds, repeated k-folds and hold-out seemed to perform the best, most of these techniques seem sufficient to help validate a model.
 
 
 
