@@ -7,7 +7,7 @@
 <link href="Slides_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="Slides_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="Slides_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.1.189">
+  <meta name="generator" content="quarto-1.0.36">
 
   <meta name="author" content="Brenden Ackerson, Lindsey Cook, Dominic Gallelli">
   <title>Cross Validation</title>
@@ -19,15 +19,10 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -424,7 +419,7 @@
 <li>Repeat steps one through three</li>
 <li>Calculate the average cross-validation prediction accuracy across all the repetitions</li>
 </ol>
-<p><span class="citation" data-cites="song2021making">(<a href="#/references" role="doc-biblioref" onclick="">Song, Tang, and Wee 2021</a>)</span></p>
+<p><span class="citation" data-cites="song2021making">(<a href="#/ref-song2021making" role="doc-biblioref" onclick="return false;">Song, Tang, and Wee 2021</a>)</span></p>
 </section>
 <section id="how-to-pick-the-best-model" class="slide level2">
 <h2>How to pick the best model?</h2>
@@ -438,7 +433,7 @@
 </section>
 <section id="limitations" class="slide level2">
 <h2>Limitations</h2>
-<p>One negative of cross-validation methods is that they are not guaranteed to pick the true model of the data distribution, even as the sample size approaches infinity. This is because when you train two different models on the same training set the one with more free parameters will model the training data better because it can over fit the data more easily. This can result in picking the wrong model due to over fitting. <span class="citation" data-cites="gronau2019limitations">(<a href="#/references" role="doc-biblioref" onclick="">Gronau and Wagenmakers 2019</a>)</span></p>
+<p>One negative of cross-validation methods is that they are not guaranteed to pick the true model of the data distribution, even as the sample size approaches infinity. This is because when you train two different models on the same training set the one with more free parameters will model the training data better because it can over fit the data more easily. This can result in picking the wrong model due to over fitting. <span class="citation" data-cites="gronau2019limitations">(<a href="#/ref-gronau2019limitations" role="doc-biblioref" onclick="return false;">Gronau and Wagenmakers 2019</a>)</span></p>
 </section>
 <section id="hold-out-or-validation-technique" class="slide level2">
 <h2>Hold Out or Validation Technique</h2>
@@ -464,7 +459,7 @@
 <li>Compare the prediction performance measures to select the best model using the equation:</li>
 </ol>
 <p><span class="math display">\[CV_(k)=\frac{1}{k}\sum_{i=1}^{k}{MSE_i}\]</span></p>
-<p><span class="citation" data-cites="Jung2015ak">(<a href="#/references" role="doc-biblioref" onclick=""><strong>Jung2015ak?</strong></a>)</span></p>
+<p><span class="citation" data-cites="Jung2015ak">(<a href="#/ref-Jung2015ak" role="doc-biblioref" onclick="return false;"><strong>Jung2015ak?</strong></a>)</span></p>
 </section>
 <section id="figure-1" class="slide level2">
 <h2>Figure 1</h2>
@@ -473,7 +468,7 @@
 <img data-src="k-folds.png" class="r-stretch quarto-figure-center"><p class="caption">Figure 1: Visual Depiction of K-folds <a href="https://www.i2tutorials.com/machine-learning-tutorial/machine-learning-k-fold-cross-validation/">Sourced from www.i2tutorials.com for image</a></p></section>
 <section id="repeated-k-folds-cross-validation" class="slide level2">
 <h2>Repeated k-folds Cross-Validation</h2>
-<p>This methods expands on the k-folds technique <span class="citation" data-cites="song2021making">(<a href="#/references" role="doc-biblioref" onclick="">Song, Tang, and Wee 2021</a>)</span> by conducting multiple repetitions (n), each using a different k fold split. If 5 repeats of a 10-fold cross validation were chosen, 50 (n*k) different models would be fit and evaluated. With each repetition (n) having a slightly different data subset, the model predictors should be even more unbiased than with k-folds. One negative associated with this method is having to repeat the process numerous times, which makes this a time and labor intensive method.</p>
+<p>This methods expands on the k-folds technique <span class="citation" data-cites="song2021making">(<a href="#/ref-song2021making" role="doc-biblioref" onclick="return false;">Song, Tang, and Wee 2021</a>)</span> by conducting multiple repetitions (n), each using a different k fold split. If 5 repeats of a 10-fold cross validation were chosen, 50 (n*k) different models would be fit and evaluated. With each repetition (n) having a slightly different data subset, the model predictors should be even more unbiased than with k-folds. One negative associated with this method is having to repeat the process numerous times, which makes this a time and labor intensive method.</p>
 </section>
 <section id="repeated-k-folds-cross-validation-steps" class="slide level2">
 <h2>Repeated k-folds Cross-Validation Steps</h2>
@@ -489,7 +484,7 @@
 </section>
 <section id="leave-one-out-cross-validation" class="slide level2">
 <h2>Leave-One-Out Cross-Validation</h2>
-<p>This method is a special case of the k-folds technique that systematically excludes each entry in the data set and fits the model with all other n-1 entries. This technique splits the data into sets of n-1 and 1, n times. For each observation, the cross-validation residual is the difference between the observation and the model predicted value. This technique has the advantages of having a less biased MSE than a single test but can be a time-consuming technique when the data set is large or the model is complex, and can thus be an expensive method. <span class="citation" data-cites="derryberry2014basic">(<a href="#/references" role="doc-biblioref" onclick="">Derryberry 2014</a>)</span></p>
+<p>This method is a special case of the k-folds technique that systematically excludes each entry in the data set and fits the model with all other n-1 entries. This technique splits the data into sets of n-1 and 1, n times. For each observation, the cross-validation residual is the difference between the observation and the model predicted value. This technique has the advantages of having a less biased MSE than a single test but can be a time-consuming technique when the data set is large or the model is complex, and can thus be an expensive method. <span class="citation" data-cites="derryberry2014basic">(<a href="#/ref-derryberry2014basic" role="doc-biblioref" onclick="return false;">Derryberry 2014</a>)</span></p>
 </section>
 <section id="leave-one-out-cross-validation-steps" class="slide level2">
 <h2>Leave-One-Out Cross-Validation Steps</h2>
@@ -503,15 +498,15 @@
 </section>
 <section id="optimal-number-of-folds" class="slide level2">
 <h2>Optimal Number of Folds</h2>
-<p>Something to consider during the k-folds method is what is the <em>optimal number of folds</em> (also known as k) that the data should be divided into. In the article “Performance of Machine Learning Algorithms with Different K Values in K-fold Cross-Validation” k-validation was used on 4 different machine learning algorithms with splits of 3, 5, 7, 10, 15 and 20. They found the optimal k folds changed depending on the model being tested. <span class="citation" data-cites="nti2021performance">(<a href="#/references" role="doc-biblioref" onclick="">Nti, Nyarko-Boateng, and Aning 2021</a>)</span> Common practice uses 5 and 10 folds as these values have been shown to yield favorable test error rate estimates. <span class="citation" data-cites="James2013">(<a href="#/references" role="doc-biblioref" onclick="">James 2013</a>)</span>. Our paper will explore using 3, 5 and 10 k-folds, and modeling repeated k-folds of 3 and 5 repetitions on 10 folds.</p>
+<p>Something to consider during the k-folds method is what is the <em>optimal number of folds</em> (also known as k) that the data should be divided into. In the article “Performance of Machine Learning Algorithms with Different K Values in K-fold Cross-Validation” k-validation was used on 4 different machine learning algorithms with splits of 3, 5, 7, 10, 15 and 20. They found the optimal k folds changed depending on the model being tested. <span class="citation" data-cites="nti2021performance">(<a href="#/ref-nti2021performance" role="doc-biblioref" onclick="return false;">Nti, Nyarko-Boateng, and Aning 2021</a>)</span> Common practice uses 5 and 10 folds as these values have been shown to yield favorable test error rate estimates. <span class="citation" data-cites="James2013">(<a href="#/ref-James2013" role="doc-biblioref" onclick="return false;">James 2013</a>)</span>. Our paper will explore using 3, 5 and 10 k-folds, and modeling repeated k-folds of 3 and 5 repetitions on 10 folds.</p>
 </section>
 <section id="monte-carlo-cross-validation-technique" class="slide level2">
 <h2>Monte Carlo Cross-Validation Technique</h2>
-<p>This technique is similar to a k-fold method, but a predefined portion of the data is randomly selected to form the test set in each repetition, and the remaining portion forms the training set. The train-test process is repeated a predetermined number of times. <span class="citation" data-cites="wainer2021nested">(<a href="#/references" role="doc-biblioref" onclick="">Wainer and Cawley 2021</a>)</span></p>
+<p>This technique is similar to a k-fold method, but a predefined portion of the data is randomly selected to form the test set in each repetition, and the remaining portion forms the training set. The train-test process is repeated a predetermined number of times. <span class="citation" data-cites="wainer2021nested">(<a href="#/ref-wainer2021nested" role="doc-biblioref" onclick="return false;">Wainer and Cawley 2021</a>)</span></p>
 </section>
 <section id="multiple-predicting-cross-validation" class="slide level2">
 <h2>Multiple Predicting Cross-Validation</h2>
-<p>This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-folds is then used to measure how good the model is. <span class="citation" data-cites="jung2018multiple">(<a href="#/references" role="doc-biblioref" onclick="">Jung 2018</a>)</span></p>
+<p>This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-folds is then used to measure how good the model is. <span class="citation" data-cites="jung2018multiple">(<a href="#/ref-jung2018multiple" role="doc-biblioref" onclick="return false;">Jung 2018</a>)</span></p>
 </section>
 <section id="data-analysis" class="slide level2">
 <h2>Data Analysis</h2>
@@ -520,11 +515,6 @@
 <section id="data-set" class="slide level2">
 <h2>Data Set</h2>
 <table>
-<colgroup>
-<col style="width: 29%">
-<col style="width: 25%">
-<col style="width: 45%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Variable Name</th>
@@ -995,7 +985,7 @@
 <col style="width: 29%">
 <col style="width: 29%">
 <col style="width: 17%">
-<col style="width: 11%">
+<col style="width: 12%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1385,8 +1375,7 @@ Wainer, Jacques, and Gavin Cawley. 2021. <span>“Nested Cross-Validation When S
       for (var i=0; i<noterefs.length; i++) {
         const ref = noterefs[i];
         tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          let href = ref.getAttribute('href');
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
