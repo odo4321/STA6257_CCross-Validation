@@ -51,7 +51,7 @@ One of the limitations of cross-validation methods is that they are not guarante
 
 # Methods
 
-##Cross-Validation Techniques
+## Cross-Validation Techniques
 
  The most common method of performing cross-validation is the **Hold-Out or Validation Technique** (Ahmed, 2019). This method tends to use defined splits for the training and test set, like a 90/10, 80/20, 70/30, 60/40, or 50/50 train/test data split. This method is considered an easy, straightforward approach, but with the model only being built on a portion of the data, this model may not predict well as it is sensitive to what data is (or isn’t) chosen in the training set. This can be especially problematic for small sample sizes. For the car data set modeling included in this paper, the method for hold-out validation is as follows:
 
@@ -73,8 +73,7 @@ The **k-folds Cross-Validation Technique** is one potential answer to the limita
 The following image, Figure 1, visually shows the how data is split in the k-folds technique.
 
 ![Figure 1: Visual Depiction of K-folds (Image source [@image1]) ](k-folds.png)) 
-
-
+Figure 1: Visual Depiction of K-folds (Image source [@image1])
 
 
 Expanding on the k-folds technique is the **repeated k-folds Cross-Validation Technique** [@song2021making] which extends the k-folds by conducting multiple repetitions (n), each using a different k fold split. If 5 repeats of a 10-fold cross validation were chosen, 50 (n*k) different models would be fit and evaluated. With each repetition (n) having a slightly different data subset, the model predictors should be even more unbiased than with k-folds, but with having to repeat the process numerous times, this can be a time and labor intensive process, leading to increased costs. The process is as follows:
@@ -101,7 +100,8 @@ portion forms the training set. The train-test process is repeated a predetermin
  
  Additionally, **Multiple Predicting Cross-Validation** is a technique that can be used for cross-validation but is not being modeled in this paper. This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-folds is then used to measure how good the model is. [@jung2018multiple]
 
-#Cross-Validation Model Evaluation
+## Cross-Validation Model Evaluation
+
 Typical technique comparisons for linear models use the root mean squared error (RMSE), mean absolute error (MAE), and R-squared ($R^2$). RMSE calculates how far predicted values are from observed values in the data set and is calculated by: 	
 $$RMSE= \sqrt{\frac{\sum(P_i – O_i)^2}{n}}$$
 with $P_i$ being the predicted value for the i^th observation, $O_i$ being the i^(th) observed value, and n being the sample size. MAE describes the typical magnitude of the residuals and is calculated by:
@@ -113,7 +113,7 @@ where $\overline{y}$ is the mean value of y. [@Ott2015]
 
 # Analysis and Results
 
-##Data Discussion
+## Data Discussion
 
 Cross-validation techniques of hold-out validation, k-folds, repeated k-folds, leave-one-out and Monte Carlo were performed on the Kaggle Car data.csv set. This data set allowed us to model the selling price of a used car in the United Kingdom given the variables of kilometers driven, the fuel type used, the year the car was manufactured, if the seller was an individual or dealership, and what type of transmission was in the car. This data set had 301 entries. The data is detailed in table 1 below. 
 
@@ -155,19 +155,34 @@ plot(car_data$Kms_Driven, car_data$Selling_Price,
 ```
 Figure 3: Scatter Plot of Car Selling Price vs. Year Car Manufactured
 
+In Figure 4 (below), we can see the selling price is higher for diesel cars, automatic transmissions, and when a dealer sells the car instead of an individual. 
+```{r, warning=FALSE, echo=T, message=FALSE}
+# Selling Price ~ Fuel_Type+Transmission+Seller_Type
+car_data$Fuel_Type=as.factor(car_data$Fuel_Type)
+car_data$Seller_Type=as.factor(car_data$Seller_Type)
+car_data$Transmission=as.factor(car_data$Transmission)
+par(mfrow=c(1,3))
+plot(Selling_Price~Fuel_Type, data=car_data)
+plot(Selling_Price~Transmission, data=car_data)
+plot(Selling_Price~Seller_Type, data=car_data)
+```
+Figure 4: Boxplots of Selling Price vs Fuel, Transmission, and Seller Type
 
 ### Statistical Modeling
 
 First, the data was fit to the following linear model, $$Selling Price=Year+KmsDriven+FuelType+SellerType+Transmission$$ 
 
-This linear model was fitted using the various cross validation techniques. First the hold out method was performed using an 70/30 data split. The next technique of cross-validation was k-folds, using 3, 5, and 10 k splits. The repeated k-folds technique was then performed, using the 10 k split, repeated 3 and 5 times. Leave-one-out and Monte Carlo techniques were also ran on the model for comparisons. 
+This linear model was fitted using the various cross-validation techniques. First the hold-out method was performed using an 70/30 data split. Next we explored k-folds, using 3, 5, and 10 k splits. The repeated k-folds method was then performed, using the 10 k split, repeated 3 and 5 times. Leave-one-out and Monte Carlo techniques were also ran on the model for comparisons. 
 
-As cross-validation can be used as a tool to determine the best model for a data set, we also considered a log transformation of the linear model on the response variable, selling price. $$log(SellingPrice)=Year+KmsDriven+FuelType+SellerType+Transmission$$
+Noticing the linear model's poor performance, both with a low $R^2$ (0.53), poor normality, and issues with the residuals and outliers, we also considered a log transformation of the the response variable, selling price. This transformation produced a better model ($R^2$=0.82, better residual plots) than the linear, and we wanted to see how the various cross validation techniques would perform and compare.
+
+$$log(SellingPrice)=Year+KmsDriven+FuelType+SellerType+Transmission$$
 
 
 
-### $SellingPrice$ 
-**Hold Out**
+### R Coding - Linear Model of SellingPrice
+
+**Hold-Out**
 ```{r, warning=FALSE, echo=T, message=FALSE}
 library(caret)
 library(ggplot2)
@@ -295,8 +310,8 @@ MC_model <- train(Selling_Price ~ Kms_Driven + Fuel_Type + Seller_Type + Transmi
 ```
 
 
-### Log Model $log(sellingPrice)$ 
-**Hold Out**
+### R Coding - Log(SellingPrice) 
+**Hold-Out**
 ```{r, warning=FALSE, echo=T, message=FALSE}
 
 #Log Model 
@@ -424,24 +439,25 @@ The following table shows the various model accuracy prediction results from the
 | MAE      | 2.077517    | 2.121226    | 2.078258    | 2.084711     |
 
 
-|          | 10-fold repeated 5 times | 10-fold repeated 3 times | leave one out | Hold Out |
+|          | 10-fold repeated 5 times | 10-fold repeated 3 times | Leave-one-out | Hold-Out |
 |----------|--------------------------|--------------------------|---------------|----------|
 | RMSE     | 3.230983                 | 3.188268                 | 3.380532      | 3.066001 |
 | Rsquared | 0.6018475                | 0.6032351                | 0.5563956     | 0.675032 |
 | MAE      | 2.09941                  | 2.093896                 | 2.089128      | 2.059764 |
+Table 1: Cross-Validation on Cars Data - Linear Model
 
-When looking results of the linear model, we can see that just based on high $R^2$ values, and low RMSE and MAE, the hold out method would look to be the superior technique for cross validation with an R^2 score of 0.675, RMSE 3.066 and MAE of 2.099. However none of the modeles are good at predicting the selling price.  
+When looking at the results of the linear model, we can see that just based on high $R^2$ values, and low RMSE and MAE, the hold-out method would look to be the superior technique for cross validation with an R^2 score of 0.675, RMSE 3.066 and MAE of 2.099. 
 
- below are the coefficients of the best performing model Hold Out
+ The hold-old model can be summed up with the following equation:
 \begin{align*}Selling\_Price = -601.9555 -0.000004Kms\_Driven +6.441331Fuel\_TypeDiesel \\ 
 +1.825635Fuel\_TypePetrol-4.18545Seller\_TypeIndividual\\
 -3.891009TransmissionManual+ 0.3023Year 
 \end{align*}
 
+However none of the models are great at predicting the selling price, as using a linear model just doesn't fit this data set well. 
 
 
-
-A log() transformation was applied to the Selling_price, this produced much better models With the hold out method still preforming the best but not by much. all the models had about the same RMSE,R^2 and MAE. The Hold Out method has RMSE= 0.554, R^2 0.828 and MAE 0.401.  
+When reviewing the log transformation cross-validation models, overall we saw better models and surprisingly still see the hold-out method preforming slightly better than the others, although all models have similar RMSE,R^2 and MAE values. The hold-out method has RMSE= 0.554, R^2 0.828 and MAE 0.401. We attribute the hold-out's better performance to the luck of the data split; here (again) the random 70% training split was representative of the test sample.
 
 
 |          | Monte Carlo | k-folds k=3 | k-folds k=5 | k-folds k=10 |
@@ -451,7 +467,7 @@ A log() transformation was applied to the Selling_price, this produced much bett
 | MAE      | 0.4230068   | 0.4125619   | 0.406683    | 0.4080991    |
 
 
-|          | 10-fold repeated 5 times | 10-fold repeated 3 times | leave one out | Hold Out |
+|          | 10-fold repeated 5 times | 10-fold repeated 3 times | Leave-one-out | Hold-Out |
 |----------|--------------------------|--------------------------|---------------|----------|
 | RMSE     | 0.5429957                | 0.5415532                | 0.5564873     | 0.5544994|
 | Rsquared | 0.8180418                | 0.8220338                | 0.807924      | 0.8283292|
@@ -459,17 +475,17 @@ A log() transformation was applied to the Selling_price, this produced much bett
 
 
 
-
-\begin{align*}Selling\_Price =  -187.9796 -0000011Kms\_Driven 0.9575Fuel\_TypeDiesel \\ 
+The transformed hold-old model can be summed up with the following equation:
+\begin{align*}log(Selling\_Price) =  -187.9796 -0000011Kms\_Driven 0.9575Fuel\_TypeDiesel \\ 
 + 0.4335012Fuel\_TypePetrol-2.078542Seller\_TypeIndividual\\
 -0.3952547TransmissionManual+ 0.09409Year 
 \end{align*}
 
 
 
-### Conlusion
+### Conclusion
 
-This paper shows various cross-validation techniques that can be used for modeling validation, including hold out, k and repeated k-folds, leave-one-out and Monte Carlo cross-validation.  As cross-validation tends to be used in machine learning on large data, or in situations where it may be hard to gather large samples, our example allowed us to review the full data set's performance with linear regression and then compare the performance of the cross validation techniques. We compared both a linear model and a transformed linear model and found that for the most part many of these cross validation techniques performed about the same and were able to fit accurate models. While k-folds, repeated k-folds and hold-out seemed to perform the best, most of these techniques seem sufficient to help validate a model based on this example. 
+This paper shows various cross-validation techniques that can be used for modeling validation, including hold-out, k-folds and repeated k-folds, leave-one-out, and Monte Carlo cross-validation.  As cross-validation tends to be used in machine learning on large data, or in situations where it may be hard to gather large samples, our example allowed us to review a full data set's performance with linear regression and then compare the performance of the cross validation techniques. We compared both a linear model and a log transformed linear model and found that for the most part many of these cross validation techniques performed similarly and were able to fit accurate models. While k-folds, repeated k-folds and hold-out seemed to perform the best, most of these techniques seem sufficient to help validate a model based on this example. 
 
 ## References
 
