@@ -33,11 +33,10 @@ The general, 5 step process to cross-validation is as follows [@song2021making]:
 
 This process differs in the various cross-validation techniques by varying how the data is split and how
 many repetitions are performed of the train and test cycles. Details for the various techniques are outlined in the methods section.  The best cross-validation technique
-considers the model’s bias or difference between the population parameter and the cross-validation
-estimate, the variance or uncertainty in the cross-validation estimates, and the computation costs
-associated with each method.
+considers the model’s bias (difference between the population parameter and the cross-validation
+estimate), the variance (uncertainty in the cross-validation estimates), and the computation costs and time associated with each method.
 
-One of the limitations of cross-validation methods is that they are not guaranteed to pick the true model of the data distribution, even as the number of samples approaches infinity. This is because when you train two different models on the same training set the one with more free parameters will model the training data better because it can over fit the data more easily. This can result in picking the wrong model due to over fitting. [@gronau2019limitations]
+One of the limitations of cross-validation methods is that they are not guaranteed to pick the true model of the data distribution, even as the number of samples approaches infinity. This is because when you train two different models on the same training set the one with more free parameters will often model the training data better. This can result in picking the wrong model due to over fitting. [@gronau2019limitations]
 
 # Methods
 
@@ -55,12 +54,12 @@ The **k-folds Cross-Validation Technique** is one potential answer to the limita
 
 1.	Randomly and evenly split the data set into k-folds 
 2.	Use k-1 folds of data as the training set to fit the model
-3.	With the fitted models, predict the value of the response variable in the hold out fold (kth fold)
+3.	With the fitted model, predict the value of the response variable in the hold out fold (kth fold)
 4.	From the response variable in the hold-out fold, calculate the prediction error
 5.	Repeat steps 2-4 for k times, using each k fold as a hold-out
 6.	Calculate the overall test predictors, taking the average of all k test predictors. 
 
-The following image, Figure 1, visually shows the how data is split in the k-folds technique.
+The following image, Figure 1, visually shows how data is split in the k-folds technique.
 
 
 
@@ -74,7 +73,7 @@ Expanding on the k-folds technique is the **repeated k-folds Cross-Validation Te
 
 1.	Randomly and evenly split the data set into k-folds.
 2.	Use k-1 folds of data as the training set to fit the model
-3.	With the fitted models, predict the value of the response variable in the hold out fold (kth fold)
+3.	With the fitted model, predict the value of the response variable in the hold out fold (kth fold)
 4.	From the response variable in the hold-out fold, calculate the prediction error
 5.	Repeat steps 2-4 for k times, so each k fold is used as a hold-out
 6.	Repeat steps 1-5 n times.
@@ -92,7 +91,7 @@ Expanding on the k-folds technique is the **repeated k-folds Cross-Validation Te
  Another technique is the **Monte Carlo Cross-Validation Technique**, which is similar to a k-fold method, but a predefined portion of the data is randomly selected to form the test set in each repetition, and the remaining
 portion forms the training set. The train-test process is repeated a predetermined number of times. [@wainer2021nested]
  
- Additionally, **Multiple Predicting Cross-Validation** is a technique that can be used for cross-validation but is not being modeled in this paper. This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-folds is then used to measure how good the model is. [@jung2018multiple]
+ Additionally, **Multiple Predicting Cross-Validation** is a technique that can be used for cross-validation but is not being modeled in this paper. This is a variation of k-folds but instead of each fold being the validation set, it is the training set. The trained model is then evaluated on the remaining data. The average of the k-folds is then used to measure the model performance. [@jung2018multiple]
 
 ### Cross-Validation Model Evaluation - Predictors
 
@@ -479,7 +478,7 @@ The transformed hold-old model can be summarized with the following equation:
 
 ### Conclusion
 
-This paper shows various cross-validation techniques that can be used for modeling validation, including hold-out, k-folds and repeated k-folds, leave-one-out, and Monte Carlo cross-validation.  As cross-validation tends to be used in machine learning on large data, or in situations where it may be hard to gather new data to test a model, our example allowed us to review a full data set's performance with linear regression and then compare the performance of the cross validation techniques. We compared both a linear model and a log transformed linear model and found that for the most part many of these cross-validation techniques performed similarly and were able to fit accurate models. While k-folds, repeated k-folds and hold-out seemed to perform the best, most of these techniques seem sufficient to help validate a model based on this example. One should consider the time and resources needed to perform each test, as we noted even with our small data set, the repeated k-folds and leave-one-out techniques took considerably longer to run.  
+This paper shows various cross-validation techniques that can be used for modeling validation, including hold-out, k-folds and repeated k-folds, leave-one-out, and Monte Carlo cross-validation.  As cross-validation tends to be used in machine learning on large data, or in situations where it may be hard to gather new data to test a model, our example allowed us to review a full data set's performance with linear regression and then compare the performance of the cross validation techniques. We compared both a linear model and a log transformed linear model and found that for the most part, many of these cross-validation techniques performed similarly and were able to fit accurate models. While k-folds, repeated k-folds and hold-out seemed to perform the best, most of these techniques seem sufficient to help validate a model based on this example. One should consider the time and resources needed to perform each test, as we noted even with our small data set, the repeated k-folds and leave-one-out techniques took considerably longer to run.  
 
 ## References
 
