@@ -74,9 +74,10 @@ $$CV_(k)=\frac{1}{k}\sum_{i=1}^{k}{MSE_i}$$
 The following image, Figure 1, visually shows how data is split in the k-folds technique.
 
 
-![Figure 1: Visual Depiction of K-folds](k-folds.png)) 
+![Figure 1: Visual Depiction of K-folds](k-folds.png). 
 
-       Figure 1: Visual Depiction of K-folds 
+       Figure 1: Visual Depiction of K-folds (Sourced from i2tutorials - Machine Learning-K-Fold)  
+  [@image1]
 
 
 
