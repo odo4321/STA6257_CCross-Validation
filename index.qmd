@@ -77,7 +77,7 @@ The following image, Figure 1, visually shows how data is split in the k-folds t
 ![Figure 1: Visual Depiction of K-folds](k-folds.png). 
 
        Figure 1: Visual Depiction of K-folds (Sourced from i2tutorials - Machine Learning-K-Fold)  
-  [@image1]
+  (Source [@image1])
 
 
 
